@@ -1,7 +1,7 @@
 /* style.css */
 
 body {
-    background-image: url('path/to/your/chemistry_lab.png'); /* Update with the correct path */
+    background-image: url('chemistry_lab.png'); /* Ensure the image name matches exactly */
     background-size: cover; /* Makes the background cover the entire page */
     background-repeat: no-repeat; /* Prevents the image from repeating */
     background-position: center; /* Centers the background image */
