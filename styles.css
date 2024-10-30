@@ -1,9 +1,14 @@
-/* styles.css */
+/* style.css */
+
 body {
-    background-image: url('chemistry_lab.png'); /* Ensure this path is correct */
-    background-size: cover; /* Ensures the image covers the entire background */
-    background-position: center; /* Centers the background image */
+    background-image: url('path/to/your/chemistry_lab.png'); /* Update with the correct path */
+    background-size: cover; /* Makes the background cover the entire page */
     background-repeat: no-repeat; /* Prevents the image from repeating */
-    color: white; /* Change text color for better visibility */
-    font-family: Arial, sans-serif; /* Font style for the text */
+    background-position: center; /* Centers the background image */
+    color: #fff; /* Set text color for better visibility */
+}
+
+h1, h2, h3, p {
+    text-align: center; /* Centers text for a cleaner look */
+    padding: 20px; /* Adds padding for better spacing */
 }
