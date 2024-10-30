@@ -1,35 +1,68 @@
 import streamlit as st
-import math
+import streamlit.components.v1 as components
 
 def calculations():
-    st.title("Welcome to the Calculation section!")
-    calc_type = st.selectbox("Select calculation type:", ["", "pH", "Molarity"])
+    # CSS Styles
+    st.markdown(
+        """
+        <style>
+        /* Glowing Animated Title */
+        .glowing-title {
+            font-size: 2.5em;
+            color: black; /* Text color */
+            text-align: center;
+            text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Light blue shadow */
+            animation: text-glow 1.5s infinite alternate, move-title 2s infinite alternate;
+        }
 
-    if calc_type == "pH":
-        st.subheader("pH Calculations")
-        value_type = st.selectbox("Calculate based on:", ["", "Hydronium Ion Concentration [H3O+]", "pH"])
+        @keyframes text-glow {
+            from {
+                text-shadow: 0 0 5px #add8e6, 0 0 10px #add8e6;
+            }
+            to {
+                text-shadow: 0 0 20px #add8e6, 0 0 30px #add8e6;
+            }
+        }
 
-        if value_type == "Hydronium Ion Concentration [H3O+]":
-            h3o_concentration = st.number_input("Enter [H3O+] in mol/L:", min_value=0.0, step=0.01)
-            if h3o_concentration > 0:
-                ph = -math.log10(h3o_concentration)
-                st.write(f"pH = -log([H3O+]) = {ph:.2f}")
+        @keyframes move-title {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
 
-        elif value_type == "pH":
-            ph_value = st.number_input("Enter pH value:", min_value=0.0, step=0.01)
-            if ph_value >= 0:
-                h3o_concentration = 10 ** (-ph_value)
-                st.write(f"[H3O+] = 10^(-pH) = {h3o_concentration:.2e} mol/L")
+        /* Styled Cards for Options */
+        .options-row {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
 
-    elif calc_type == "Molarity":
-        st.subheader("Molarity Calculations")
-        knowns = st.multiselect("Select known values:", ["Mole", "Volume", "Molarity"])
+        .option-card {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 10px;
+            width: 150px;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
 
-        if "Mole" in knowns and "Volume" in knowns:
-            mole = st.number_input("Enter moles of solute:")
-            volume = st.number_input("Enter volume in liters:")
-            if volume > 0:
-                molarity = mole / volume
-                st.write(f"Molarity (M) = {molarity:.2f} mol/L")
+        .option-card:hover {
+            transform: translateY(-10px);
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
 
-        # Add more cases for other combinations as needed
+    # Title with glowing effect
+    st.markdown("<div class='glowing-title'>Welcome to the Calculation section!</div>", unsafe_allow_html=True)
+
+    # Option Cards in a horizontal row
+    st.markdown("<div class='options-row'>", unsafe_allow_html=True)
+    if st.button("pH"):
+        st.write("pH Calculation section loaded.")
+    if st.button("Molarity"):
+        st.write("Molarity Calculation section loaded.")
+    st.markdown("</div>", unsafe_allow_html=True)
