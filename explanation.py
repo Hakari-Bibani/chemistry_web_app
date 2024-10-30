@@ -1,5 +1,9 @@
 import streamlit as st
 
+def explanation():
+    st.title("Chemistry Concepts & Explanations 📚")
+    # Add the content for your explanation page here
+
 # Add CSS file for explanation page
 st.markdown('<link rel="stylesheet" href="styles.css">', unsafe_allow_html=True)
 
