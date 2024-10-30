@@ -1,4 +1,5 @@
 import streamlit as st
+import math
 
 def calculations():
     # CSS for glowing title and styled option cards
@@ -50,7 +51,6 @@ def calculations():
         .option-card:hover {
             transform: translateY(-10px);
         }
-
         </style>
     """, unsafe_allow_html=True)
 
@@ -59,34 +59,34 @@ def calculations():
 
     # Display the calculation options as styled cards
     st.markdown('<div class="option-cards">', unsafe_allow_html=True)
+    
+    # pH calculation logic
     if st.button("pH"):
-        st.write("You selected pH. Please enter the required values to calculate.")
-            if calc_type == "pH":
-        st.subheader("pH Calculations")
-        value_type = st.selectbox("Calculate based on:", ["", "Hydronium Ion Concentration [H3O+]", "pH"])
+        st.write("## pH Calculation")
+        h3o_concentration = st.number_input("Enter [H₃O⁺] concentration (mol/L)", min_value=0.0, format="%.8f")
+        if h3o_concentration > 0:
+            pH_value = -math.log10(h3o_concentration)
+            st.write(f"**pH**: {pH_value:.2f}")
+            st.write("### Calculation Steps:")
+            st.write("1. Take the negative logarithm of the [H₃O⁺] concentration.")
+            st.write("2. The formula is: **pH = -log([H₃O⁺])**")
+            st.write(f"3. With [H₃O⁺] = {h3o_concentration}, pH = -log({h3o_concentration}) = {pH_value:.2f}")
+        else:
+            st.write("Please enter a valid [H₃O⁺] concentration greater than 0.")
 
-        if value_type == "Hydronium Ion Concentration [H3O+]":
-            h3o_concentration = st.number_input("Enter [H3O+] in mol/L:", min_value=0.0, step=0.01)
-            if h3o_concentration > 0:
-                ph = -math.log10(h3o_concentration)
-                st.write(f"pH = -log([H3O+]) = {ph:.2f}")
-
-        elif value_type == "pH":
-            ph_value = st.number_input("Enter pH value:", min_value=0.0, step=0.01)
-            if ph_value >= 0:
-                h3o_concentration = 10 ** (-ph_value)
-                st.write(f"[H3O+] = 10^(-pH) = {h3o_concentration:.2e} mol/L")
-
+    # Molarity calculation logic
     if st.button("Molarity"):
-        st.write("You selected Molarity. Please enter the required values to calculate.")
-    elif calc_type == "Molarity":
-        st.subheader("Molarity Calculations")
-        knowns = st.multiselect("Select known values:", ["Mole", "Volume", "Molarity"])
-
-        if "Mole" in knowns and "Volume" in knowns:
-            mole = st.number_input("Enter moles of solute:")
-            volume = st.number_input("Enter volume in liters:")
-            if volume > 0:
-                molarity = mole / volume
-                st.write(f"Molarity (M) = {molarity:.2f} mol/L")
+        st.write("## Molarity Calculation")
+        moles = st.number_input("Enter moles of solute", min_value=0.0, format="%.2f")
+        volume = st.number_input("Enter volume of solution (L)", min_value=0.0, format="%.2f")
+        if moles > 0 and volume > 0:
+            molarity = moles / volume
+            st.write(f"**Molarity**: {molarity:.2f} M")
+            st.write("### Calculation Steps:")
+            st.write("1. Divide the number of moles by the volume of the solution in liters.")
+            st.write("2. The formula is: **M = moles / liters**")
+            st.write(f"3. With {moles} moles and {volume} liters, M = {moles} / {volume} = {molarity:.2f} M")
+        else:
+            st.write("Please enter valid values for both moles and volume greater than 0.")
+    
     st.markdown('</div>', unsafe_allow_html=True)
