@@ -1,11 +1,9 @@
+/* styles.css */
 body {
-    background-image: url('images/chemistry_lab.png'); /* Adjust the path if necessary */
-    background-size: cover; /* Cover the entire background */
-    background-repeat: no-repeat; /* Prevent background from repeating */
-    background-position: center; /* Center the background image */
-}
-
-h1, h2, h3, p {
-    color: white; /* Change text color for better contrast */
-    text-shadow: 1px 1px 2px black; /* Optional: Add shadow for text visibility */
+    background-image: url('chemistry_lab.png'); /* Ensure this path is correct */
+    background-size: cover; /* Ensures the image covers the entire background */
+    background-position: center; /* Centers the background image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    color: white; /* Change text color for better visibility */
+    font-family: Arial, sans-serif; /* Font style for the text */
 }
