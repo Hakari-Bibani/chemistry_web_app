@@ -1,15 +1,6 @@
 import streamlit as st
 from home import home
-import streamlit as st
-from explanation import show_explanation_section  # This should match your function name
-
-def main():
-    # Call the explanation section
-    show_explanation_section()
-
-if __name__ == "__main__":
-    main()
-
+from explanation import explanation
 from calculations import calculations
 from lab import lab
 
