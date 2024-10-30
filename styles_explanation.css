@@ -1,63 +1,77 @@
-/* Glowing Title */
-st.markdown(
-    '<link href="styles_explanation.css" rel="stylesheet" type="text/css">',
-    unsafe_allow_html=True
-)
-.glowing-title {
-    font-size: 2.5em;
-    text-align: center;
-    color: black; /* Text color */
-    text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Light blue shadow */
-    animation: text-glow 1.5s infinite alternate, move-title 2s infinite alternate;
-}
+import streamlit as st
 
-@keyframes text-glow {
-    from {
-        text-shadow: 0 0 5px #add8e6, 0 0 10px #add8e6;
-    }
-    to {
-        text-shadow: 0 0 20px #add8e6, 0 0 30px #add8e6;
-    }
-}
+def show_explanations():
+    st.title("📚 Chemistry Concepts & Explanation")
+    
+    # Load the CSS file
+    st.markdown(
+        '<link href="styles_explanation.css" rel="stylesheet" type="text/css">',
+        unsafe_allow_html=True
+    )
+    
+    # Glowing title
+    st.markdown('<h1 class="glowing-title">📚 Chemistry Concepts & Explanation</h1>', unsafe_allow_html=True)
 
-@keyframes move-title {
-    from {
-        transform: translateY(-5px);
-    }
-    to {
-        transform: translateY(5px);
-    }
-}
+    # Options
+    st.subheader("Select a topic to learn about:")
+    topics = ["pH", "pOH", "Molarity"]
+    selected_topic = st.selectbox("Choose a topic:", topics)
 
-/* Topic Cards */
-.topic-cards {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 2em;
-}
+    # Cards for each option
+    st.markdown('<div class="topic-cards">', unsafe_allow_html=True)
+    for topic in topics:
+        st.markdown(f'''
+            <div class="card" onclick="document.getElementById('{topic}').style.display='block'">
+                <h3>{topic}</h3>
+                <p>Click to learn more about {topic}</p>
+            </div>
+        ''', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
-.topic-cards .card {
-    background: #e3f2fd;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    width: 30%;
-    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-    transition: transform 0.3s;
-}
+    # Display the selected topic
+    if selected_topic == "pH":
+        st.subheader("Understanding pH")
+        st.write("What is pH?")
+        st.write("pH is a measure of the hydrogen ion concentration in a solution...")
+        st.write("Common Examples:\n• Lemon juice: pH 2 (acidic) ...")
+        st.write("### Test Your Knowledge! 📝")
+        pH_question = st.selectbox("What pH value represents a neutral solution?", ["0", "7", "14", "3.5"])
+        if pH_question:
+            st.markdown('<div class="test-knowledge">', unsafe_allow_html=True)
+            if pH_question == "7":
+                st.markdown("<p class='correct-answer'>Correct! The pH value representing a neutral solution is 7.</p>", unsafe_allow_html=True)
+            else:
+                st.markdown("<p class='correct-answer'>Incorrect. The correct answer is 7.</p>", unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
-.topic-cards .card:hover {
-    transform: translateY(-10px);
-}
+    elif selected_topic == "pOH":
+        st.subheader("Understanding pOH")
+        st.write("What is pOH?")
+        st.write("pOH is a measure of the hydroxide ion concentration in a solution...")
+        st.write("### Test Your Knowledge! 📝")
+        pOH_question = st.selectbox("What pOH value represents a neutral solution?", ["0", "7", "14", "3.5"])
+        if pOH_question:
+            st.markdown('<div class="test-knowledge">', unsafe_allow_html=True)
+            if pOH_question == "7":
+                st.markdown("<p class='correct-answer'>Correct! The pOH value representing a neutral solution is 7.</p>", unsafe_allow_html=True)
+            else:
+                st.markdown("<p class='correct-answer'>Incorrect. The correct answer is 7.</p>", unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
-/* Test Your Knowledge Section */
-.test-knowledge {
-    margin-top: 2em;
-    text-align: center;
-}
+    elif selected_topic == "Molarity":
+        st.subheader("Understanding Molarity")
+        st.write("What is Molarity?")
+        st.write("Molarity (M) is a measure of the concentration of a solution...")
+        st.write("### Test Your Knowledge! 📝")
+        molarity_question = st.selectbox("If you have 2 moles of NaCl in 0.5 L of solution, what is the molarity?", ["0.5 M", "1.0 M", "2.0 M", "4.0 M"])
+        if molarity_question:
+            st.markdown('<div class="test-knowledge">', unsafe_allow_html=True)
+            if molarity_question == "4.0 M":
+                st.markdown("<p class='correct-answer'>Correct! The molarity is 4.0 M.</p>", unsafe_allow_html=True)
+            else:
+                st.markdown("<p class='correct-answer'>Incorrect. The correct answer is 4.0 M.</p>", unsafe_allow_html=True)
+            st.markdown('</div>', unsafe_allow_html=True)
 
-.correct-answer {
-    margin-top: 1em;
-    font-weight: bold;
-    color: green;
-}
+# Call the function to display the explanations
+if __name__ == "__main__":
+    show_explanations()
