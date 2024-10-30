@@ -1,5 +1,4 @@
-def show_explanation_section():
-    # Your code here
+import streamlit as st
 
 def explanation():
     st.title("Chemistry Concepts & Explanations 📚")
