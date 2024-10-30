@@ -6,7 +6,11 @@ def home():
         page_icon="🧪",
         layout="wide",
         initial_sidebar_state="expanded",
-        background_color="#e6e6fa"  # Lavender background color
+        theme={
+            "backgroundColor": "#e6e6fa",  # Lavender background color
+            "textColor": "#000000",  # Black text color
+            "primaryColor": "#4169e1",  # Royal blue accent color
+        }
     )
 
     # Rest of the home page content
