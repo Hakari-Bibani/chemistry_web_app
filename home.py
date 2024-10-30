@@ -1,177 +1,147 @@
 import streamlit as st
-from streamlit.components.v1 import html
 
 def home():
-    # Custom HTML & CSS for Advanced Home Page
+    # Apply custom CSS for the homepage
     st.markdown("""
         <style>
-            /* Background with animated particles */
-            body {
-                background: linear-gradient(135deg, #1b1b2f, #162447);
-                overflow: hidden;
-                font-family: 'Arial', sans-serif;
-                color: white;
-            }
+        /* Hero Section - Neon Effect */
+        .hero-title {
+            font-size: 2.5em;
+            text-align: center;
+            color: #FFF;
+            animation: text-glow 2s ease-in-out infinite alternate;
+        }
+        
+        /* Text Glow Animation */
+        @keyframes text-glow {
+            from { text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff, 0 0 30px #00e5ff; }
+            to { text-shadow: 0 0 20px #00e5ff, 0 0 30px #00e5ff, 0 0 40px #00e5ff, 0 0 50px #00e5ff; }
+        }
+        
+        /* Cards for instructions */
+        .card {
+            display: inline-block;
+            width: 18%;
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 2px solid #00e5ff;
+            border-radius: 10px;
+            color: #FFF;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: scale(1.05);
+            background-color: rgba(255, 255, 255, 0.2);
+        }
 
-            /* Particle effect */
-            .particles-js-canvas-el {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                pointer-events: none;
-                opacity: 0.6;
-            }
+        /* 3D Flip Card Container */
+        .flip-card {
+            background-color: transparent;
+            width: 200px;
+            height: 300px;
+            perspective: 1000px;
+            display: inline-block;
+            margin: 20px;
+        }
 
-            /* Hero Section */
-            .hero-section {
-                text-align: center;
-                padding: 80px 20px;
-                position: relative;
-                z-index: 10;
-            }
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
 
-            .hero-title {
-                font-size: 2.5em;
-                color: #e43f5a;
-                animation: text-glow 2s ease-in-out infinite alternate;
-            }
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
 
-            /* Glow Animation for Title */
-            @keyframes text-glow {
-                0% { text-shadow: 0 0 10px #e43f5a, 0 0 20px #e43f5a, 0 0 30px #e43f5a; }
-                100% { text-shadow: 0 0 20px #e43f5a, 0 0 30px #ff5e5b, 0 0 40px #ff5e5b; }
-            }
+        /* Front and Back Faces of Flip Cards */
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+        }
 
-            /* Feature Section */
-            .feature-card {
-                background: rgba(255, 255, 255, 0.1);
-                border: 1px solid #ffffff30;
-                border-radius: 10px;
-                padding: 20px;
-                margin: 10px;
-                width: 200px;
-                height: 250px;
-                display: inline-block;
-                position: relative;
-                perspective: 1000px;
-                cursor: pointer;
-                transition: transform 0.5s ease;
-            }
+        .flip-card-front {
+            background-color: #00e5ff;
+        }
 
-            .feature-card:hover {
-                transform: rotateY(15deg) rotateX(10deg);
-                background: rgba(255, 255, 255, 0.2);
-            }
-
-            /* Interactive 3D Flip */
-            .flip-card {
-                width: 100%;
-                height: 100%;
-                transition: transform 0.6s;
-                transform-style: preserve-3d;
-                position: relative;
-            }
-
-            .feature-card:hover .flip-card {
-                transform: rotateY(180deg);
-            }
-
-            .flip-front, .flip-back {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                backface-visibility: hidden;
-                border-radius: 10px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 10px;
-            }
-
-            .flip-front {
-                background: #1f4068;
-                color: white;
-            }
-
-            .flip-back {
-                background: #162447;
-                color: #e43f5a;
-                transform: rotateY(180deg);
-            }
-
-            /* Particle Glow */
-            .glowing-particle {
-                position: absolute;
-                background: rgba(255, 255, 255, 0.5);
-                border-radius: 50%;
-                width: 5px;
-                height: 5px;
-                opacity: 0.6;
-                animation: particle-move 5s infinite ease-in-out alternate;
-            }
-
-            /* Particle Movement */
-            @keyframes particle-move {
-                0% { transform: translate(0, 0); }
-                100% { transform: translate(50px, -100px); }
-            }
+        .flip-card-back {
+            background-color: #003366;
+            transform: rotateY(180deg);
+        }
         </style>
-
-        <!-- Hero Section -->
-        <div class="hero-section">
-            <h1 class="hero-title">Welcome to Your Virtual Chemistry Lab</h1>
-            <p>Discover the fascinating world of chemistry through simulations, calculations, and interactive learning!</p>
-        </div>
-
-        <!-- Feature Section with Flip Cards -->
-        <div style="display: flex; justify-content: center; flex-wrap: wrap; margin-top: 30px;">
-            <div class="feature-card">
-                <div class="flip-card">
-                    <div class="flip-front">Perform chemical calculations</div>
-                    <div class="flip-back">Learn to calculate pH, molarity, and more with step-by-step guidance.</div>
-                </div>
-            </div>
-            <div class="feature-card">
-                <div class="flip-card">
-                    <div class="flip-front">Watch simulated reactions</div>
-                    <div class="flip-back">Experience acid-base reactions, exothermic reactions, and more virtually!</div>
-                </div>
-            </div>
-            <div class="feature-card">
-                <div class="flip-card">
-                    <div class="flip-front">Learn chemistry concepts</div>
-                    <div class="flip-back">Understand the fundamentals of pH, pOH, molarity, and other key topics.</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Particle Background -->
-        <div class="particles-js-canvas-el">
-            <!-- Optional JS for particle effect if desired -->
-        </div>
     """, unsafe_allow_html=True)
 
-    # Custom JavaScript for Particle Animation
+    # Hero Section
+    st.markdown('<h1 class="hero-title">Welcome to your virtual chemistry learning environment!</h1>', unsafe_allow_html=True)
+
+    # Instruction Cards
+    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+    st.markdown("<div class='card'>Select a section on the left side</div>", unsafe_allow_html=True)
+    st.markdown("<div class='card'>Follow the instructions</div>", unsafe_allow_html=True)
+    st.markdown("<div class='card'>Experiment and learn!</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    # 3D Flip Cards for Features
+    st.markdown("<div style='text-align: center; display: flex; justify-content: center; gap: 20px;'>", unsafe_allow_html=True)
+
     st.markdown("""
-        <script>
-            // Basic Particle Animation
-            const particleContainer = document.querySelector(".particles-js-canvas-el");
-
-            // Function to create a glowing particle
-            function createParticle() {
-                const particle = document.createElement("div");
-                particle.classList.add("glowing-particle");
-                particle.style.left = `${Math.random() * window.innerWidth}px`;
-                particle.style.top = `${Math.random() * window.innerHeight}px`;
-                particleContainer.appendChild(particle);
-
-                // Remove particle after animation
-                setTimeout(() => particle.remove(), 5000);
-            }
-
-            // Create particles at intervals
-            setInterval(createParticle, 200);
-        </script>
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    Perform Chemical Calculations
+                </div>
+                <div class="flip-card-back">
+                    Dive deep into calculations for pH, molarity, and other key concepts!
+                </div>
+            </div>
+        </div>
     """, unsafe_allow_html=True)
+
+    st.markdown("""
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    Watch Simulated Reactions
+                </div>
+                <div class="flip-card-back">
+                    Explore virtual lab simulations of various chemical reactions.
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("""
+        <div class="flip-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">
+                    Learn Chemistry Concepts
+                </div>
+                <div class="flip-card-back">
+                    Access detailed explanations and test your knowledge on key topics.
+                </div>
+            </div>
+        </div>
+    """, unsafe_allow_html=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# Run the home function when this script is executed
+if __name__ == "__main__":
+    home()
