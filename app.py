@@ -18,4 +18,4 @@ page = st.sidebar.radio("Go to", ["Home", "Explanation", "Calculation", "Lab"])
 
 # Display the selected page
 if page == "Explanation":
-    home()
+    Explanation()
