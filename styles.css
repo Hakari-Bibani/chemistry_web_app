@@ -1,11 +1,10 @@
-/* Glowing Title */
+/* Glowing Title with Movement */
 .glowing-title {
     font-size: 2.5em;
     text-align: center;
     color: black; /* Text color */
     text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Light blue shadow */
-    animation: text-glow 1.5s infinite alternate, text-move 3s infinite alternate;
-    /* Combined animations: glowing and moving */
+    animation: text-glow 1.5s infinite alternate, move-title 2s infinite alternate; /* Added movement */
 }
 
 @keyframes text-glow {
@@ -17,16 +16,10 @@
     }
 }
 
-@keyframes text-move {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-10px);
-    }
-    100% {
-        transform: translateY(0);
-    }
+@keyframes move-title {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
 }
 
 /* Instruction Cards */
@@ -59,8 +52,8 @@
 
 .flip-card {
     background-color: transparent;
-    width: 200px; /* Set a fixed width */
-    height: 250px; /* Set a fixed height */
+    width: 250px; /* Fixed width */
+    height: 300px; /* Fixed height */
     perspective: 1000px;
 }
 
@@ -94,7 +87,7 @@
 }
 
 .flip-card-front {
-    background-color: #e6e6fa; /* Light purple for the front */
+    background-color: #d8b4f3; /* Light purple for the front */
 }
 
 .flip-card-back {
