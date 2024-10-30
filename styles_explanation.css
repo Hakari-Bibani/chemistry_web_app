@@ -1,35 +1,38 @@
-/* Glowing Title for Explanations */
+/* Glowing Animated Title */
 .glowing-title-explanation {
     font-size: 2.5em;
     text-align: center;
-    color: black; /* Text color changed to black */
-    text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Light blue shadow */
-    animation: text-glow-move 1.5s infinite alternate;
+    color: black; /* Text color */
+    text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6; /* Light blue shadow */
+    animation: text-glow 1.5s infinite alternate, move-text 3s infinite alternate;
 }
 
-@keyframes text-glow-move {
-    0% {
-        text-shadow: 0 0 10px #add8e6;
-        transform: translateY(0);
+@keyframes text-glow {
+    from {
+        text-shadow: 0 0 5px #add8e6, 0 0 10px #add8e6;
     }
-    50% {
-        text-shadow: 0 0 20px #add8e6;
-        transform: translateY(-10px);
+    to {
+        text-shadow: 0 0 20px #add8e6, 0 0 30px #add8e6;
+    }
+}
+
+@keyframes move-text {
+    0% {
+        transform: translateY(0);
     }
     100% {
-        text-shadow: 0 0 10px #add8e6;
-        transform: translateY(0);
+        transform: translateY(-10px);
     }
 }
 
-/* Explanation Option Cards */
-.explanation-options {
+/* Styled Cards for Options */
+.option-cards {
     display: flex;
     justify-content: space-around;
     margin-top: 2em;
 }
 
-.explanation-options .card {
+.option-card {
     background: #e3f2fd;
     padding: 20px;
     border-radius: 10px;
@@ -37,27 +40,20 @@
     width: 30%;
     box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
     transition: transform 0.3s;
-}
-
-.explanation-options .card:hover {
-    transform: translateY(-10px);
-}
-
-/* Knowledge Test Section */
-.test-knowledge {
-    text-align: center;
-    margin-top: 2em;
-}
-
-.test-knowledge button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    border-radius: 5px;
     cursor: pointer;
 }
 
-.test-knowledge button:hover {
-    background-color: #0056b3;
+.option-card:hover {
+    transform: translateY(-10px);
+}
+
+/* Test Your Knowledge Section */
+.test-knowledge {
+    margin-top: 2em;
+    text-align: center;
+}
+
+.correct-answer {
+    color: green;
+    font-weight: bold;
 }
