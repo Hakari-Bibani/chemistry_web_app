@@ -1,20 +1,11 @@
 import streamlit as st
+from home import home  # import the home page function
 
-# Import your page scripts
-from pages import home, explanation, calculation, lab
-
-# Sidebar for navigation
+# Create a sidebar for navigation
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Select a page:", ["Home", "Explanation", "Calculation", "Lab"])
+page = st.sidebar.radio("Go to", ["Home", "Explanation", "Calculation", "Lab"])
 
+# Display the selected page
 if page == "Home":
-    home.show()  # Calls the show function in home.py
-
-elif page == "Explanation":
-    explanation.show()  # Calls the show function in explanation.py
-
-elif page == "Calculation":
-    calculation.show()  # Calls the show function in calculation.py
-
-elif page == "Lab":
-    lab.show()  # Calls the show function in lab.py
+    home()
+# Add elif blocks for the other pages when they're ready
