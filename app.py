@@ -1,9 +1,8 @@
 import streamlit as st
-from home import home  # import the home page function
-from explanation import explanations  # import the explanations page function
-# Import other pages similarly
-# from calculations import calculations
-# from lab import lab
+from home import home
+from explanation import explanations
+from calculations import calculations  # Make sure this is imported
+from lab import lab  # Make sure this is imported
 
 # Create a sidebar for navigation
 st.sidebar.title("Navigation")
@@ -14,7 +13,7 @@ if page == "Home":
     home()
 elif page == "Explanation":
     explanations()
-elif page == "Calculation":
-    calculations()  # Uncomment when you have this function ready
+elif page == "Calculation":  # Note: matches exactly with the radio button option
+    calculations()
 elif page == "Lab":
-    lab()  # Uncomment when you have this function ready
+    lab()
