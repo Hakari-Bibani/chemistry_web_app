@@ -1,17 +1,11 @@
-.custom-background {
-    background-image: url('chemistry_lab');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    color: white; /* Change text color for better visibility */
+body {
+    background-image: url('images/chemistry_lab.png'); /* Adjust the path if necessary */
+    background-size: cover; /* Cover the entire background */
+    background-repeat: no-repeat; /* Prevent background from repeating */
+    background-position: center; /* Center the background image */
 }
 
-h1, h2, h3 {
-    text-align: center;
-    font-family: 'Arial', sans-serif; /* Choose a readable font */
-}
-
-p {
-    text-align: center;
-    font-family: 'Arial', sans-serif;
+h1, h2, h3, p {
+    color: white; /* Change text color for better contrast */
+    text-shadow: 1px 1px 2px black; /* Optional: Add shadow for text visibility */
 }
