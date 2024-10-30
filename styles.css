@@ -2,9 +2,10 @@
 .glowing-title {
     font-size: 2.5em;
     text-align: center;
-    color: black; /* Text color changed to black */
+    color: black; /* Text color */
     text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Light blue shadow */
-    animation: text-glow 1.5s infinite alternate;
+    animation: text-glow 1.5s infinite alternate, text-move 3s infinite alternate;
+    /* Combined animations: glowing and moving */
 }
 
 @keyframes text-glow {
@@ -13,6 +14,18 @@
     }
     to {
         text-shadow: 0 0 20px #add8e6, 0 0 30px #add8e6;
+    }
+}
+
+@keyframes text-move {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0);
     }
 }
 
@@ -46,8 +59,8 @@
 
 .flip-card {
     background-color: transparent;
-    width: 200px;
-    height: 250px;
+    width: 200px; /* Set a fixed width */
+    height: 250px; /* Set a fixed height */
     perspective: 1000px;
 }
 
@@ -81,7 +94,7 @@
 }
 
 .flip-card-front {
-    background-color: #e6e6fa; /* Light purple color */
+    background-color: #e6e6fa; /* Light purple for the front */
 }
 
 .flip-card-back {
