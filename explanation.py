@@ -1,3 +1,7 @@
+import streamlit as st
+
+st.markdown("<h1 class='glowing-title'>📚 Chemistry Concepts & Explanation</h1>", unsafe_allow_html=True)
+
 # Define topics and details
 topics = {
     "pH": {
