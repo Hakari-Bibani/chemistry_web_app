@@ -49,7 +49,6 @@
     width: 200px;
     height: 250px;
     perspective: 1000px;
-    margin: 0 10px; /* Add margin to create space between cards */
 }
 
 .flip-card-inner {
