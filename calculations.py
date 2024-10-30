@@ -1,92 +1,68 @@
 import streamlit as st
-import math
 
-def calculations():
-    # CSS for glowing title and styled option cards
-    st.markdown("""
-        <style>
-        /* Glowing Title with Movement */
-        .glowing-title {
-            font-size: 2.5em;
-            color: black; /* Text color */
-            text-align: center;
-            margin-top: 20px;
-            text-shadow: 0 0 10px #00f0ff, 0 0 20px #00f0ff, 0 0 30px #00f0ff, 0 0 40px #00f0ff;
-            animation: text-glow 1.5s infinite alternate, move-title 2s infinite alternate;
-        }
-
-        @keyframes text-glow {
-            from {
-                text-shadow: 0 0 5px #00f0ff, 0 0 10px #00f0ff;
-            }
-            to {
-                text-shadow: 0 0 20px #00f0ff, 0 0 30px #00f0ff;
-            }
-        }
-
-        @keyframes move-title {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0); }
-        }
-
-        /* Option Cards */
-        .option-cards {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 2em;
-        }
-
-        .option-card {
-            background: #e3f2fd;
-            padding: 20px;
-            width: 150px;
-            text-align: center;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
-        }
-
-        .option-card:hover {
-            transform: translateY(-10px);
-        }
-        </style>
-    """, unsafe_allow_html=True)
-
-    # Display the glowing title
-    st.markdown('<div class="glowing-title">Welcome to the Calculation section!</div>', unsafe_allow_html=True)
-
-    # Display the calculation options as styled cards
-    st.markdown('<div class="option-cards">', unsafe_allow_html=True)
+def explanation():
+    st.title("Chemistry Concepts & Explanations 📚")
+    st.write("Welcome to the explanations section! Here you'll find detailed information about various chemistry concepts.")
     
-    # pH calculation logic
-    if st.button("pH"):
-        st.write("## pH Calculation")
-        h3o_concentration = st.number_input("Enter [H₃O⁺] concentration (mol/L)", min_value=0.0, format="%.8f")
-        if h3o_concentration > 0:
-            pH_value = -math.log10(h3o_concentration)
-            st.write(f"**pH**: {pH_value:.2f}")
-            st.write("### Calculation Steps:")
-            st.write("1. Take the negative logarithm of the [H₃O⁺] concentration.")
-            st.write("2. The formula is: **pH = -log([H₃O⁺])**")
-            st.write(f"3. With [H₃O⁺] = {h3o_concentration}, pH = -log({h3o_concentration}) = {pH_value:.2f}")
-        else:
-            st.write("Please enter a valid [H₃O⁺] concentration greater than 0.")
+    topic = st.selectbox("Select a topic to learn about:", ["", "pH", "pOH", "Molarity"])
 
-    # Molarity calculation logic
-    if st.button("Molarity"):
-        st.write("## Molarity Calculation")
-        moles = st.number_input("Enter moles of solute", min_value=0.0, format="%.2f")
-        volume = st.number_input("Enter volume of solution (L)", min_value=0.0, format="%.2f")
-        if moles > 0 and volume > 0:
-            molarity = moles / volume
-            st.write(f"**Molarity**: {molarity:.2f} M")
-            st.write("### Calculation Steps:")
-            st.write("1. Divide the number of moles by the volume of the solution in liters.")
-            st.write("2. The formula is: **M = moles / liters**")
-            st.write(f"3. With {moles} moles and {volume} liters, M = {moles} / {volume} = {molarity:.2f} M")
-        else:
-            st.write("Please enter valid values for both moles and volume greater than 0.")
-    
-    st.markdown('</div>', unsafe_allow_html=True)
+    if topic == "pH":
+        st.subheader("Understanding pH")
+        st.write("""
+        pH is a measure of the hydrogen ion concentration in a solution. It indicates how acidic or basic a solution is on a scale of 0 to 14.
+        
+        **The pH Scale:**
+        - pH < 7: Acidic
+        - pH = 7: Neutral
+        - pH > 7: Basic (Alkaline)
+        
+        **Calculating pH:**
+        pH = -log[H⁺] where [H⁺] is the concentration of hydrogen ions in mol/L.
+        
+        **Common Examples:**
+        - Lemon juice: pH 2 (acidic)
+        - Pure water: pH 7 (neutral)
+        - Baking soda: pH 9 (basic)
+        """)
+        st.write("**Test Your Knowledge!**")
+        st.radio("What pH value represents a neutral solution?", ["0", "7", "14", "3.5"])
+
+    elif topic == "pOH":
+        st.subheader("Understanding pOH")
+        st.write("""
+        pOH is a measure of the hydroxide ion concentration in a solution.
+        
+        **The pOH Scale:**
+        - pOH < 7: Basic (Alkaline)
+        - pOH = 7: Neutral
+        - pOH > 7: Acidic
+        
+        **Calculating pOH:**
+        pOH = -log[OH⁻] where [OH⁻] is the concentration of hydroxide ions in mol/L.
+        
+        **Relationship between pH and pOH:**
+        pH + pOH = 14
+        
+        **Common Examples:**
+        - Strong base: pOH < 7 (basic)
+        - Pure water: pOH = 7 (neutral)
+        - Strong acid: pOH > 7 (acidic)
+        """)
+        st.write("**Test Your Knowledge!**")
+        st.radio("What pOH value represents a neutral solution?", ["0", "7", "14", "3.5"])
+
+    elif topic == "Molarity":
+        st.subheader("Understanding Molarity")
+        st.write("""
+        Molarity (M) is the concentration of a solution, measured as moles of solute per liter of solution.
+        
+        **Calculating Molarity:**
+        M = moles of solute / liters of solution
+        
+        **Applications:**
+        - Laboratory solution preparation
+        - Chemical analysis
+        - Industrial processes
+        """)
+        st.write("**Test Your Knowledge!**")
+        st.radio("If you have 2 moles of NaCl in 0.5 L of solution, what is the molarity?", ["0.5 M", "1.0 M", "2.0 M", "4.0 M"])
