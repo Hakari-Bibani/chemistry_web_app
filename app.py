@@ -1,6 +1,6 @@
 import streamlit as st
 from home import home  # import the home page function
-
+from explanation.py import expalanation
 # Create a sidebar for navigation
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Go to", ["Home", "Explanation", "Calculation", "Lab"])
