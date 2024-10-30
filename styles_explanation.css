@@ -1,4 +1,8 @@
 /* Glowing Title */
+st.markdown(
+    '<link href="styles_explanation.css" rel="stylesheet" type="text/css">',
+    unsafe_allow_html=True
+)
 .glowing-title {
     font-size: 2.5em;
     text-align: center;
