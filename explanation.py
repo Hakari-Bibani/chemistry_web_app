@@ -1,3 +1,6 @@
+import streamlit as st
+
+def explanations():
 st.markdown("""
         <style>
         @keyframes text-glow {
