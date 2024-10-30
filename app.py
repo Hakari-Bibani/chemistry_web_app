@@ -1,11 +1,4 @@
 import streamlit as st
-# Load CSS
-def load_css():
-    with open("styles.css") as f:
-        st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
-load_css()
-
 from home import home
 from explanation import explanation
 from calculations import calculations
