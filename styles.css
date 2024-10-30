@@ -2,17 +2,17 @@
 .glowing-title {
     font-size: 2.5em;
     text-align: center;
-    color: black; /* Text color changed to black */
-    text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Light blue shadow */
+    color: #0ff;
+    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff;
     animation: text-glow 1.5s infinite alternate;
 }
 
 @keyframes text-glow {
     from {
-        text-shadow: 0 0 5px #add8e6, 0 0 10px #add8e6;
+        text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
     }
     to {
-        text-shadow: 0 0 20px #add8e6, 0 0 30px #add8e6;
+        text-shadow: 0 0 20px #0ff, 0 0 30px #0ff;
     }
 }
 
@@ -81,10 +81,10 @@
 }
 
 .flip-card-front {
-    background-color: #e6e6fa; /* Light purple color */
+    background-color: #007bff;
 }
 
 .flip-card-back {
-    background-color: #90ee90; /* Light green for the back */
+    background-color: #4caf50;
     transform: rotateY(180deg);
 }
