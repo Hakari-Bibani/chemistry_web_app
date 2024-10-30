@@ -1,6 +1,6 @@
 import streamlit as st
 from home import home
-from explanation import explanation_page  # Change made here
+from explanation import explanation
 from calculations import calculations
 from lab import lab
 
