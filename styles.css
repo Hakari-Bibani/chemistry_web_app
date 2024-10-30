@@ -1,16 +1,10 @@
-/* Glowing Title with Moving Effect */
-@keyframes move {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0); }
-}
-
+/* Glowing Title */
 .glowing-title {
     font-size: 2.5em;
     text-align: center;
-    color: black; /* Text color remains black */
+    color: black; /* Text color changed to black */
     text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Light blue shadow */
-    animation: text-glow 1.5s infinite alternate, move 2s infinite; /* Added move animation */
+    animation: text-glow 1.5s infinite alternate;
 }
 
 @keyframes text-glow {
@@ -87,7 +81,7 @@
 }
 
 .flip-card-front {
-    background-color: #d8bfd8; /* Light purple color */
+    background-color: #007bff; /* Original blue color */
 }
 
 .flip-card-back {
