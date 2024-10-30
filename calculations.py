@@ -65,3 +65,5 @@ def calculations():
             if volume > 0:
                 molarity = mole / volume
                 st.write(f"Molarity (M) = {molarity:.2f} mol/L")
+
+        # Add more cases for other combinations as needed
