@@ -1,14 +1,37 @@
-/* style.css */
+/* styles.css */
 
 body {
-    background-image: url('chemistry_lab.png'); /* Ensure the image name matches exactly */
-    background-size: cover; /* Makes the background cover the entire page */
-    background-repeat: no-repeat; /* Prevents the image from repeating */
-    background-position: center; /* Centers the background image */
-    color: #fff; /* Set text color for better visibility */
+    background-image: url('chemistry_lab.png'); /* Reference the image file */
+    background-size: cover; /* Cover the entire background */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-position: center; /* Center the image */
+    color: #fff; /* Set text color for better contrast */
+    font-family: Arial, sans-serif; /* Set a default font */
 }
 
 h1, h2, h3, p {
-    text-align: center; /* Centers text for a cleaner look */
-    padding: 20px; /* Adds padding for better spacing */
+    text-align: center; /* Center-align the text */
+    padding: 20px; /* Add padding for spacing */
+}
+
+h1 {
+    font-size: 3em; /* Adjust title size */
+}
+
+h2 {
+    font-size: 2em; /* Adjust subtitle size */
+}
+
+button {
+    background-color: #28a745; /* Button background color */
+    color: white; /* Button text color */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Padding inside button */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 1em; /* Button font size */
+}
+
+button:hover {
+    background-color: #218838; /* Darker green on hover */
 }
