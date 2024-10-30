@@ -1,51 +1,64 @@
 import streamlit as st
 
 def home():
-    # Apply custom CSS for the homepage
+    # Main Container for the Home Page
     st.markdown("""
-        <style>
-        /* Hero Section - Neon Effect */
+    <style>
+        /* Hero Section: Neon Title */
         .hero-title {
             font-size: 2.5em;
+            font-weight: bold;
+            color: #00e5ff;
+            animation: text-glow 1.5s ease-in-out infinite alternate;
             text-align: center;
-            color: #FFF;
-            animation: text-glow 2s ease-in-out infinite alternate;
+            margin-top: 20px;
         }
         
-        /* Text Glow Animation */
+        /* Neon Glow Animation */
         @keyframes text-glow {
-            from { text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff, 0 0 30px #00e5ff; }
-            to { text-shadow: 0 0 20px #00e5ff, 0 0 30px #00e5ff, 0 0 40px #00e5ff, 0 0 50px #00e5ff; }
+            0% {
+                text-shadow: 0 0 5px #00e5ff, 0 0 10px #00e5ff, 0 0 15px #00e5ff, 0 0 20px #00e5ff;
+            }
+            100% {
+                text-shadow: 0 0 20px #00e5ff, 0 0 30px #00e5ff, 0 0 40px #00e5ff, 0 0 50px #00e5ff;
+            }
+        }
+
+        /* Styled Instruction Cards */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 20px;
         }
         
-        /* Cards for instructions */
         .card {
-            display: inline-block;
-            width: 18%;
-            margin: 10px;
+            width: 200px;
             padding: 20px;
-            text-align: center;
-            border: 2px solid #00e5ff;
+            background-color: #f0f8ff;
             border-radius: 10px;
-            color: #FFF;
-            cursor: pointer;
-            background-color: rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
         }
         
         .card:hover {
             transform: scale(1.05);
-            background-color: rgba(255, 255, 255, 0.2);
         }
 
-        /* 3D Flip Card Container */
+        /* Flip Card Container */
+        .flip-card-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 40px;
+        }
+
+        /* 3D Flip Cards */
         .flip-card {
-            background-color: transparent;
             width: 200px;
-            height: 300px;
+            height: 200px;
             perspective: 1000px;
-            display: inline-block;
-            margin: 20px;
         }
 
         .flip-card-inner {
@@ -61,87 +74,72 @@ def home():
             transform: rotateY(180deg);
         }
 
-        /* Front and Back Faces of Flip Cards */
-        .flip-card-front, .flip-card-back {
+        .flip-front, .flip-back {
             position: absolute;
             width: 100%;
             height: 100%;
             -webkit-backface-visibility: hidden;
             backface-visibility: hidden;
-            border-radius: 10px;
-            padding: 20px;
-            color: white;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2em;
+            border-radius: 10px;
+            color: white;
         }
 
-        .flip-card-front {
-            background-color: #00e5ff;
+        .flip-front {
+            background-color: #4CAF50;
         }
 
-        .flip-card-back {
-            background-color: #003366;
+        .flip-back {
+            background-color: #333;
             transform: rotateY(180deg);
         }
-        </style>
-    """, unsafe_allow_html=True)
 
-    # Hero Section
-    st.markdown('<h1 class="hero-title">Welcome to your virtual chemistry learning environment!</h1>', unsafe_allow_html=True)
+    </style>
 
-    # Instruction Cards
-    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-    st.markdown("<div class='card'>Select a section on the left side</div>", unsafe_allow_html=True)
-    st.markdown("<div class='card'>Follow the instructions</div>", unsafe_allow_html=True)
-    st.markdown("<div class='card'>Experiment and learn!</div>", unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
+    <div class="hero-title">
+        Welcome to your virtual chemistry learning environment!
+    </div>
 
-    # 3D Flip Cards for Features
-    st.markdown("<div style='text-align: center; display: flex; justify-content: center; gap: 20px;'>", unsafe_allow_html=True)
+    <div class="card-container">
+        <div class="card">Select a section on the left side</div>
+        <div class="card">Follow the instructions</div>
+        <div class="card">Experiment and learn!</div>
+    </div>
 
-    st.markdown("""
+    <div class="flip-card-container">
         <div class="flip-card">
             <div class="flip-card-inner">
-                <div class="flip-card-front">
-                    Perform Chemical Calculations
+                <div class="flip-front">
+                    <p>Perform Chemical Calculations</p>
                 </div>
-                <div class="flip-card-back">
-                    Dive deep into calculations for pH, molarity, and other key concepts!
+                <div class="flip-back">
+                    <p>Access various tools to calculate pH, molarity, and more!</p>
                 </div>
             </div>
         </div>
-    """, unsafe_allow_html=True)
 
-    st.markdown("""
         <div class="flip-card">
             <div class="flip-card-inner">
-                <div class="flip-card-front">
-                    Watch Simulated Reactions
+                <div class="flip-front">
+                    <p>Watch Simulated Reactions</p>
                 </div>
-                <div class="flip-card-back">
-                    Explore virtual lab simulations of various chemical reactions.
+                <div class="flip-back">
+                    <p>Explore virtual reactions and see chemistry in action.</p>
                 </div>
             </div>
         </div>
-    """, unsafe_allow_html=True)
 
-    st.markdown("""
         <div class="flip-card">
             <div class="flip-card-inner">
-                <div class="flip-card-front">
-                    Learn Chemistry Concepts
+                <div class="flip-front">
+                    <p>Learn Chemistry Concepts</p>
                 </div>
-                <div class="flip-card-back">
-                    Access detailed explanations and test your knowledge on key topics.
+                <div class="flip-back">
+                    <p>Dive deep into explanations and principles of chemistry.</p>
                 </div>
             </div>
         </div>
+    </div>
     """, unsafe_allow_html=True)
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
-# Run the home function when this script is executed
-if __name__ == "__main__":
-    home()
