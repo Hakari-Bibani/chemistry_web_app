@@ -88,3 +88,62 @@
     background-color: #90ee90; /* Light green for the back */
     transform: rotateY(180deg);
 }
+/* Glowing Title */
+.explanation-title {
+    font-size: 2.2em;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff, 0 0 30px #00ffff, 0 0 40px #00ffff;
+    animation: text-glow 1.5s infinite alternate;
+}
+
+@keyframes text-glow {
+    from {
+        text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+    }
+    to {
+        text-shadow: 0 0 20px #00ffff, 0 0 30px #00ffff;
+    }
+}
+
+/* Styled Cards */
+.topic-cards {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1.5em;
+}
+
+.topic-cards .card {
+    background: #e3f2fd;
+    padding: 20px;
+    border-radius: 10px;
+    width: 25%;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.topic-cards .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Quiz Section */
+.quiz-section {
+    margin-top: 2em;
+    text-align: center;
+}
+
+.quiz-section button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.quiz-section button:hover {
+    background-color: #0056b3;
+}
