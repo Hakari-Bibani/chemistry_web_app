@@ -1,29 +1,30 @@
 import streamlit as st
 
-# Load CSS for styling
-def load_css():
-    with open("styles.css") as f:
-        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
+# Custom CSS to style the app
+st.markdown(
+    """
+    <style>
+    body {
+        background-color: #f0f8ff; /* Light blue background */
+        background-image: url('images/chemistry_lab.png'); /* Correct path to your background image */
+        background-size: cover; /* Ensure the image covers the entire viewport */
+        background-repeat: no-repeat; /* Prevent the image from repeating */
+        background-attachment: fixed; /* Keep the background fixed during scroll */
+        font-family: 'Arial', sans-serif; /* Font style */
+        color: #333; /* Text color */
+    }
 
-load_css()
+    .container {
+        padding: 20px; /* Padding for content area */
+        border-radius: 10px; /* Rounded corners */
+        background-color: rgba(255, 255, 255, 0.8); /* White background with transparency */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
-# Home Page
-def home_page():
-    st.title("Welcome to your virtual chemistry learning environment!")
-    
-    # Use a container for better styling
-    with st.container():
-        st.markdown("""
-            📚 **What you can do here:**
-            - Perform chemical calculations
-            - Watch simulated reactions
-            - Learn chemistry concepts
-            
-            🔬 **Getting Started:**
-            1. Select a section on the left side
-            2. Follow the instructions
-            3. Experiment and learn!
-        """)
 
 from home import home
 from explanation import explanation
