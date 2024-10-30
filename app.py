@@ -5,7 +5,7 @@ st.markdown(
     """
     <style>
     .home-page {
-        background-image: url('chemistry_lab.png');
+        background-image: url('chemistry_lab');
         background-size: cover;
         background-repeat: no-repeat;
         color: white; /* Change text color for better visibility */
@@ -37,22 +37,3 @@ st.markdown('<div class="subheader">🔬 Getting Started:</div>', unsafe_allow_h
 st.markdown('1. Select a section on the left side<br/>2. Follow the instructions<br/>3. Experiment and learn!', unsafe_allow_html=True)
 
 st.markdown('</div>', unsafe_allow_html=True)  # Close home page div
-
-from home import home
-from explanation import explanation
-from calculations import calculations
-from lab import lab
-
-# Sidebar Navigation
-st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["Home", "Explanation", "Calculations", "Lab"])
-
-# Display the selected page
-if page == "Home":
-    home()
-elif page == "Explanation":
-    explanation()
-elif page == "Calculations":
-    calculations()
-elif page == "Lab":
-    lab()
