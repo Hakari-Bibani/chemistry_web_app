@@ -1,3 +1,4 @@
+# explanation.py
 import streamlit as st
 
 def explanation_page():
@@ -7,7 +8,7 @@ def explanation_page():
     .glowing-title {
         font-size: 2.5em;
         text-align: center;
-        color: #add8e6;  /* Light blue glow */
+        color: #add8e6;
         text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6;
         animation: text-glow 1.5s infinite alternate;
     }
