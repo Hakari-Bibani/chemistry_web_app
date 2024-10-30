@@ -2,6 +2,10 @@ import streamlit as st
 
 def explanations():
     # Add custom CSS with animation and card styling
+    import streamlit as st
+
+def explanations():
+    # Add custom CSS with animation and card styling
     st.markdown("""
         <style>
         @keyframes text-glow {
