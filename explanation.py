@@ -1,5 +1,4 @@
 import streamlit as st
-from streamlit_extras import st_card, show_hide, st_glow_title  # Assuming these custom modules handle certain effects or custom styles
 
 def explanation_page():
     # Glowing Animated Title
@@ -19,58 +18,93 @@ def explanation_page():
     </style>
     <h1 class="glowing-title">📚 Chemistry Concepts & Explanation</h1>
     """, unsafe_allow_html=True)
-    
+
     # Styled Topic Cards
     st.markdown("### Select a topic to learn about:")
     topics = ["pH", "pOH", "Molarity"]
     selected_topic = st.selectbox("Choose a topic", topics)
-    
+
+    # Display topic details and Test Your Knowledge section
     if selected_topic == "pH":
-        st_card("Understanding pH", """
-            - pH is a measure of the hydrogen ion concentration.
-            - The pH Scale:
-              * pH < 7: Acidic
-              * pH = 7: Neutral
-              * pH > 7: Basic (Alkaline)
-            - Calculating pH: pH = -log[H⁺]
-            """, icon="⚛️", key="ph_card")
+        st.markdown("""
+        <div class="st-card">
+            <h3>Understanding pH</h3>
+            <p>- pH is a measure of the hydrogen ion concentration.</p>
+            <p>- The pH Scale:</p>
+            <ul>
+                <li>pH < 7: Acidic</li>
+                <li>pH = 7: Neutral</li>
+                <li>pH > 7: Basic (Alkaline)</li>
+            </ul>
+            <p>- Calculating pH: pH = -log[H⁺]</p>
+        </div>
+        """, unsafe_allow_html=True)
+
         # Test Your Knowledge - pH
-        if st.button("Test Your Knowledge on pH"):
-            st.write("What pH value represents a neutral solution?")
-            answer = st.radio("Select your answer:", ("0", "7", "14", "3.5"))
+        st.write("### Test Your Knowledge on pH")
+        answer = st.radio("What pH value represents a neutral solution?", ["0", "7", "14", "3.5"])
+        if st.button("Submit Answer"):
             if answer == "7":
                 st.success("Correct!")
             else:
                 st.error("Incorrect. The correct answer is 7.")
 
     elif selected_topic == "pOH":
-        st_card("Understanding pOH", """
-            - pOH is a measure of hydroxide ion concentration.
-            - The pOH Scale:
-              * pOH < 7: Basic
-              * pOH = 7: Neutral
-              * pOH > 7: Acidic
-            - Relationship with pH: pH + pOH = 14
-            """, icon="⚛️", key="poh_card")
+        st.markdown("""
+        <div class="st-card">
+            <h3>Understanding pOH</h3>
+            <p>- pOH is a measure of hydroxide ion concentration.</p>
+            <p>- The pOH Scale:</p>
+            <ul>
+                <li>pOH < 7: Basic</li>
+                <li>pOH = 7: Neutral</li>
+                <li>pOH > 7: Acidic</li>
+            </ul>
+            <p>- Relationship with pH: pH + pOH = 14</p>
+        </div>
+        """, unsafe_allow_html=True)
+
         # Test Your Knowledge - pOH
-        if st.button("Test Your Knowledge on pOH"):
-            st.write("What pOH value represents a neutral solution?")
-            answer = st.radio("Select your answer:", ("0", "7", "14", "3.5"))
+        st.write("### Test Your Knowledge on pOH")
+        answer = st.radio("What pOH value represents a neutral solution?", ["0", "7", "14", "3.5"])
+        if st.button("Submit Answer"):
             if answer == "7":
                 st.success("Correct!")
             else:
                 st.error("Incorrect. The correct answer is 7.")
 
     elif selected_topic == "Molarity":
-        st_card("Understanding Molarity", """
-            - Molarity (M) is the concentration of a solution.
-            - Calculating Molarity: M = moles of solute / liters of solution
-            """, icon="⚛️", key="molarity_card")
+        st.markdown("""
+        <div class="st-card">
+            <h3>Understanding Molarity</h3>
+            <p>- Molarity (M) is the concentration of a solution.</p>
+            <p>- Calculating Molarity: M = moles of solute / liters of solution</p>
+        </div>
+        """, unsafe_allow_html=True)
+
         # Test Your Knowledge - Molarity
-        if st.button("Test Your Knowledge on Molarity"):
-            st.write("If you have 2 moles of NaCl in 0.5 L of solution, what is the molarity?")
-            answer = st.radio("Select your answer:", ("0.5 M", "1.0 M", "2.0 M", "4.0 M"))
+        st.write("### Test Your Knowledge on Molarity")
+        answer = st.radio("If you have 2 moles of NaCl in 0.5 L of solution, what is the molarity?", ["0.5 M", "1.0 M", "2.0 M", "4.0 M"])
+        if st.button("Submit Answer"):
             if answer == "4.0 M":
                 st.success("Correct!")
             else:
                 st.error("Incorrect. The correct answer is 4.0 M.")
+
+# CSS styling for cards
+st.markdown("""
+<style>
+.st-card {
+    background: #f0f8ff;
+    border-radius: 10px;
+    padding: 15px;
+    margin: 10px 0;
+    text-align: left;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: 0.3s;
+}
+.st-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+</style>
+""", unsafe_allow_html=True)
