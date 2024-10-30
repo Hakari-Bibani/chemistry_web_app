@@ -9,13 +9,8 @@ page = st.sidebar.radio("Go to", ["Home", "Explanation", "Calculation", "Lab"])
 if page == "Home":
     home()
 # Add elif blocks for the other pages when they're ready
-
+import streamlit as st
 from explanation.py import explanation  # import the explanation page function
-
-# Create a sidebar for navigation
-st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["Home", "Explanation", "Calculation", "Lab"])
-
 # Display the selected page
 if page == "Explanation":
     Explanation()
