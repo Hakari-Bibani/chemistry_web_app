@@ -1,21 +1,7 @@
-import streamlit as st
+import streamlit as st  # Add this at the top of your file
 
 def explanations():
-    st.markdown("""
-        <style>
-        @keyframes text-glow {
-            0% { 
-                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #2377ff, 0 0 40px #2377ff;
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
-            100% { 
-                text-shadow: 0 0 20px #fff, 0 0 30px #00bfff, 0 0 40px #00bfff, 0 0 50px #00bfff;
-                transform: translateY(0px);
-            }
-        }st.markdown("""
+st.markdown("""
         <style>
         @keyframes text-glow {
             0% { 
