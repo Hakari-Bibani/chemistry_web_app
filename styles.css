@@ -88,3 +88,55 @@
     background-color: #90ee90; /* Light green for the back */
     transform: rotateY(180deg);
 }
+/* Glowing Title for Explanation Section */
+.glowing-title-explanation {
+    font-size: 2.5em;
+    text-align: center;
+    color: black; /* Text color */
+    text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6; /* Light blue shadow */
+    animation: text-glow 1.5s infinite alternate;
+    margin-bottom: 2em; /* Space below title */
+}
+
+@keyframes text-glow {
+    from {
+        text-shadow: 0 0 5px #add8e6, 0 0 10px #add8e6;
+    }
+    to {
+        text-shadow: 0 0 20px #add8e6, 0 0 30px #add8e6;
+    }
+}
+
+/* Explanation Cards */
+.explanation-cards {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 2em;
+}
+
+.explanation-cards .card {
+    background: #e3f2fd; /* Background color for the cards */
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 30%;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    transition: transform 0.3s;
+}
+
+.explanation-cards .card:hover {
+    transform: translateY(-10px);
+}
+
+/* Test Your Knowledge Section */
+.test-your-knowledge {
+    margin-top: 2em;
+    text-align: center;
+}
+
+.test-your-knowledge select {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
