@@ -1,5 +1,13 @@
 import streamlit as st
 
+# Load the new CSS file
+st.markdown(
+    """
+    <link href="styles_explanation.css" rel="stylesheet">
+    """,
+    unsafe_allow_html=True
+)
+
 def explanation():
     st.title("Chemistry Concepts & Explanations 📚")
     st.write("Welcome to the explanations section! Here you'll find detailed information about various chemistry concepts.")
