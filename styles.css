@@ -2,8 +2,8 @@
 .glowing-title {
     font-size: 2.5em;
     text-align: center;
-    color: black; /* Text color changed to black */
-    text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Light blue shadow */
+    color: black;
+    text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Neon effect */
     animation: text-glow 1.5s infinite alternate;
 }
 
@@ -16,75 +16,40 @@
     }
 }
 
-/* Instruction Cards */
-.instruction-cards {
+/* Option Cards for Topics */
+.option-cards {
     display: flex;
     justify-content: space-around;
     margin-top: 2em;
 }
 
-.instruction-cards .card {
-    background: #e3f2fd;
+.option-card {
+    background: #e0f7fa;
     padding: 20px;
     border-radius: 10px;
     text-align: center;
     width: 30%;
     box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
     transition: transform 0.3s;
 }
 
-.instruction-cards .card:hover {
+.option-card:hover {
     transform: translateY(-10px);
 }
 
-/* Feature Flip Cards */
-.feature-cards {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 2em;
-}
-
-.flip-card {
-    background-color: transparent;
-    width: 200px;
-    height: 250px;
-    perspective: 1000px;
-}
-
-.flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
+/* Knowledge Check */
+.quiz-option {
+    background-color: #f5f5f5;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    cursor: pointer;
     text-align: center;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
 }
-
-.flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
+.quiz-option.correct {
+    background-color: #c8e6c9;
 }
-
-.flip-card-front, .flip-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    color: #fff;
-    font-size: 1.2em;
-    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-}
-
-.flip-card-front {
-    background-color: #e6e6fa; /* Light purple color */
-}
-
-.flip-card-back {
-    background-color: #90ee90; /* Light green for the back */
-    transform: rotateY(180deg);
+.quiz-option.wrong {
+    background-color: #ffcdd2;
 }
