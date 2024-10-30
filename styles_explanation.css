@@ -4,7 +4,7 @@
     text-align: center;
     color: black; /* Text color */
     text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Light blue shadow */
-    animation: text-glow 1.5s infinite alternate, move 2s infinite alternate;
+    animation: text-glow 1.5s infinite alternate, move-title 2s infinite alternate;
 }
 
 @keyframes text-glow {
@@ -16,23 +16,23 @@
     }
 }
 
-@keyframes move {
-    0% {
-        transform: translateY(0);
-    }
-    100% {
+@keyframes move-title {
+    from {
         transform: translateY(-5px);
+    }
+    to {
+        transform: translateY(5px);
     }
 }
 
-/* Options Cards */
-.options-cards {
+/* Topic Cards */
+.topic-cards {
     display: flex;
     justify-content: space-around;
     margin-top: 2em;
 }
 
-.options-cards .card {
+.topic-cards .card {
     background: #e3f2fd;
     padding: 20px;
     border-radius: 10px;
@@ -42,12 +42,12 @@
     transition: transform 0.3s;
 }
 
-.options-cards .card:hover {
+.topic-cards .card:hover {
     transform: translateY(-10px);
 }
 
 /* Test Your Knowledge Section */
-.test-your-knowledge {
+.test-knowledge {
     margin-top: 2em;
     text-align: center;
 }
