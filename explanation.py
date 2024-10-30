@@ -1,36 +1,42 @@
 import streamlit as st
 
 def explanations():
-    # Updated CSS with movement animations
+    # Update only the CSS part with new animations
     st.markdown("""
         <style>
         @keyframes text-glow {
-            0% { text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #2377ff, 0 0 40px #2377ff; }
-            100% { text-shadow: 0 0 20px #fff, 0 0 30px #00bfff, 0 0 40px #00bfff, 0 0 50px #00bfff; }
-        }
-        
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
-        @keyframes card-float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
-            100% { transform: translateY(0px); }
+            0% { 
+                text-shadow: 0 0 10px #fff, 0 0 20px #2377ff, 0 0 30px #2377ff;
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% { 
+                text-shadow: 0 0 20px #fff, 0 0 30px #00bfff, 0 0 40px #00bfff;
+                transform: translateY(0px);
+            }
         }
         
         .glowing-title {
             text-align: center;
-            color: black;  /* Changed to black as requested */
+            color: #000;  /* Changed to black */
             font-size: 2.5em;
-            animation: 
-                text-glow 1.5s ease-in-out infinite alternate,
-                float 3s ease-in-out infinite;
+            animation: text-glow 3s ease-in-out infinite;
             margin-bottom: 2em;
             font-weight: bold;
-            position: relative;
+        }
+        
+        @keyframes card-float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
         }
         
         .topic-cards {
@@ -47,20 +53,17 @@ def explanations():
             padding: 15px;
             text-align: center;
             cursor: pointer;
+            animation: card-float 3s ease-in-out infinite;
             flex: 1;
-            animation: card-float 4s ease-in-out infinite;
         }
         
-        /* Different animation delays for each card to create a wave effect */
-        .topic-card:nth-child(1) { animation-delay: 0s; }
-        .topic-card:nth-child(2) { animation-delay: 0.5s; }
-        .topic-card:nth-child(3) { animation-delay: 1s; }
-        
         .topic-card:hover {
-            transform: translateY(-5px);
+            animation: none;
+            transform: translateY(-8px);
             box-shadow: 0 5px 15px rgba(35, 119, 255, 0.3);
         }
         
+        /* Keep the rest of your CSS unchanged */
         .quiz-section {
             background: rgba(35, 119, 255, 0.1);
             border-radius: 10px;
@@ -74,33 +77,5 @@ def explanations():
             font-size: 1.5em;
             margin-bottom: 1em;
         }
-        
-        /* Add some nice transitions for smooth animations */
-        * {
-            transition: all 0.3s ease-out;
-        }
         </style>
     """, unsafe_allow_html=True)
-    
-    # Glowing animated title
-    st.markdown('<h1 class="glowing-title">📚 Chemistry Concepts & Explanation</h1>', unsafe_allow_html=True)
-    
-    # Topic cards in horizontal layout with animations
-    st.markdown("""
-        <div class="topic-cards">
-            <div class="topic-card" onclick="document.querySelector('#topic-select').value='pH'">
-                <h3>pH</h3>
-                <p>Learn about acidity and basicity</p>
-            </div>
-            <div class="topic-card" onclick="document.querySelector('#topic-select').value='pOH'">
-                <h3>pOH</h3>
-                <p>Explore hydroxide concentration</p>
-            </div>
-            <div class="topic-card" onclick="document.querySelector('#topic-select').value='Molarity'">
-                <h3>Molarity</h3>
-                <p>Understand solution concentration</p>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    # Rest of your code remains the same...
