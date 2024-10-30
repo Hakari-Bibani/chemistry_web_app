@@ -36,67 +36,61 @@ def calculations():
     # Display the title with the CSS class
     st.markdown('<h1 class="glowing-title">Welcome to the Calculation section!</h1>', unsafe_allow_html=True)
 
-    # Existing code for calculation logic
+    # Calculation logic
     calc_type = st.selectbox("Select calculation type:", ["", "pH", "Molarity"])
 
-   if calculation_type == "pH":
-        st.subheader("pH Calculation")
-        st.write("Provide either the value of [H₃O⁺] to find pH or the value of pH to find [H₃O⁺].")
+    if calc_type == "pH":
+        st.subheader("pH Calculations")
+        value_type = st.selectbox("Calculate based on:", ["", "Hydronium Ion Concentration [H3O+]", "pH"])
+
+        if value_type == "Hydronium Ion Concentration [H3O+]":
+            h3o_concentration = st.number_input("Enter [H3O+] in mol/L:", min_value=0.0, step=0.01)
+            if h3o_concentration > 0:
+                ph = -math.log10(h3o_concentration)
+                st.write(f"**Calculation Steps:**")
+                st.write(f"1. pH = -log([H3O+])")
+                st.write(f"2. pH = -log({h3o_concentration})")
+                st.write(f"3. pH = {ph:.2f}")
         
-        # Input boxes for either [H3O+] or pH
-        h3o_concentration = st.number_input("Enter [H₃O⁺] (in mol/L)", min_value=0.0, format="%.5f", step=0.00001)
-        ph_value = st.number_input("Enter pH", min_value=0.0, max_value=14.0, format="%.2f", step=0.01)
+        elif value_type == "pH":
+            ph_value = st.number_input("Enter pH value:", min_value=0.0, step=0.01)
+            if ph_value >= 0:
+                h3o_concentration = 10 ** (-ph_value)
+                st.write(f"**Calculation Steps:**")
+                st.write(f"1. [H3O+] = 10^(-pH)")
+                st.write(f"2. [H3O+] = 10^(-{ph_value})")
+                st.write(f"3. [H3O+] = {h3o_concentration:.2e} mol/L")
 
-        if h3o_concentration:
-            # Calculate pH from [H3O+]
-            pH = -math.log10(h3o_concentration)
-            st.write("**Calculation Steps:**")
-            st.latex(r"pH = -\log [H_3O^+]")
-            st.write(f"pH = -log({h3o_concentration}) = {pH:.2f}")
-            st.success(f"The calculated pH is {pH:.2f}")
+    elif calc_type == "Molarity":
+        st.subheader("Molarity Calculations")
+        knowns = st.multiselect("Select known values:", ["Mole", "Volume", "Molarity"])
 
-        elif ph_value:
-            # Calculate [H3O+] from pH
-            h3o_concentration = 10 ** (-ph_value)
-            st.write("**Calculation Steps:**")
-            st.latex(r"[H_3O^+] = 10^{-pH}")
-            st.write(f"[H₃O⁺] = 10^(-{ph_value}) = {h3o_concentration:.5f} mol/L")
-            st.success(f"The calculated [H₃O⁺] concentration is {h3o_concentration:.5f} mol/L")
+        if "Mole" in knowns and "Volume" in knowns:
+            mole = st.number_input("Enter moles of solute:")
+            volume = st.number_input("Enter volume in liters:")
+            if volume > 0:
+                molarity = mole / volume
+                st.write(f"**Calculation Steps:**")
+                st.write(f"1. Molarity (M) = moles of solute / liters of solution")
+                st.write(f"2. Molarity (M) = {mole} moles / {volume} L")
+                st.write(f"3. Molarity (M) = {molarity:.2f} mol/L")
 
-    # Molarity Calculation Section
-    elif calculation_type == "Molarity":
-        st.subheader("Molarity Calculation")
-        st.write("Provide two values to calculate the third one (Molarity, Moles, or Volume).")
-        
-        # Input boxes for Moles, Volume, and Molarity
-        moles = st.number_input("Enter moles of solute", min_value=0.0, format="%.4f", step=0.0001)
-        volume = st.number_input("Enter volume of solution (in L)", min_value=0.0, format="%.4f", step=0.0001)
-        molarity = st.number_input("Enter molarity (M)", min_value=0.0, format="%.4f", step=0.0001)
+        elif "Volume" in knowns and "Molarity" in knowns:
+            volume = st.number_input("Enter volume in liters:")
+            molarity = st.number_input("Enter molarity (M):")
+            if molarity > 0:
+                mole = molarity * volume
+                st.write(f"**Calculation Steps:**")
+                st.write(f"1. Moles of solute = Molarity (M) × Volume (L)")
+                st.write(f"2. Moles of solute = {molarity} mol/L × {volume} L")
+                st.write(f"3. Moles of solute = {mole:.2f} moles")
 
-        if moles and volume:
-            # Calculate Molarity from Moles and Volume
-            molarity = moles / volume
-            st.write("**Calculation Steps:**")
-            st.latex(r"M = \frac{\text{moles of solute}}{\text{volume of solution (L)}}")
-            st.write(f"M = {moles} / {volume} = {molarity:.4f} M")
-            st.success(f"The calculated molarity is {molarity:.4f} M")
-
-        elif volume and molarity:
-            # Calculate Moles from Volume and Molarity
-            moles = molarity * volume
-            st.write("**Calculation Steps:**")
-            st.latex(r"\text{Moles of solute} = M \times \text{volume of solution (L)}")
-            st.write(f"Moles = {molarity} * {volume} = {moles:.4f}")
-            st.success(f"The calculated moles of solute is {moles:.4f} moles")
-
-        elif moles and molarity:
-            # Calculate Volume from Moles and Molarity
-            volume = moles / molarity
-            st.write("**Calculation Steps:**")
-            st.latex(r"\text{Volume of solution (L)} = \frac{\text{moles of solute}}{M}")
-            st.write(f"Volume = {moles} / {molarity} = {volume:.4f} L")
-            st.success(f"The calculated volume is {volume:.4f} L")
-
-# Run the calculations function when this script is executed
-if __name__ == "__main__":
-    calculations()
+        elif "Mole" in knowns and "Molarity" in knowns:
+            mole = st.number_input("Enter moles of solute:")
+            molarity = st.number_input("Enter molarity (M):")
+            if molarity > 0:
+                volume = mole / molarity
+                st.write(f"**Calculation Steps:**")
+                st.write(f"1. Volume (L) = Moles of solute / Molarity (M)")
+                st.write(f"2. Volume (L) = {mole} moles / {molarity} mol/L")
+                st.write(f"3. Volume (L) = {volume:.2f} L")
