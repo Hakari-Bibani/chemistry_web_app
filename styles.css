@@ -1,6 +1,11 @@
-/* Glowing Title */
-.glowing-title {
-    font-size: 2.5em;
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Glowing Title for Home Page */
+.home-title {
+    font-size: 3em;
     text-align: center;
     color: black; /* Text color */
     text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Light blue shadow */
@@ -29,15 +34,24 @@
     }
 }
 
-/* Instruction Cards */
-.instruction-cards {
+/* Styles for Explanation Page */
+.explanation-title {
+    font-size: 2.5em;
+    text-align: center;
+    color: black; /* Text color */
+    text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Light blue shadow */
+    animation: text-glow 1.5s infinite alternate, move-title 3s infinite alternate; /* Added moving effect */
+}
+
+/* Styled Cards for Options */
+.option-cards {
     display: flex;
     justify-content: space-around;
     margin-top: 2em;
 }
 
-.instruction-cards .card {
-    background: #e3f2fd;
+.option-cards .card {
+    background: #e3f2fd; /* Light blue */
     padding: 20px;
     border-radius: 10px;
     text-align: center;
@@ -46,29 +60,42 @@
     transition: transform 0.3s;
 }
 
-.instruction-cards .card:hover {
+.option-cards .card:hover {
     transform: translateY(-10px);
 }
 
-/* Feature Flip Cards */
-.feature-cards {
-    display: flex;
-    justify-content: space-around;
+/* Quiz Section */
+.quiz {
     margin-top: 2em;
+    text-align: center;
 }
 
+.quiz button {
+    padding: 10px 20px;
+    background-color: #007bff; /* Button color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.quiz button:hover {
+    background-color: #0056b3; /* Darker button on hover */
+}
+
+/* Flip Cards for Home Page */
 .flip-card {
-    background-color: transparent;
-    width: 200px;
-    height: 250px;
-    perspective: 1000px;
+    background: lightpurple; /* Change this to your preferred color */
+    width: 200px; /* Set a fixed width */
+    height: 300px; /* Set a fixed height */
+    perspective: 1000px; /* Add perspective */
+    margin: 10px;
 }
 
 .flip-card-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    text-align: center;
     transition: transform 0.6s;
     transform-style: preserve-3d;
 }
@@ -81,23 +108,20 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    color: #fff;
-    font-size: 1.2em;
-    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
 }
 
 .flip-card-front {
-    background-color: #d8b9e0; /* Light purple for the front */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightpurple; /* Front color */
 }
 
 .flip-card-back {
-    background-color: #90ee90; /* Light green for the back */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: lightgreen; /* Back color */
     transform: rotateY(180deg);
 }
