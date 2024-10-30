@@ -2,7 +2,7 @@
 
 body {
     background-color: #f0f8ff; /* Light blue background */
-    background-image: url('path/to/your/background-image.jpg'); /* Optional background image */
+    background-image: url('images/chemistry_lab.png'); /* Path to your background image */
     background-size: cover; /* Cover the entire screen */
     font-family: 'Arial', sans-serif; /* Font style */
     color: #333; /* Dark text color */
