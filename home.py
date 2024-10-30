@@ -1,6 +1,7 @@
 import streamlit as st
 
 def home():
+    # Set the page configuration first
     st.set_page_config(
         page_title="Chemistry Web App",
         page_icon="🧪",
