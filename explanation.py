@@ -3,6 +3,12 @@ import streamlit as st
 def show_explanations():
     st.title("📚 Chemistry Concepts & Explanation")
     
+    # Load the CSS file
+    st.markdown(
+        '<link href="styles_explanation.css" rel="stylesheet" type="text/css">',
+        unsafe_allow_html=True
+    )
+    
     # Glowing title
     st.markdown('<h1 class="glowing-title">📚 Chemistry Concepts & Explanation</h1>', unsafe_allow_html=True)
 
@@ -65,3 +71,7 @@ def show_explanations():
             else:
                 st.markdown("<p class='correct-answer'>Incorrect. The correct answer is 4.0 M.</p>", unsafe_allow_html=True)
             st.markdown('</div>', unsafe_allow_html=True)
+
+# Call the function to display the explanations
+if __name__ == "__main__":
+    show_explanations()
