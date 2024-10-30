@@ -1,75 +1,68 @@
 import streamlit as st
 
 def explanation():
-    # Hero Section
-    st.markdown('<h1 class="glowing-title">📚 Chemistry Concepts & Explanation</h1>', unsafe_allow_html=True)
+    st.title("Chemistry Concepts & Explanations 📚")
+    st.write("Welcome to the explanations section! Here you'll find detailed information about various chemistry concepts.")
     
-    # Topics Section
-    st.write("### Select a topic to learn about:")
-    st.markdown(
-        """
-        <div class="option-cards">
-            <div class="option-card" onclick="show_topic('pH')">pH</div>
-            <div class="option-card" onclick="show_topic('pOH')">pOH</div>
-            <div class="option-card" onclick="show_topic('Molarity')">Molarity</div>
-        </div>
-        """, unsafe_allow_html=True
-    )
+    topic = st.selectbox("Select a topic to learn about:", ["", "pH", "pOH", "Molarity"])
 
-    # Functions for each topic
-    def show_topic(topic):
-        if topic == "pH":
-            show_ph_topic()
-        elif topic == "pOH":
-            show_poh_topic()
-        elif topic == "Molarity":
-            show_molarity_topic()
+    if topic == "pH":
+        st.subheader("Understanding pH")
+        st.write("""
+        pH is a measure of the hydrogen ion concentration in a solution. It indicates how acidic or basic a solution is on a scale of 0 to 14.
+        
+        **The pH Scale:**
+        - pH < 7: Acidic
+        - pH = 7: Neutral
+        - pH > 7: Basic (Alkaline)
+        
+        **Calculating pH:**
+        pH = -log[H⁺] where [H⁺] is the concentration of hydrogen ions in mol/L.
+        
+        **Common Examples:**
+        - Lemon juice: pH 2 (acidic)
+        - Pure water: pH 7 (neutral)
+        - Baking soda: pH 9 (basic)
+        """)
+        st.write("**Test Your Knowledge!**")
+        st.radio("What pH value represents a neutral solution?", ["0", "7", "14", "3.5"])
 
-    # Content for each topic
-    def show_ph_topic():
-        st.write("### Understanding pH")
-        st.write("pH is a measure of the hydrogen ion concentration...")
-        # Knowledge Check
-        st.write("#### Test Your Knowledge! 📝")
-        if st.button("What pH value represents a neutral solution?"):
-            options = [("0", False), ("7", True), ("14", False), ("3.5", False)]
-            show_quiz(options)
+    elif topic == "pOH":
+        st.subheader("Understanding pOH")
+        st.write("""
+        pOH is a measure of the hydroxide ion concentration in a solution.
+        
+        **The pOH Scale:**
+        - pOH < 7: Basic (Alkaline)
+        - pOH = 7: Neutral
+        - pOH > 7: Acidic
+        
+        **Calculating pOH:**
+        pOH = -log[OH⁻] where [OH⁻] is the concentration of hydroxide ions in mol/L.
+        
+        **Relationship between pH and pOH:**
+        pH + pOH = 14
+        
+        **Common Examples:**
+        - Strong base: pOH < 7 (basic)
+        - Pure water: pOH = 7 (neutral)
+        - Strong acid: pOH > 7 (acidic)
+        """)
+        st.write("**Test Your Knowledge!**")
+        st.radio("What pOH value represents a neutral solution?", ["0", "7", "14", "3.5"])
 
-    def show_poh_topic():
-        st.write("### Understanding pOH")
-        st.write("pOH is a measure of the hydroxide ion concentration...")
-        # Knowledge Check
-        st.write("#### Test Your Knowledge! 📝")
-        if st.button("What pOH value represents a neutral solution?"):
-            options = [("0", False), ("7", True), ("14", False), ("3.5", False)]
-            show_quiz(options)
-
-    def show_molarity_topic():
-        st.write("### Understanding Molarity")
-        st.write("Molarity is a measure of the concentration of a solution...")
-        # Knowledge Check
-        st.write("#### Test Your Knowledge! 📝")
-        if st.button("If you have 2 moles of NaCl in 0.5 L of solution, what is the molarity?"):
-            options = [("0.5 M", False), ("1.0 M", False), ("2.0 M", False), ("4.0 M", True)]
-            show_quiz(options)
-
-    # Quiz Functionality
-    def show_quiz(options):
-        for option, is_correct in options:
-            if st.button(option):
-                if is_correct:
-                    st.success("Correct!")
-                else:
-                    st.error("That's not correct.")
-
-    # JavaScript for showing topics on click (optional)
-    st.markdown("""
-    <script>
-    function show_topic(topic) {
-        Streamlit.setComponentValue(topic);
-    }
-    </script>
-    """, unsafe_allow_html=True)
-
-# Run the explanation function to display content
-explanation()
+    elif topic == "Molarity":
+        st.subheader("Understanding Molarity")
+        st.write("""
+        Molarity (M) is the concentration of a solution, measured as moles of solute per liter of solution.
+        
+        **Calculating Molarity:**
+        M = moles of solute / liters of solution
+        
+        **Applications:**
+        - Laboratory solution preparation
+        - Chemical analysis
+        - Industrial processes
+        """)
+        st.write("**Test Your Knowledge!**")
+        st.radio("If you have 2 moles of NaCl in 0.5 L of solution, what is the molarity?", ["0.5 M", "1.0 M", "2.0 M", "4.0 M"])
