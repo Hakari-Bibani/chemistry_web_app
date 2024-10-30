@@ -1,8 +1,12 @@
 /* Glowing Title */
+.hero-section {
+    margin-bottom: 20px; /* Adjust margin to move title closer to content */
+}
+
 .glowing-title {
     font-size: 2.5em;
     text-align: center;
-    color: black; /* Text color changed to black */
+    color: black; /* Text color */
     text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Light blue shadow */
     animation: text-glow 1.5s infinite alternate;
 }
@@ -81,7 +85,7 @@
 }
 
 .flip-card-front {
-    background-color: #007bff; /* Original blue color */
+    background-color: #d8b0e3; /* Light purple for the front */
 }
 
 .flip-card-back {
