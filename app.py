@@ -1,14 +1,14 @@
 import streamlit as st
 
-# Link the CSS file
+# Load CSS
 def load_css():
-    with open("style.css") as f:
+    with open("styles.css") as f:  # Ensure the correct file name is used
         st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # Load the CSS
 load_css()
 
-# Your home page content
+# Home page function
 def home_page():
     st.title("Welcome to your virtual chemistry learning environment!")
     st.write("📚 What you can do here:")
