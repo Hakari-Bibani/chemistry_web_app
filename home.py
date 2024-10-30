@@ -31,3 +31,20 @@ def home():
 
     # Add a chemistry-themed image
     st.image("images/chemistry_lab.png", use_column_width=True)
+# Home Page
+def home_page():
+    st.markdown("<div class='container'>", unsafe_allow_html=True)
+    st.title("Welcome to your virtual chemistry learning environment!")
+    st.markdown("""
+    📚 What you can do here:
+    - Perform chemical calculations
+    - Watch simulated reactions
+    - Learn chemistry concepts
+    
+    🔬 Getting Started:
+    1. Select a section on the left side
+    2. Follow the instructions
+    3. Experiment and learn!
+    """)
+    st.markdown("</div>", unsafe_allow_html=True)
+
