@@ -1,19 +1,24 @@
 import streamlit as st
-from home import home
-from explanation import explanation
-from calculations import calculations
-from lab import lab
 
-# Sidebar Navigation
-st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ["Home", "Explanation", "Calculations", "Lab"])
+# Link the CSS file
+def load_css():
+    with open("style.css") as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
-# Display the selected page
-if page == "Home":
-    home()
-elif page == "Explanation":
-    explanation()
-elif page == "Calculations":
-    calculations()
-elif page == "Lab":
-    lab()
+# Load the CSS
+load_css()
+
+# Your home page content
+def home_page():
+    st.title("Welcome to your virtual chemistry learning environment!")
+    st.write("📚 What you can do here:")
+    st.write("• Perform chemical calculations")
+    st.write("• Watch simulated reactions")
+    st.write("• Learn chemistry concepts")
+    st.write("🔬 Getting Started:")
+    st.write("1. Select a section on the left side")
+    st.write("2. Follow the instructions")
+    st.write("3. Experiment and learn!")
+
+# Call the home page function
+home_page()
