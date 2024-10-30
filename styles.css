@@ -88,11 +88,3 @@
     background-color: #90ee90; /* Light green for the back */
     transform: rotateY(180deg);
 }
-/* Glowing Title for Explanations */
-.glowing-title-explanation {
-    font-size: 2.5em;
-    text-align: center;
-    color: black; /* Text color changed to black */
-    text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6; /* Light blue shadow */
-    animation: text-glow 1.5s infinite alternate;
-}
