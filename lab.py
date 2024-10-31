@@ -5,15 +5,16 @@ def lab():
         """
         <style>
         @keyframes text-glow {
-            0%, 100% { color: #fff; text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff69b4, 0 0 20px #ff69b4; transform: translateX(0); }
-            50% { color: #ff69b4; text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff69b4, 0 0 40px #ff69b4; transform: translateX(10px); }
+            0% { text-shadow: 0 0 10px #f0f, 0 0 20px #f0f, 0 0 30px #f0f, 0 0 40px #ff00ff, 0 0 70px #ff00ff, 0 0 80px #ff00ff, 0 0 100px #ff00ff; }
+            100% { text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff, 0 0 70px #ff00ff, 0 0 90px #ff00ff, 0 0 120px #ff00ff; }
         }
 
         h1 {
-            font-size: 3em;
             text-align: center;
             margin-bottom: 2em;
-            animation: text-glow 3s ease-in-out infinite;
+            font-size: 2.5em;
+            color: #ff00ff;
+            animation: text-glow 2s ease-in-out infinite alternate;
         }
 
         .beaker {
@@ -25,8 +26,6 @@ def lab():
             position: relative;
             margin: 40px;
             overflow: hidden;
-            box-shadow: inset 0 0 20px rgba(255,255,255,0.2);
-            background: transparent;
         }
 
         .liquid {
@@ -38,33 +37,16 @@ def lab():
             transition: all 0.5s;
         }
 
-        /* Baking soda pour and bubbles */
-        .pour-baking-soda {
-            position: absolute;
-            top: -60px;
-            left: 50%;
-            width: 40px;
-            height: 40px;
-            background: #fff;
-            border: 2px solid #999;
-            animation: pour-soda 3s forwards;
-            transform-origin: bottom right;
-        }
+        .liquid-acid { background: rgba(255, 200, 200, 0.9); }
+        .liquid-water { background: rgba(200, 230, 255, 0.9); }
 
-        @keyframes pour-soda {
-            0% { transform: translateX(-50%) rotate(-10deg); }
-            30% { transform: translateX(-50%) rotate(45deg); }
-            100% { transform: translateX(-50%) rotate(-10deg); }
-        }
-
-        .bubbles {
+        .bubbles { /* Acid-base bubbles animation */
             position: absolute;
             bottom: 0;
-            left: 0;
             width: 100%;
             height: 100%;
             opacity: 0;
-            animation: show-bubbles 3s forwards;
+            animation: show-bubbles 4s forwards;
             animation-delay: 2s;
         }
 
@@ -72,34 +54,20 @@ def lab():
             position: absolute;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
-            animation: rise 2s infinite;
+            animation: rise 1.5s infinite;
+        }
+
+        @keyframes show-bubbles {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         @keyframes rise {
-            0% { transform: translateY(0); opacity: 0.9; }
-            100% { transform: translateY(-120px); opacity: 0; }
+            0% { transform: translateY(0) translateX(var(--x-start)); opacity: 0.8; width: var(--size); height: var(--size); }
+            100% { transform: translateY(-120px) translateX(var(--x-end)); opacity: 0; width: calc(var(--size) * 2); height: calc(var(--size) * 2); }
         }
 
-        /* Pouring sodium and explosion */
-        .pour-sodium {
-            position: absolute;
-            top: -60px;
-            left: 50%;
-            width: 40px;
-            height: 40px;
-            background: #ccc;
-            border: 2px solid #999;
-            animation: pour-sodium 3s forwards;
-            transform-origin: bottom right;
-        }
-
-        @keyframes pour-sodium {
-            0% { transform: translateX(-50%) rotate(-10deg); }
-            30% { transform: translateX(-50%) rotate(45deg); }
-            100% { transform: translateX(-50%) rotate(-10deg); }
-        }
-
-        .explosion {
+        .explosion { /* Exothermic explosion animation */
             position: absolute;
             top: 50%;
             left: 50%;
@@ -109,64 +77,78 @@ def lab():
             opacity: 0;
             animation: explode 2s forwards;
             animation-delay: 3s;
+            pointer-events: none;
         }
 
         @keyframes explode {
-            0% { transform: scale(0); opacity: 0; background: radial-gradient(circle, #ff4400 0%, transparent 70%); }
-            50% { transform: scale(2); opacity: 1; background: radial-gradient(circle, #ff8800 0%, #ff4400 30%, transparent 70%); }
-            100% { transform: scale(3); opacity: 0; background: radial-gradient(circle, #ffbb00 0%, #ff8800 30%, transparent 70%); }
+            0% { transform: translate(-50%, -50%) scale(0); opacity: 0; background: radial-gradient(circle, #ff4400 0%, transparent 70%); }
+            50% { transform: translate(-50%, -50%) scale(2); opacity: 1; background: radial-gradient(circle, #ff8800 0%, #ff4400 30%, transparent 70%); }
+            100% { transform: translate(-50%, -50%) scale(3); opacity: 0; background: radial-gradient(circle, #ffbb00 0%, #ff8800 30%, transparent 70%); }
         }
 
-        .fire {
+        .fire { /* Fire spark animation */
             position: absolute;
             bottom: 50%;
+            left: 0;
             width: 100%;
             height: 60px;
+            opacity: 0;
             animation: burn 2s infinite;
-            background: linear-gradient(to top, #ff4400, #ff8800, transparent);
+            animation-delay: 3s;
             filter: blur(2px);
+            transform-origin: center bottom;
         }
 
         @keyframes burn {
-            0%, 100% { transform: scaleY(1); opacity: 0.8; }
-            50% { transform: scaleY(1.2); opacity: 1; }
+            0%, 100% { transform: scaleY(1); opacity: 0.8; background: linear-gradient(to top, #ff4400, #ff8800, transparent); }
+            50% { transform: scaleY(1.2); opacity: 1; background: linear-gradient(to top, #ff8800, #ffbb00, transparent); }
         }
 
-        /* Solution wave */
-        .indicator-wave {
-            animation: wave 1.5s ease-in-out infinite;
+        .ph-strip { /* pH strip animation for indicator */
+            position: absolute;
+            width: 12px;
+            height: 100px;
+            background: #333;
+            left: 50%;
+            transform-origin: bottom center;
+            animation: dip 6s forwards;
         }
 
-        @keyframes wave {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(5px); }
+        .ph-strip.acid { animation: dip-acid 6s forwards; }
+        .ph-strip.neutral { animation: dip-neutral 6s forwards; }
+        .ph-strip.base { animation: dip-base 6s forwards; }
+
+        @keyframes dip-acid {
+            0% { transform: translateX(-50%) translateY(-120%); background: #333; }
+            80% { transform: translateX(-50%) translateY(30%); background: #ff6b6b; }
+            100% { transform: translateX(-50%) translateY(-120%); background: #ff6b6b; }
         }
+        /* Additional animations for neutral and base strips */
         </style>
-        """, unsafe_allow_html=True
+        """,
+        unsafe_allow_html=True
     )
 
     st.markdown('<h1>Virtual Chemistry Lab 🧪</h1>', unsafe_allow_html=True)
     st.subheader("Choose your reaction type:")
-    reaction_type = st.selectbox("", ["", "Acid-Base (baking soda & vinegar)", "Exothermic (sodium & water)", "Indicator"])
+    reaction_type = st.selectbox("", ["", "Acid-Base (baking soda & vinegar)", "Exothermic (Warning: Explosive!)", "Indicator"])
 
     if reaction_type == "Acid-Base (baking soda & vinegar)":
         st.markdown("""
             <div class='beaker'>
-                <div class='liquid' style='background: rgba(255,0,0,0.4);'></div>
-                <div class='pour-baking-soda'></div>
+                <div class='liquid liquid-acid'></div>
                 <div class='bubbles'>
-                    <div class='bubble' style='--size: 10px;'></div>
-                    <div class='bubble' style='--size: 15px;'></div>
-                    <div class='bubble' style='--size: 12px;'></div>
+                    <div class='bubble' style='--x-start: 10px; --x-end: 20px; --size: 10px; animation-delay: 0s;'></div>
+                    <div class='bubble' style='--x-start: -15px; --x-end: -25px; --size: 15px; animation-delay: 0.5s;'></div>
+                    <div class='bubble' style='--x-start: 5px; --x-end: -10px; --size: 12px; animation-delay: 1s;'></div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
 
-    elif reaction_type == "Exothermic (sodium & water)":
+    elif reaction_type == "Exothermic (Warning: Explosive!)":
         st.markdown("""
             <div class='beaker'>
-                <div class='liquid' style='background: rgba(0,128,255,0.3);'></div>
-                <div class='pour-sodium'></div>
+                <div class='liquid liquid-water'></div>
                 <div class='explosion'></div>
                 <div class='fire'></div>
             </div>
@@ -174,8 +156,19 @@ def lab():
 
     elif reaction_type == "Indicator":
         st.markdown("""
-            <div class='beaker indicator-wave'>
-                <div class='liquid' style='background: rgba(255,255,255,0.9);'></div>
+            <div style='display: flex; justify-content: center;'>
+                <div class='beaker'>
+                    <div class='liquid' style='background: rgba(255,255,255,0.95);'></div>
+                    <div class='ph-strip acid'></div>
+                </div>
+                <div class='beaker'>
+                    <div class='liquid' style='background: rgba(255,255,255,0.95);'></div>
+                    <div class='ph-strip neutral'></div>
+                </div>
+                <div class='beaker'>
+                    <div class='liquid' style='background: rgba(255,255,255,0.95);'></div>
+                    <div class='ph-strip base'></div>
+                </div>
             </div>
         """, unsafe_allow_html=True)
 
