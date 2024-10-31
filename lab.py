@@ -1,142 +1,102 @@
 import streamlit as st
 
 def lab():
-    # Glowing animated title
+    # CSS for the glowing animated title
     st.markdown(
         """
-        <h1 style="text-align: center; color: black; font-size: 36px; animation: text-glow 1s infinite alternate;">
-            <span style="text-shadow: 0 0 20px lightblue, 0 0 30px lightblue;">Virtual Chemistry Lab 🧪</span>
-        </h1>
         <style>
-            @keyframes text-glow {
-                0% { text-shadow: 0 0 10px lightblue, 0 0 20px lightblue; }
-                100% { text-shadow: 0 0 20px lightblue, 0 0 30px lightblue; }
+        .glowing-title {
+            font-size: 2.5em;
+            color: black;
+            text-align: center;
+            text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6;
+            animation: text-glow 1.5s infinite alternate, move-title 2s infinite alternate;
+        }
+        
+        @keyframes text-glow {
+            from {
+                text-shadow: 0 0 5px #add8e6, 0 0 10px #add8e6;
             }
+            to {
+                text-shadow: 0 0 20px #add8e6, 0 0 30px #add8e6;
+            }
+        }
+
+        @keyframes move-title {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        .card {
+            display: inline-block;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+            animation: move-card 1.5s infinite alternate;
+        }
+
+        @keyframes move-card {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .reaction {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
         </style>
         """,
         unsafe_allow_html=True
     )
 
-    # Styled cards for reaction selection
-    st.markdown(
-        """
-        <div style="display: flex; justify-content: center; margin: 20px;">
-            <div class="card" onclick="selectReaction('acid-base')">
-                <h3>Acid-Base (baking soda & vinegar)</h3>
-            </div>
-            <div class="card" onclick="selectReaction('exothermic')">
-                <h3>Exothermic (Warning: Explosive!)</h3>
-            </div>
-            <div class="card" onclick="selectReaction('indicator')">
-                <h3>Indicator</h3>
-            </div>
-        </div>
-        <style>
-            .card {
-                border: 1px solid lightblue;
-                border-radius: 10px;
-                padding: 20px;
-                margin: 10px;
-                text-align: center;
-                cursor: pointer;
-                transition: transform 0.2s, box-shadow 0.2s;
-                animation: glow 1.5s infinite alternate;
-            }
-            .card:hover {
-                transform: scale(1.05);
-                box-shadow: 0 0 20px lightblue;
-            }
-            @keyframes glow {
-                0% { box-shadow: 0 0 10px lightblue; }
-                100% { box-shadow: 0 0 20px lightblue; }
-            }
-        </style>
-        """,
-        unsafe_allow_html=True
-    )
+    # Display the title with the CSS class
+    st.markdown('<h1 class="glowing-title">Virtual Chemistry Lab 🧪</h1>', unsafe_allow_html=True)
 
-    # Reaction selection handling
-    reaction = st.selectbox("Select a reaction type:", ["", "Acid-Base", "Exothermic", "Indicator"])
+    # Selection for reaction type
+    st.subheader("Choose your reaction type:")
+    reaction_type = st.selectbox("", ["", "Acid-Base (baking soda & vinegar)", "Exothermic (Warning: Explosive!)", "Indicator"])
 
-    if reaction == "Acid-Base":
-        st.write("Add baking soda to vinegar:")
-        add_acid_base()
-    elif reaction == "Exothermic":
-        st.write("Add sodium to water:")
-        add_exothermic()
-    elif reaction == "Indicator":
-        st.write("Add pH paper to solutions:")
-        add_indicator()
+    # Reaction simulation
+    if reaction_type == "Acid-Base (baking soda & vinegar)":
+        st.markdown('<div class="card">Acid-Base Reaction</div>', unsafe_allow_html=True)
+        st.write("Adding baking soda (NaHCO₃) to vinegar (CH₃COOH)...")
+        st.write("Observe the bubbles forming as CO₂ is released!")
+        st.write("**Reaction:**")
+        st.write("NaHCO₃  + CH₃COOH  → CO₂ + H₂O + NaCH₃COO")
+        
+        # Here you would implement a simple animation or visualization code
+        st.balloons()  # Placeholder for bubbles
 
-def add_acid_base():
-    if st.button("Add Baking Soda"):
-        # Simulation of bubbles
-        st.write("Adding baking soda to vinegar...")
-        st.markdown(
-            """
-            <div style="position: relative; height: 200px; overflow: hidden;">
-                <div class="bubbles"></div>
-            </div>
-            <style>
-                .bubbles {
-                    position: absolute;
-                    bottom: 0;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    width: 20px;
-                    height: 20px;
-                    border-radius: 50%;
-                    background: white;
-                    opacity: 0.7;
-                    animation: bubble-up 1s infinite;
-                }
-                @keyframes bubble-up {
-                    0% { transform: translateY(0); opacity: 0.7; }
-                    100% { transform: translateY(-150px); opacity: 0; }
-                }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-        st.write("NaHCO₃ + CH₃COOH → CO₂ + H₂O + NaCH₃COO")
+    elif reaction_type == "Exothermic (Warning: Explosive!)":
+        st.markdown('<div class="card">Exothermic Reaction</div>', unsafe_allow_html=True)
+        st.write("Adding sodium (Na) to water (H₂O)...")
+        st.write("**Warning: Explosive Reaction!**")
+        st.write("Watch out for sparks and a loud BOOM!")
+        st.write("**Reaction:**")
+        st.write("2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)")
+        
+        # Here you would implement an explosion effect
+        st.write("BOOM!")  # Placeholder for explosion sound and effect
 
-def add_exothermic():
-    if st.button("Add Sodium"):
-        # Show explosion simulation
-        st.markdown(
-            """
-            <h3 style="color: red;">BOOM!</h3>
-            <div style="color: orange;">2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)</div>
-            <style>
-                @keyframes explode {
-                    0% { transform: scale(1); }
-                    50% { transform: scale(1.5); color: red; }
-                    100% { transform: scale(1); color: black; }
-                }
-                h3 {
-                    animation: explode 1s infinite;
-                }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
+    elif reaction_type == "Indicator":
+        st.markdown('<div class="card">Indicator Reaction</div>', unsafe_allow_html=True)
+        st.write("Adding pH paper to different solutions...")
+        st.write("Observe the color changes according to the pH level of the solutions.")
+        
+        # Placeholder for the pH paper and solutions
+        st.write("Acidic Solution: Red")
+        st.write("Neutral Solution: Green")
+        st.write("Basic Solution: Blue")
 
-def add_indicator():
-    st.write("Choose a solution to test:")
-    solutions = ["Solution 1 (Acid)", "Solution 2 (Base)", "Solution 3 (Neutral)", "Solution 4 (Acid)", "Solution 5 (Base)", "Solution 6 (Neutral)"]
-    selected_solution = st.selectbox("Select a solution:", solutions)
-
-    if st.button("Add pH Paper"):
-        color_change(selected_solution)
-
-def color_change(solution):
-    color_map = {
-        "Solution 1 (Acid)": "red",
-        "Solution 2 (Base)": "blue",
-        "Solution 3 (Neutral)": "green",
-        "Solution 4 (Acid)": "red",
-        "Solution 5 (Base)": "blue",
-        "Solution 6 (Neutral)": "green",
-    }
-    color = color_map.get(solution, "gray")
-    st.markdown(f"<h3 style='color: {color};'>pH Paper Color: {color}</h3>", unsafe_allow_html=True)
+# To run the lab function, uncomment below line
+# lab()
