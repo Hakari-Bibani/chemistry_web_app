@@ -2,7 +2,6 @@ import streamlit as st
 import time
 
 def lab():
-    # Enhanced CSS with more realistic animations
     st.markdown(
         """
         <style>
@@ -27,7 +26,7 @@ def lab():
             border-radius: 0 0 20px 20px;
             position: relative;
             margin: 20px;
-            background: linear-gradient(to bottom, #ffffff00, #ffffff40);
+            background: transparent;
             overflow: hidden;
         }
 
@@ -47,26 +46,47 @@ def lab():
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 80%;
+            height: 50%;
             background: rgba(255, 255, 255, 0.8);
-            transition: background-color 2s;
+            transition: all 1s;
         }
 
-        .powder {
+        .powder-stream {
             position: absolute;
-            top: -30px;
+            top: -50px;
             left: 50%;
-            width: 20px;
-            height: 20px;
+            width: 8px;
+            height: 0;
+            background: white;
+            transform-origin: top center;
+            animation: pour 3s forwards;
+            clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+        }
+
+        @keyframes pour {
+            0% { height: 0; opacity: 0; }
+            10% { height: 100px; opacity: 1; }
+            90% { height: 100px; opacity: 1; }
+            100% { height: 0; opacity: 0; }
+        }
+
+        .powder-particles {
+            position: absolute;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
             background: white;
             border-radius: 50%;
-            opacity: 0;
-            animation: fall 2s forwards;
+            animation: fall-scatter 2s linear forwards;
         }
 
-        @keyframes fall {
-            0% { transform: translateY(0) translateX(-50%); opacity: 1; }
-            100% { transform: translateY(200px) translateX(-50%); opacity: 0; }
+        @keyframes fall-scatter {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--x-end), var(--y-end)); opacity: 0; }
         }
 
         .bubbles {
@@ -74,26 +94,30 @@ def lab():
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: 50%;
             pointer-events: none;
         }
 
         .bubble {
             position: absolute;
-            bottom: 0;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
             animation: rise 2s infinite;
+            opacity: 0;
         }
 
         @keyframes rise {
             0% { 
-                transform: translateY(0) translateX(0);
+                transform: translateY(0) translateX(var(--x-start));
                 opacity: 0.8;
+                width: var(--size);
+                height: var(--size);
             }
             100% { 
-                transform: translateY(-180px) translateX(var(--x-offset));
+                transform: translateY(-100px) translateX(var(--x-end));
                 opacity: 0;
+                width: calc(var(--size) * 1.5);
+                height: calc(var(--size) * 1.5);
             }
         }
 
@@ -101,27 +125,26 @@ def lab():
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%) scale(0);
             width: 200px;
             height: 200px;
+            background: radial-gradient(circle, #ff4400 0%, transparent 70%);
+            animation: explode 1.5s forwards;
             opacity: 0;
-            pointer-events: none;
-        }
-
-        .explosion.active {
-            animation: explode 1s forwards;
         }
 
         @keyframes explode {
             0% { 
                 transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(2);
                 opacity: 1;
-                background: radial-gradient(circle, #ff4400 0%, #ff000000 70%);
             }
             100% { 
-                transform: translate(-50%, -50%) scale(2);
+                transform: translate(-50%, -50%) scale(3);
                 opacity: 0;
-                background: radial-gradient(circle, #ff440000 0%, #ff000000 100%);
             }
         }
 
@@ -132,14 +155,32 @@ def lab():
             background: #fff;
             left: 50%;
             transform-origin: bottom center;
-            animation: dip 4s forwards;
+            animation: dip 6s forwards;
         }
 
-        @keyframes dip {
-            0% { transform: translateX(-50%) translateY(-100%) rotate(0deg); }
-            25% { transform: translateX(-50%) translateY(50%) rotate(0deg); }
-            75% { transform: translateX(-50%) translateY(50%) rotate(0deg); }
-            100% { transform: translateX(-50%) translateY(-100%) rotate(0deg); }
+        .ph-strip.acid { animation: dip-acid 6s forwards; }
+        .ph-strip.neutral { animation: dip-neutral 6s forwards; }
+        .ph-strip.base { animation: dip-base 6s forwards; }
+
+        @keyframes dip-acid {
+            0% { transform: translateX(-50%) translateY(-100%); background: #fff; }
+            25% { transform: translateX(-50%) translateY(30%); background: #fff; }
+            75% { transform: translateX(-50%) translateY(30%); background: #ff6b6b; }
+            100% { transform: translateX(-50%) translateY(-100%); background: #ff6b6b; }
+        }
+
+        @keyframes dip-neutral {
+            0% { transform: translateX(-50%) translateY(-100%); background: #fff; }
+            25% { transform: translateX(-50%) translateY(30%); background: #fff; }
+            75% { transform: translateX(-50%) translateY(30%); background: #51cf66; }
+            100% { transform: translateX(-50%) translateY(-100%); background: #51cf66; }
+        }
+
+        @keyframes dip-base {
+            0% { transform: translateX(-50%) translateY(-100%); background: #fff; }
+            25% { transform: translateX(-50%) translateY(30%); background: #fff; }
+            75% { transform: translateX(-50%) translateY(30%); background: #339af0; }
+            100% { transform: translateX(-50%) translateY(-100%); background: #339af0; }
         }
 
         .sparks {
@@ -151,26 +192,28 @@ def lab():
 
         .spark {
             position: absolute;
-            width: 4px;
-            height: 4px;
+            width: 6px;
+            height: 6px;
             background: #ff4400;
             border-radius: 50%;
-            animation: spark 0.8s linear forwards;
+            filter: blur(2px);
+            animation: spark 1s linear forwards;
         }
 
         @keyframes spark {
-            0% { transform: translate(0, 0); opacity: 1; }
-            100% { transform: translate(var(--x-end), var(--y-end)); opacity: 0; }
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { 
+                transform: translate(var(--x-end), var(--y-end)) scale(0);
+                opacity: 0;
+            }
         }
         </style>
         """,
         unsafe_allow_html=True
     )
 
-    # Display the title
     st.markdown('<h1 class="glowing-title">Virtual Chemistry Lab 🧪</h1>', unsafe_allow_html=True)
 
-    # Selection for reaction type
     st.subheader("Choose your reaction type:")
     reaction_type = st.selectbox("", ["", "Acid-Base (baking soda & vinegar)", "Exothermic (Warning: Explosive!)", "Indicator"])
 
@@ -178,12 +221,16 @@ def lab():
         st.markdown("""
             <div class='beaker'>
                 <div class='liquid' style='background: rgba(255,255,255,0.8);'></div>
-                <div class='powder'></div>
+                <div class='powder-stream'></div>
+                <div class='powder-particles'>
+                    <div class='particle' style='--x-end: 5px; --y-end: 100px; animation-delay: 0.2s;'></div>
+                    <div class='particle' style='--x-end: -8px; --y-end: 120px; animation-delay: 0.4s;'></div>
+                    <div class='particle' style='--x-end: 12px; --y-end: 90px; animation-delay: 0.6s;'></div>
+                </div>
                 <div class='bubbles'>
-                    <div class='bubble' style='--x-offset: 10px; animation-delay: 0s;'></div>
-                    <div class='bubble' style='--x-offset: -15px; animation-delay: 0.5s;'></div>
-                    <div class='bubble' style='--x-offset: 5px; animation-delay: 1s;'></div>
-                    <div class='bubble' style='--x-offset: -10px; animation-delay: 1.5s;'></div>
+                    <div class='bubble' style='--x-start: 10px; --x-end: 20px; --size: 8px; animation-delay: 1s;'></div>
+                    <div class='bubble' style='--x-start: -15px; --x-end: -25px; --size: 12px; animation-delay: 1.5s;'></div>
+                    <div class='bubble' style='--x-start: 5px; --x-end: -10px; --size: 10px; animation-delay: 2s;'></div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
@@ -195,12 +242,13 @@ def lab():
         st.markdown("""
             <div class='beaker'>
                 <div class='liquid' style='background: rgba(255,255,255,0.9);'></div>
-                <div class='powder'></div>
+                <div class='powder-stream'></div>
                 <div class='explosion'></div>
                 <div class='sparks'>
-                    <div class='spark' style='--x-end: 50px; --y-end: -50px;'></div>
-                    <div class='spark' style='--x-end: -30px; --y-end: -40px;'></div>
-                    <div class='spark' style='--x-end: 20px; --y-end: -60px;'></div>
+                    <div class='spark' style='--x-end: 100px; --y-end: -80px; animation-delay: 2s;'></div>
+                    <div class='spark' style='--x-end: -80px; --y-end: -60px; animation-delay: 2.2s;'></div>
+                    <div class='spark' style='--x-end: 60px; --y-end: -100px; animation-delay: 2.4s;'></div>
+                    <div class='spark' style='--x-end: -100px; --y-end: -90px; animation-delay: 2.6s;'></div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
@@ -211,17 +259,17 @@ def lab():
     elif reaction_type == "Indicator":
         st.markdown("""
             <div style='display: flex; justify-content: center;'>
-                <div class='beaker' style='background: rgba(255,0,0,0.1);'>
-                    <div class='liquid' style='background: rgba(255,0,0,0.1);'></div>
-                    <div class='ph-strip' style='animation-delay: 0s;'></div>
+                <div class='beaker' style='margin: 0 40px;'>
+                    <div class='liquid' style='background: rgba(255,200,200,0.3);'></div>
+                    <div class='ph-strip acid'></div>
                 </div>
-                <div class='beaker' style='background: rgba(0,255,0,0.1);'>
-                    <div class='liquid' style='background: rgba(0,255,0,0.1);'></div>
-                    <div class='ph-strip' style='animation-delay: 4s;'></div>
+                <div class='beaker' style='margin: 0 40px;'>
+                    <div class='liquid' style='background: rgba(200,255,200,0.3);'></div>
+                    <div class='ph-strip neutral'></div>
                 </div>
-                <div class='beaker' style='background: rgba(0,0,255,0.1);'>
-                    <div class='liquid' style='background: rgba(0,0,255,0.1);'></div>
-                    <div class='ph-strip' style='animation-delay: 8s;'></div>
+                <div class='beaker' style='margin: 0 40px;'>
+                    <div class='liquid' style='background: rgba(200,200,255,0.3);'></div>
+                    <div class='ph-strip base'></div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
