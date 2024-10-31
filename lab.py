@@ -1,8 +1,7 @@
 import streamlit as st
-import time
 
 def lab():
-    # CSS for the glowing animated title
+    # CSS for the glowing animated title and reactions
     st.markdown(
         """
         <style>
@@ -13,7 +12,7 @@ def lab():
             text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6, 0 0 30px #add8e6, 0 0 40px #add8e6;
             animation: text-glow 1.5s infinite alternate, move-title 2s infinite alternate;
         }
-        
+
         @keyframes text-glow {
             from {
                 text-shadow: 0 0 5px #add8e6, 0 0 10px #add8e6;
@@ -51,66 +50,63 @@ def lab():
             font-size: 1.5em;
             margin-top: 20px;
         }
-        
+
+        /* Beaker styles */
         .beaker {
             width: 100px;
-            height: 150px;
-            border: 2px solid #555;
-            border-radius: 10px;
-            background: linear-gradient(to top, #f0f0f0, #cfe3f4);
+            height: 200px;
+            border: 3px solid #333;
+            border-radius: 10px 10px 0 0;
             position: relative;
-            margin: auto;
             overflow: hidden;
+            background-color: #e0e0e0;
         }
 
-        .bubbles {
-            background-color: white;
-            border-radius: 50%;
+        .liquid {
+            width: 100%;
+            height: 50%;
+            background-color: #add8e6; /* Color of vinegar */
             position: absolute;
-            width: 10px;
-            height: 10px;
-            animation: bubble-rise 1s linear infinite;
-        }
-
-        @keyframes bubble-rise {
-            0% { bottom: 0; opacity: 1; }
-            100% { bottom: 100%; opacity: 0; }
+            bottom: 0;
+            transition: height 1s;
         }
 
         .sodium {
             width: 20px;
             height: 20px;
-            background-color: white;
-            border-radius: 5px;
-            margin: auto;
-            position: relative;
-        }
-
-        .explosion {
-            display: none;
-            color: red;
-            font-size: 3em;
-            text-align: center;
+            background-color: white; /* Sodium color */
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: explode 0.5s forwards;
+            bottom: 60px; /* Adjust for appearance above the beaker */
+            left: 40%;
+            transition: transform 0.5s;
         }
 
-        @keyframes explode {
-            0% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(3); opacity: 0; }
+        .bubble {
+            background-color: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            animation: rise 1s forwards;
         }
 
+        @keyframes rise {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+
+        /* pH paper styles */
         .ph-paper {
-            width: 40px;
-            height: 10px;
-            background-color: lightcoral;
-            margin: auto;
-            display: none;
+            width: 10px;
+            height: 40px;
+            background-color: pink; /* Initial color of pH paper */
+            border: 1px solid #000;
+            position: relative;
+            animation: dive 1s forwards;
         }
 
+        @keyframes dive {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(200px); }
+        }
         </style>
         """,
         unsafe_allow_html=True
@@ -123,52 +119,59 @@ def lab():
     st.subheader("Choose your reaction type:")
     reaction_type = st.selectbox("", ["", "Acid-Base (baking soda & vinegar)", "Exothermic (Warning: Explosive!)", "Indicator"])
 
-    # Reaction simulation
+    # Acid-Base Reaction Simulation
     if reaction_type == "Acid-Base (baking soda & vinegar)":
         st.markdown('<div class="card">Acid-Base Reaction</div>', unsafe_allow_html=True)
         st.write("Adding baking soda (NaHCO₃) to vinegar (CH₃COOH)...")
-
-        # Display the beaker with bubbles
-        st.markdown('<div class="beaker" id="beaker"><div class="bubbles"></div></div>', unsafe_allow_html=True)
+        
+        # Display the beaker
+        st.markdown('<div class="beaker"><div class="liquid"></div></div>', unsafe_allow_html=True)
+        
+        # Simulate bubbles rising
+        for i in range(5):
+            st.markdown(f'<div class="bubble" style="width: {i * 5 + 10}px; height: {i * 5 + 10}px; left: {i * 10 + 10}px;"></div>', unsafe_allow_html=True)
+        
         st.write("Observe the bubbles forming as CO₂ is released!")
         st.write("**Reaction:**")
         st.write("NaHCO₃  + CH₃COOH  → CO₂ + H₂O + NaCH₃COO")
 
-        # Simulating bubbles
-        for _ in range(5):  # Simulating multiple bubbles
-            st.markdown('<div class="bubbles"></div>', unsafe_allow_html=True)
-            time.sleep(0.5)  # Delay for effect
-
+    # Exothermic Reaction Simulation
     elif reaction_type == "Exothermic (Warning: Explosive!)":
         st.markdown('<div class="card">Exothermic Reaction</div>', unsafe_allow_html=True)
         st.write("Adding sodium (Na) to water (H₂O)...")
         st.write("**Warning: Explosive Reaction!**")
+        
+        # Display the beaker with water
+        st.markdown('<div class="beaker"><div class="liquid" style="background-color: lightblue;"></div></div>', unsafe_allow_html=True)
+        
+        # Simulate sodium addition and explosion
+        st.markdown('<div class="sodium"></div>', unsafe_allow_html=True)
         st.write("Watch out for sparks and a loud BOOM!")
-        
-        # Display sodium and water
-        sodium_display = st.markdown('<div class="sodium">Na</div>', unsafe_allow_html=True)
-        water_display = st.markdown('<div class="beaker" id="water"><div style="background-color: #00f; height: 100%;"></div></div>', unsafe_allow_html=True)
-        
-        # Simulating explosion
-        time.sleep(1)  # Delay before explosion
-        explosion_display = st.markdown('<div class="explosion" id="explosion">BOOM!</div>', unsafe_allow_html=True)
         st.write("**Reaction:**")
         st.write("2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)")
-        
-        # Make explosion visible
-        time.sleep(1)
-        st.markdown('<script>document.getElementById("explosion").style.display="block";</script>', unsafe_allow_html=True)
 
+        # Placeholder for explosion effect (you can implement your own)
+        st.write("BOOM!")  # Placeholder for explosion sound and effect
+
+    # Indicator Reaction Simulation
     elif reaction_type == "Indicator":
         st.markdown('<div class="card">Indicator Reaction</div>', unsafe_allow_html=True)
         st.write("Adding pH paper to different solutions...")
-        st.write("Observe the color changes according to the pH level of the solutions.")
+        
+        # Display the pH paper diving into solutions
+        for solution in ["Acidic", "Neutral", "Basic"]:
+            st.markdown(f'<div class="ph-paper" style="background-color: {solution_color(solution)};"></div>', unsafe_allow_html=True)
+            st.write(f"{solution} Solution: {solution_color(solution)}")
 
-        # Display pH paper and simulate color change
-        for color in ["lightcoral", "lightgreen", "lightblue"]:  # Simulating color changes
-            st.markdown(f'<div class="ph-paper" style="background-color: {color};"></div>', unsafe_allow_html=True)
-            time.sleep(1)  # Delay for effect
-            st.write("Color changed!")
+# Function to determine the color of the pH paper based on the solution type
+def solution_color(type):
+    if type == "Acidic":
+        return "red"
+    elif type == "Neutral":
+        return "green"
+    elif type == "Basic":
+        return "blue"
+    return "pink"  # Default color for pH paper
 
 # To run the lab function, uncomment below line
 # lab()
