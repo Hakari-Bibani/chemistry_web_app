@@ -4,10 +4,9 @@ def lab():
     st.markdown(
         """
         <style>
-        /* Neon glowing title animation */
         @keyframes text-glow {
-            0%, 100% { color: #fff; text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff69b4, 0 0 20px #ff69b4; }
-            50% { color: #ff69b4; text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff69b4, 0 0 40px #ff69b4; }
+            0%, 100% { color: #fff; text-shadow: 0 0 5px #ff69b4, 0 0 10px #ff69b4, 0 0 20px #ff69b4; transform: translateX(0); }
+            50% { color: #ff69b4; text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff69b4, 0 0 40px #ff69b4; transform: translateX(10px); }
         }
 
         h1 {
@@ -17,92 +16,87 @@ def lab():
             animation: text-glow 3s ease-in-out infinite;
         }
 
-        /* Baking soda and vinegar reaction */
-        .vinegar-beaker {
+        .beaker {
             display: inline-block;
             width: 140px;
             height: 200px;
-            position: relative;
-            margin: 20px;
-            overflow: hidden;
-            background: #ffcccc;
+            border: 5px solid #ddd;
             border-radius: 0 0 20px 20px;
-            animation: wave 3s infinite;
+            position: relative;
+            margin: 40px;
+            overflow: hidden;
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.2);
+            background: transparent;
         }
 
-        .baking-soda {
-            width: 40px;
-            height: 60px;
-            background: #fff;
-            border: 2px solid #ddd;
+        .liquid {
             position: absolute;
-            top: -40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: pour-baking-soda 3s forwards;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            transition: all 0.5s;
         }
 
-        @keyframes pour-baking-soda {
-            0% { top: -40px; }
-            100% { top: 80px; }
+        /* Baking soda pour and bubbles */
+        .pour-baking-soda {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            width: 40px;
+            height: 40px;
+            background: #fff;
+            border: 2px solid #999;
+            animation: pour-soda 3s forwards;
+            transform-origin: bottom right;
+        }
+
+        @keyframes pour-soda {
+            0% { transform: translateX(-50%) rotate(-10deg); }
+            30% { transform: translateX(-50%) rotate(45deg); }
+            100% { transform: translateX(-50%) rotate(-10deg); }
         }
 
         .bubbles {
             position: absolute;
             bottom: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             opacity: 0;
-            animation: show-bubbles 4s forwards;
-        }
-
-        @keyframes show-bubbles {
-            0% { opacity: 0; }
-            50% { opacity: 0.6; }
-            100% { opacity: 1; }
+            animation: show-bubbles 3s forwards;
+            animation-delay: 2s;
         }
 
         .bubble {
             position: absolute;
-            bottom: 0;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
             animation: rise 2s infinite;
         }
 
         @keyframes rise {
-            0% { transform: translateY(0); opacity: 1; }
+            0% { transform: translateY(0); opacity: 0.9; }
             100% { transform: translateY(-120px); opacity: 0; }
         }
 
-        /* Sodium and water reaction */
-        .water-beaker {
-            display: inline-block;
-            width: 140px;
-            height: 200px;
-            background: #cceeff;
-            position: relative;
-            margin: 20px;
-            overflow: hidden;
-            border-radius: 0 0 20px 20px;
-            animation: wave 3s infinite;
-        }
-
-        .sodium {
-            width: 30px;
-            height: 30px;
-            background: #bbb;
-            border-radius: 50%;
+        /* Pouring sodium and explosion */
+        .pour-sodium {
             position: absolute;
-            top: -50px;
+            top: -60px;
             left: 50%;
-            transform: translateX(-50%);
-            animation: pour-sodium 2s forwards;
+            width: 40px;
+            height: 40px;
+            background: #ccc;
+            border: 2px solid #999;
+            animation: pour-sodium 3s forwards;
+            transform-origin: bottom right;
         }
 
         @keyframes pour-sodium {
-            0% { top: -50px; }
-            100% { top: 70px; }
+            0% { transform: translateX(-50%) rotate(-10deg); }
+            30% { transform: translateX(-50%) rotate(45deg); }
+            100% { transform: translateX(-50%) rotate(-10deg); }
         }
 
         .explosion {
@@ -111,9 +105,10 @@ def lab():
             left: 50%;
             width: 300px;
             height: 300px;
+            transform: translate(-50%, -50%);
             opacity: 0;
             animation: explode 2s forwards;
-            animation-delay: 2s;
+            animation-delay: 3s;
         }
 
         @keyframes explode {
@@ -137,7 +132,7 @@ def lab():
             50% { transform: scaleY(1.2); opacity: 1; }
         }
 
-        /* Solution wave for indicator */
+        /* Solution wave */
         .indicator-wave {
             animation: wave 1.5s ease-in-out infinite;
         }
@@ -156,20 +151,22 @@ def lab():
 
     if reaction_type == "Acid-Base (baking soda & vinegar)":
         st.markdown("""
-            <div class='vinegar-beaker'>
-                <div class='baking-soda'></div>
+            <div class='beaker'>
+                <div class='liquid' style='background: rgba(255,0,0,0.4);'></div>
+                <div class='pour-baking-soda'></div>
                 <div class='bubbles'>
-                    <div class='bubble' style='width: 10px; height: 10px; left: 20%;'></div>
-                    <div class='bubble' style='width: 15px; height: 15px; left: 40%;'></div>
-                    <div class='bubble' style='width: 12px; height: 12px; left: 60%;'></div>
+                    <div class='bubble' style='--size: 10px;'></div>
+                    <div class='bubble' style='--size: 15px;'></div>
+                    <div class='bubble' style='--size: 12px;'></div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
 
     elif reaction_type == "Exothermic (sodium & water)":
         st.markdown("""
-            <div class='water-beaker'>
-                <div class='sodium'></div>
+            <div class='beaker'>
+                <div class='liquid' style='background: rgba(0,128,255,0.3);'></div>
+                <div class='pour-sodium'></div>
                 <div class='explosion'></div>
                 <div class='fire'></div>
             </div>
@@ -177,7 +174,7 @@ def lab():
 
     elif reaction_type == "Indicator":
         st.markdown("""
-            <div class='water-beaker indicator-wave'>
+            <div class='beaker indicator-wave'>
                 <div class='liquid' style='background: rgba(255,255,255,0.9);'></div>
             </div>
         """, unsafe_allow_html=True)
