@@ -1,7 +1,8 @@
 import streamlit as st
+import time
 
 def lab():
-    # CSS for the glowing animated title and animations
+    # CSS for the glowing animated title and cards
     st.markdown(
         """
         <style>
@@ -28,98 +29,83 @@ def lab():
             100% { transform: translateX(0); }
         }
 
-        .reaction-container {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px;
+        .card {
+            display: inline-block;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+            animation: move-card 1.5s infinite alternate;
+        }
+
+        @keyframes move-card {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0); }
+        }
+
+        .reaction {
+            font-size: 1.5em;
+            margin-top: 20px;
         }
 
         .beaker {
+            display: inline-block;
             width: 100px;
-            height: 200px;
-            border: 2px solid #444;
-            border-radius: 10px 10px 0 0;
+            height: 150px;
+            border: 2px solid #999;
+            border-radius: 5px;
             position: relative;
-            background-color: rgba(173, 216, 230, 0.7);
-        }
-
-        .baking-soda {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: white;
-            animation: drop-baking-soda 2s forwards;
-        }
-
-        @keyframes drop-baking-soda {
-            0% { top: -20px; opacity: 1; }
-            100% { top: 160px; opacity: 0; }
+            margin: 0 20px;
+            background-color: #e0e0e0;
+            overflow: hidden;
         }
 
         .bubbles {
             position: absolute;
-            bottom: 50px;
-            width: 15px;
-            height: 15px;
-            background-color: white;
+            bottom: 10px;
+            left: 10px;
+            width: 80%;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.5);
             border-radius: 50%;
-            animation: bubble-rise 1s infinite;
-            opacity: 0.8;
+            animation: bubble-rise 1.5s infinite;
         }
 
         @keyframes bubble-rise {
-            0% { transform: translateY(0); opacity: 1; }
-            100% { transform: translateY(-150px); opacity: 0; }
+            0% { transform: translateY(20px); opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { transform: translateY(-30px); opacity: 0; }
+        }
+
+        .sodium {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: white;
+            border: 2px solid #999;
+            border-radius: 50%;
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .explosion {
-            position: relative;
-            width: 100px;
-            height: 200px;
-            border: 2px solid #444;
-            border-radius: 10px 10px 0 0;
-            background-color: rgba(173, 216, 230, 0.7);
-            animation: shake 0.5s infinite alternate;
+            display: none;
+            color: red;
+            font-size: 2em;
+            text-align: center;
+            animation: explode 1s forwards;
         }
 
-        @keyframes shake {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-10px); }
+        @keyframes explode {
+            from { opacity: 0; }
+            to { opacity: 1; transform: scale(2); }
         }
-
-        .sparks {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background-color: red;
-            border-radius: 50%;
-            animation: spark 1s infinite;
-        }
-
-        @keyframes spark {
-            0% { opacity: 1; transform: translateY(0); }
-            50% { opacity: 1; transform: translateY(-20px); }
-            100% { opacity: 0; transform: translateY(-40px); }
-        }
-
-        .indicator {
-            width: 50px;
-            height: 10px;
-            background-color: lightblue;
-            position: absolute;
-            bottom: 0;
-            animation: dip 2s forwards;
-        }
-
-        @keyframes dip {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100px); }
-        }
-
-        .acid-solution { background-color: lightcoral; }
-        .neutral-solution { background-color: lightgreen; }
-        .base-solution { background-color: lightblue; }
-
         </style>
         """,
         unsafe_allow_html=True
@@ -134,45 +120,46 @@ def lab():
 
     # Reaction simulation
     if reaction_type == "Acid-Base (baking soda & vinegar)":
-        st.markdown('<div class="beaker" style="position: relative;">'
-                    '<div class="baking-soda"></div>'
-                    '<div class="bubbles" style="animation-delay: 0s;"></div>'
-                    '<div class="bubbles" style="animation-delay: 0.2s;"></div>'
-                    '<div class="bubbles" style="animation-delay: 0.4s;"></div>'
-                    '<div class="bubbles" style="animation-delay: 0.6s;"></div>'
-                    '<div class="bubbles" style="animation-delay: 0.8s;"></div>'
-                    '</div>', unsafe_allow_html=True)
-        
+        st.markdown('<div class="card">Acid-Base Reaction</div>', unsafe_allow_html=True)
         st.write("Adding baking soda (NaHCO₃) to vinegar (CH₃COOH)...")
         st.write("Observe the bubbles forming as CO₂ is released!")
         st.write("**Reaction:**")
-        st.write("NaHCO₃ + CH₃COOH → CO₂ + H₂O + NaCH₃COO")
+        st.write("NaHCO₃  + CH₃COOH  → CO₂ + H₂O + NaCH₃COO")
+
+        # Show the beaker and add baking soda
+        st.markdown('<div class="beaker"><div class="bubbles"></div></div>', unsafe_allow_html=True)
+        st.write("Baking soda is being added...")
+        time.sleep(2)  # Simulate the time for adding baking soda
+        st.write("Bubbles are rising up!")
 
     elif reaction_type == "Exothermic (Warning: Explosive!)":
-        st.markdown('<div class="explosion"></div>', unsafe_allow_html=True)
+        st.markdown('<div class="card">Exothermic Reaction</div>', unsafe_allow_html=True)
         st.write("Adding sodium (Na) to water (H₂O)...")
         st.write("**Warning: Explosive Reaction!**")
         st.write("Watch out for sparks and a loud BOOM!")
         st.write("**Reaction:**")
         st.write("2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)")
 
-        # Displaying sparks
-        for i in range(5):
-            st.markdown(f'<div class="sparks" style="animation-delay: {i * 0.2}s; left: {i * 20}px;"></div>', unsafe_allow_html=True)
+        # Show the sodium being added
+        st.markdown('<div class="beaker"><div class="sodium"></div></div>', unsafe_allow_html=True)
+        st.write("Sodium is being added...")
+        time.sleep(2)  # Simulate the time for adding sodium
+        st.markdown('<div class="explosion">BOOM!</div>', unsafe_allow_html=True)
+        time.sleep(1)  # Pause before the next line
+        st.write("An explosion occurs!")
 
     elif reaction_type == "Indicator":
-        st.markdown('<div style="position: relative; width: 100%; height: 300px;">'
-                    '<div class="indicator" style="animation-delay: 0s;"></div>'
-                    '<div class="beaker acid-solution" style="position: absolute; left: 10%;"></div>'
-                    '<div class="beaker neutral-solution" style="position: absolute; left: 45%;"></div>'
-                    '<div class="beaker base-solution" style="position: absolute; left: 80%;"></div>'
-                    '</div>', unsafe_allow_html=True)
-        
+        st.markdown('<div class="card">Indicator Reaction</div>', unsafe_allow_html=True)
         st.write("Adding pH paper to different solutions...")
-        st.write("Observe the color changes according to the pH level of the solutions:")
-        st.write("- Acidic Solution: Red")
-        st.write("- Neutral Solution: Green")
-        st.write("- Basic Solution: Blue")
+        st.write("Observe the color changes according to the pH level of the solutions.")
+
+        # Show the pH paper diving into solutions
+        st.write("The pH paper is being added to the solutions...")
+        time.sleep(2)  # Simulate the time for adding the pH paper
+        st.write("Acidic Solution: Red")
+        st.write("Neutral Solution: Green")
+        st.write("Basic Solution: Blue")
+        st.write("The pH paper changes color based on the solution it is in!")
 
 # To run the lab function, uncomment below line
 # lab()
