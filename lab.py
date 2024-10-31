@@ -1,5 +1,4 @@
-this is my latest lovely script: 
- : import streamlit as st
+ import streamlit as st
 import time
 
 def lab():
@@ -304,4 +303,4 @@ def lab():
         st.write("- Basic solution: Strip turns blue")
 
 if __name__ == "__main__":
-    lab()                                                 
+    lab()    
