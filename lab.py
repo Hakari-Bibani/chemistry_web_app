@@ -1,33 +1,45 @@
 import streamlit as st
+import time
 
 def lab():
+    # Enhanced CSS with more realistic animations
     st.markdown(
         """
         <style>
-        /* Glowing Title */
-        @keyframes text-glow {
-            0% { text-shadow: 0 0 10px #00e6e6, 0 0 20px #00e6e6, 0 0 30px #00e6e6, 0 0 40px #00e6e6, 0 0 70px #00e6e6, 0 0 80px #00e6e6, 0 0 100px #00e6e6, 0 0 150px #00e6e6; }
-            100% { text-shadow: 0 0 5px #00e6e6, 0 0 10px #00e6e6, 0 0 15px #00e6e6, 0 0 20px #00e6e6, 0 0 35px #00e6e6, 0 0 40px #00e6e6, 0 0 50px #00e6e6, 0 0 75px #00e6e6; }
-        }
-        h1 {
-            font-size: 3em;
+        .glowing-title {
+            font-size: 2.5em;
+            color: black;
             text-align: center;
-            color: #00e6e6;
-            animation: text-glow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 10px #add8e6, 0 0 20px #add8e6;
+            animation: text-glow 1.5s infinite alternate;
         }
         
-        /* Acid-Base Reaction: Baking Soda and Vinegar */
+        @keyframes text-glow {
+            from { text-shadow: 0 0 5px #add8e6, 0 0 10px #add8e6; }
+            to { text-shadow: 0 0 20px #add8e6, 0 0 30px #add8e6; }
+        }
+
         .beaker {
             display: inline-block;
-            width: 140px;
-            height: 200px;
-            border: 5px solid #ddd;
+            width: 120px;
+            height: 180px;
+            border: 4px solid #999;
             border-radius: 0 0 20px 20px;
             position: relative;
-            margin: 40px;
-            background: transparent;
+            margin: 20px;
+            background: linear-gradient(to bottom, #ffffff00, #ffffff40);
             overflow: hidden;
-            box-shadow: inset 0 0 20px rgba(255,255,255,0.2);
+        }
+
+        .beaker::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            height: 20px;
+            background: #999;
+            border-radius: 5px;
         }
 
         .liquid {
@@ -35,138 +47,190 @@ def lab():
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 50%;
-            background: rgba(255, 102, 102, 0.6);
-            transition: all 0.5s;
+            height: 80%;
+            background: rgba(255, 255, 255, 0.8);
+            transition: background-color 2s;
         }
 
-        /* Powder Container and Stream */
-        .powder-container {
+        .powder {
             position: absolute;
-            top: -80px;
+            top: -30px;
             left: 50%;
-            transform: translateX(-50%) rotate(-5deg);
-            width: 40px;
-            height: 60px;
-            background: #fff;
-            border: 2px solid #999;
-            animation: tilt-pour 3s forwards;
-            transform-origin: bottom right;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: fall 2s forwards;
         }
 
-        .powder-stream {
-            position: absolute;
-            top: 40px;
-            left: 50%;
-            width: 6px;
-            height: 0;
-            background: rgba(255, 255, 255, 0.9);
-            animation: pour-powder 3s forwards;
-            filter: blur(1px);
-            transform-origin: top center;
+        @keyframes fall {
+            0% { transform: translateY(0) translateX(-50%); opacity: 1; }
+            100% { transform: translateY(200px) translateX(-50%); opacity: 0; }
         }
 
-        /* Bubble Rising Animation */
         .bubbles {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            opacity: 0;
-            animation: show-bubbles 4s forwards;
-            animation-delay: 2s;
+            pointer-events: none;
         }
 
         .bubble {
             position: absolute;
+            bottom: 0;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
-            animation: rise 1.5s infinite;
+            animation: rise 2s infinite;
         }
 
-        /* Sodium and Water Explosion */
+        @keyframes rise {
+            0% { 
+                transform: translateY(0) translateX(0);
+                opacity: 0.8;
+            }
+            100% { 
+                transform: translateY(-180px) translateX(var(--x-offset));
+                opacity: 0;
+            }
+        }
+
         .explosion {
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 300px;
-            height: 300px;
             transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
             opacity: 0;
-            animation: explode 2s forwards;
-            animation-delay: 3s;
             pointer-events: none;
         }
 
-        .fire {
+        .explosion.active {
+            animation: explode 1s forwards;
+        }
+
+        @keyframes explode {
+            0% { 
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+                background: radial-gradient(circle, #ff4400 0%, #ff000000 70%);
+            }
+            100% { 
+                transform: translate(-50%, -50%) scale(2);
+                opacity: 0;
+                background: radial-gradient(circle, #ff440000 0%, #ff000000 100%);
+            }
+        }
+
+        .ph-strip {
             position: absolute;
-            bottom: 50%;
-            left: 0;
+            width: 10px;
+            height: 80px;
+            background: #fff;
+            left: 50%;
+            transform-origin: bottom center;
+            animation: dip 4s forwards;
+        }
+
+        @keyframes dip {
+            0% { transform: translateX(-50%) translateY(-100%) rotate(0deg); }
+            25% { transform: translateX(-50%) translateY(50%) rotate(0deg); }
+            75% { transform: translateX(-50%) translateY(50%) rotate(0deg); }
+            100% { transform: translateX(-50%) translateY(-100%) rotate(0deg); }
+        }
+
+        .sparks {
+            position: absolute;
             width: 100%;
-            height: 60px;
-            opacity: 0;
-            animation: burn 2s infinite;
-            animation-delay: 3s;
-            filter: blur(2px);
-            transform-origin: center bottom;
+            height: 100%;
+            pointer-events: none;
         }
 
         .spark {
             position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #ff8800;
+            width: 4px;
+            height: 4px;
+            background: #ff4400;
             border-radius: 50%;
-            filter: blur(2px);
-            opacity: 0;
-            animation: spark 1s linear forwards;
+            animation: spark 0.8s linear forwards;
         }
 
+        @keyframes spark {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--x-end), var(--y-end)); opacity: 0; }
+        }
         </style>
         """,
         unsafe_allow_html=True
     )
 
-    # Title with Neon Effect
-    st.markdown('<h1>Virtual Chemistry Lab 🧪</h1>', unsafe_allow_html=True)
+    # Display the title
+    st.markdown('<h1 class="glowing-title">Virtual Chemistry Lab 🧪</h1>', unsafe_allow_html=True)
 
+    # Selection for reaction type
     st.subheader("Choose your reaction type:")
     reaction_type = st.selectbox("", ["", "Acid-Base (baking soda & vinegar)", "Exothermic (Warning: Explosive!)", "Indicator"])
 
     if reaction_type == "Acid-Base (baking soda & vinegar)":
-        # Baking Soda and Vinegar Reaction with bubbles
         st.markdown("""
             <div class='beaker'>
-                <div class='liquid' style='background: rgba(255,102,102,0.6);'></div>
-                <div class='powder-container'></div>
-                <div class='powder-stream'></div>
+                <div class='liquid' style='background: rgba(255,255,255,0.8);'></div>
+                <div class='powder'></div>
                 <div class='bubbles'>
-                    <div class='bubble' style='--x-start: 10px; --x-end: 20px; --size: 10px; animation-delay: 0s;'></div>
+                    <div class='bubble' style='--x-offset: 10px; animation-delay: 0s;'></div>
+                    <div class='bubble' style='--x-offset: -15px; animation-delay: 0.5s;'></div>
+                    <div class='bubble' style='--x-offset: 5px; animation-delay: 1s;'></div>
+                    <div class='bubble' style='--x-offset: -10px; animation-delay: 1.5s;'></div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
         
-        st.write("Step 1: Slowly adding baking soda to vinegar solution...")
-        st.write("Step 2: Observing the vigorous bubble formation...")
+        st.write("Adding baking soda (NaHCO₃) to vinegar (CH₃COOH)...")
         st.write("NaHCO₃ + CH₃COOH → CO₂ + H₂O + NaCH₃COO")
 
     elif reaction_type == "Exothermic (Warning: Explosive!)":
-        # Sodium and Water Reaction with explosion and sparks
         st.markdown("""
             <div class='beaker'>
-                <div class='liquid' style='background: rgba(173,216,230,0.6);'></div>
+                <div class='liquid' style='background: rgba(255,255,255,0.9);'></div>
+                <div class='powder'></div>
                 <div class='explosion'></div>
-                <div class='fire'></div>
                 <div class='sparks'>
-                    <div class='spark' style='--x-end: 120px; --y-end: -100px; animation-delay: 3.2s;'></div>
+                    <div class='spark' style='--x-end: 50px; --y-end: -50px;'></div>
+                    <div class='spark' style='--x-end: -30px; --y-end: -40px;'></div>
+                    <div class='spark' style='--x-end: 20px; --y-end: -60px;'></div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
         
-        st.write("Step 1: Carefully adding sodium to water...")
-        st.write("Step 2: Observing the violent reaction...")
-        st.write("2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g) + Energy")
+        st.write("Adding sodium (Na) to water (H₂O)...")
+        st.write("2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)")
+        
+    elif reaction_type == "Indicator":
+        st.markdown("""
+            <div style='display: flex; justify-content: center;'>
+                <div class='beaker' style='background: rgba(255,0,0,0.1);'>
+                    <div class='liquid' style='background: rgba(255,0,0,0.1);'></div>
+                    <div class='ph-strip' style='animation-delay: 0s;'></div>
+                </div>
+                <div class='beaker' style='background: rgba(0,255,0,0.1);'>
+                    <div class='liquid' style='background: rgba(0,255,0,0.1);'></div>
+                    <div class='ph-strip' style='animation-delay: 4s;'></div>
+                </div>
+                <div class='beaker' style='background: rgba(0,0,255,0.1);'>
+                    <div class='liquid' style='background: rgba(0,0,255,0.1);'></div>
+                    <div class='ph-strip' style='animation-delay: 8s;'></div>
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        st.write("Testing pH levels in different solutions...")
+        st.write("Watch the pH strips change color:")
+        st.write("Red: Acidic (pH < 7)")
+        st.write("Green: Neutral (pH = 7)")
+        st.write("Blue: Basic (pH > 7)")
 
 if __name__ == "__main__":
     lab()
