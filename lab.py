@@ -47,46 +47,46 @@ def lab():
             left: 0;
             width: 100%;
             height: 50%;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.9);
             transition: all 1s;
+        }
+
+        .powder-container {
+            position: absolute;
+            top: -60px;
+            left: 30%;
+            width: 40px;
+            height: 60px;
+            background: #ddd;
+            border: 2px solid #999;
+            transform: rotate(0deg);
+            transform-origin: bottom right;
+            animation: tilt-pour 3s forwards;
+        }
+
+        @keyframes tilt-pour {
+            0% { transform: rotate(0deg); }
+            20% { transform: rotate(45deg); }
+            80% { transform: rotate(45deg); }
+            100% { transform: rotate(0deg); }
         }
 
         .powder-stream {
             position: absolute;
-            top: -50px;
-            left: 50%;
+            bottom: -30px;
+            right: 0;
             width: 8px;
             height: 0;
             background: white;
-            transform-origin: top center;
-            animation: pour 3s forwards;
+            animation: stream 3s forwards;
             clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
         }
 
-        @keyframes pour {
+        @keyframes stream {
             0% { height: 0; opacity: 0; }
-            10% { height: 100px; opacity: 1; }
-            90% { height: 100px; opacity: 1; }
+            20% { height: 40px; opacity: 1; }
+            80% { height: 40px; opacity: 1; }
             100% { height: 0; opacity: 0; }
-        }
-
-        .powder-particles {
-            position: absolute;
-            pointer-events: none;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: white;
-            border-radius: 50%;
-            animation: fall-scatter 2s linear forwards;
-        }
-
-        @keyframes fall-scatter {
-            0% { transform: translate(0, 0); opacity: 1; }
-            100% { transform: translate(var(--x-end), var(--y-end)); opacity: 0; }
         }
 
         .bubbles {
@@ -95,15 +95,20 @@ def lab():
             left: 0;
             width: 100%;
             height: 50%;
-            pointer-events: none;
+            animation: delay-show 3s forwards;
+            opacity: 0;
+        }
+
+        @keyframes delay-show {
+            0%, 90% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         .bubble {
             position: absolute;
             background: rgba(255, 255, 255, 0.8);
             border-radius: 50%;
-            animation: rise 2s infinite;
-            opacity: 0;
+            animation: rise 1.5s infinite;
         }
 
         @keyframes rise {
@@ -121,91 +126,103 @@ def lab():
             }
         }
 
+        .explosion-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            animation: delay-explosion 3s forwards;
+            opacity: 0;
+        }
+
+        @keyframes delay-explosion {
+            0%, 90% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
         .explosion {
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, #ff4400 0%, transparent 70%);
-            animation: explode 1.5s forwards;
-            opacity: 0;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            animation: explode 1.5s infinite;
         }
 
         @keyframes explode {
             0% { 
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 0;
-            }
-            50% { 
-                transform: translate(-50%, -50%) scale(2);
+                transform: translate(-50%, -50%) scale(0.5);
+                background: radial-gradient(circle, #ff4400 0%, transparent 70%);
                 opacity: 1;
             }
             100% { 
-                transform: translate(-50%, -50%) scale(3);
+                transform: translate(-50%, -50%) scale(2);
+                background: radial-gradient(circle, #ff0000 0%, transparent 70%);
                 opacity: 0;
             }
+        }
+
+        .fire {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            width: 40px;
+            height: 60px;
+            background: linear-gradient(to top, #ff4400, #ff8800);
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+            animation: flicker 0.5s infinite alternate;
+            transform-origin: center bottom;
+        }
+
+        @keyframes flicker {
+            0% { transform: translate(-50%, 0) scale(1, 1); }
+            100% { transform: translate(-50%, 0) scale(1.2, 1.1); }
+        }
+
+        .ph-strip-container {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 15px;
+            height: 100px;
+            animation: dip-sequence 6s forwards;
         }
 
         .ph-strip {
-            position: absolute;
-            width: 10px;
-            height: 80px;
-            background: #fff;
-            left: 50%;
-            transform-origin: bottom center;
-            animation: dip 6s forwards;
-        }
-
-        .ph-strip.acid { animation: dip-acid 6s forwards; }
-        .ph-strip.neutral { animation: dip-neutral 6s forwards; }
-        .ph-strip.base { animation: dip-base 6s forwards; }
-
-        @keyframes dip-acid {
-            0% { transform: translateX(-50%) translateY(-100%); background: #fff; }
-            25% { transform: translateX(-50%) translateY(30%); background: #fff; }
-            75% { transform: translateX(-50%) translateY(30%); background: #ff6b6b; }
-            100% { transform: translateX(-50%) translateY(-100%); background: #ff6b6b; }
-        }
-
-        @keyframes dip-neutral {
-            0% { transform: translateX(-50%) translateY(-100%); background: #fff; }
-            25% { transform: translateX(-50%) translateY(30%); background: #fff; }
-            75% { transform: translateX(-50%) translateY(30%); background: #51cf66; }
-            100% { transform: translateX(-50%) translateY(-100%); background: #51cf66; }
-        }
-
-        @keyframes dip-base {
-            0% { transform: translateX(-50%) translateY(-100%); background: #fff; }
-            25% { transform: translateX(-50%) translateY(30%); background: #fff; }
-            75% { transform: translateX(-50%) translateY(30%); background: #339af0; }
-            100% { transform: translateX(-50%) translateY(-100%); background: #339af0; }
-        }
-
-        .sparks {
-            position: absolute;
             width: 100%;
             height: 100%;
-            pointer-events: none;
+            background: white;
+            transition: background-color 1s;
         }
 
-        .spark {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: #ff4400;
-            border-radius: 50%;
-            filter: blur(2px);
-            animation: spark 1s linear forwards;
+        @keyframes dip-sequence {
+            0% { transform: translate(-50%, 0); }
+            20% { transform: translate(-50%, 150px); }
+            40% { transform: translate(-50%, 150px); }
+            60% { transform: translate(-50%, 0); }
+            100% { transform: translate(-50%, 0); }
         }
 
-        @keyframes spark {
-            0% { transform: translate(0, 0) scale(1); opacity: 1; }
-            100% { 
-                transform: translate(var(--x-end), var(--y-end)) scale(0);
-                opacity: 0;
-            }
+        .ph-strip.acid { animation: color-change-acid 6s forwards; }
+        .ph-strip.neutral { animation: color-change-neutral 6s forwards; }
+        .ph-strip.base { animation: color-change-base 6s forwards; }
+
+        @keyframes color-change-acid {
+            0%, 50% { background: white; }
+            100% { background: #ff6b6b; }
+        }
+
+        @keyframes color-change-neutral {
+            0%, 50% { background: white; }
+            100% { background: #51cf66; }
+        }
+
+        @keyframes color-change-base {
+            0%, 50% { background: white; }
+            100% { background: #339af0; }
         }
         </style>
         """,
@@ -220,17 +237,17 @@ def lab():
     if reaction_type == "Acid-Base (baking soda & vinegar)":
         st.markdown("""
             <div class='beaker'>
-                <div class='liquid' style='background: rgba(255,255,255,0.8);'></div>
-                <div class='powder-stream'></div>
-                <div class='powder-particles'>
-                    <div class='particle' style='--x-end: 5px; --y-end: 100px; animation-delay: 0.2s;'></div>
-                    <div class='particle' style='--x-end: -8px; --y-end: 120px; animation-delay: 0.4s;'></div>
-                    <div class='particle' style='--x-end: 12px; --y-end: 90px; animation-delay: 0.6s;'></div>
+                <div class='liquid'></div>
+                <div class='powder-container'>
+                    <div class='powder-stream'></div>
                 </div>
                 <div class='bubbles'>
-                    <div class='bubble' style='--x-start: 10px; --x-end: 20px; --size: 8px; animation-delay: 1s;'></div>
-                    <div class='bubble' style='--x-start: -15px; --x-end: -25px; --size: 12px; animation-delay: 1.5s;'></div>
-                    <div class='bubble' style='--x-start: 5px; --x-end: -10px; --size: 10px; animation-delay: 2s;'></div>
+                    <div class='bubble' style='--x-start: 10px; --x-end: 20px; --size: 8px; left: 20%; animation-delay: 3.2s;'></div>
+                    <div class='bubble' style='--x-start: -15px; --x-end: -25px; --size: 12px; left: 40%; animation-delay: 3.4s;'></div>
+                    <div class='bubble' style='--x-start: 5px; --x-end: -10px; --size: 10px; left: 60%; animation-delay: 3.6s;'></div>
+                    <div class='bubble' style='--x-start: -8px; --x-end: 15px; --size: 9px; left: 80%; animation-delay: 3.8s;'></div>
+                    <div class='bubble' style='--x-start: 12px; --x-end: -20px; --size: 11px; left: 30%; animation-delay: 4.0s;'></div>
+                    <div class='bubble' style='--x-start: -10px; --x-end: 25px; --size: 10px; left: 70%; animation-delay: 4.2s;'></div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
@@ -241,14 +258,13 @@ def lab():
     elif reaction_type == "Exothermic (Warning: Explosive!)":
         st.markdown("""
             <div class='beaker'>
-                <div class='liquid' style='background: rgba(255,255,255,0.9);'></div>
-                <div class='powder-stream'></div>
-                <div class='explosion'></div>
-                <div class='sparks'>
-                    <div class='spark' style='--x-end: 100px; --y-end: -80px; animation-delay: 2s;'></div>
-                    <div class='spark' style='--x-end: -80px; --y-end: -60px; animation-delay: 2.2s;'></div>
-                    <div class='spark' style='--x-end: 60px; --y-end: -100px; animation-delay: 2.4s;'></div>
-                    <div class='spark' style='--x-end: -100px; --y-end: -90px; animation-delay: 2.6s;'></div>
+                <div class='liquid'></div>
+                <div class='powder-container'>
+                    <div class='powder-stream'></div>
+                </div>
+                <div class='explosion-container'>
+                    <div class='explosion'></div>
+                    <div class='fire'></div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
@@ -260,16 +276,22 @@ def lab():
         st.markdown("""
             <div style='display: flex; justify-content: center;'>
                 <div class='beaker' style='margin: 0 40px;'>
-                    <div class='liquid' style='background: rgba(255,200,200,0.3);'></div>
-                    <div class='ph-strip acid'></div>
+                    <div class='liquid'></div>
+                    <div class='ph-strip-container'>
+                        <div class='ph-strip acid'></div>
+                    </div>
                 </div>
                 <div class='beaker' style='margin: 0 40px;'>
-                    <div class='liquid' style='background: rgba(200,255,200,0.3);'></div>
-                    <div class='ph-strip neutral'></div>
+                    <div class='liquid'></div>
+                    <div class='ph-strip-container'>
+                        <div class='ph-strip neutral'></div>
+                    </div>
                 </div>
                 <div class='beaker' style='margin: 0 40px;'>
-                    <div class='liquid' style='background: rgba(200,200,255,0.3);'></div>
-                    <div class='ph-strip base'></div>
+                    <div class='liquid'></div>
+                    <div class='ph-strip-container'>
+                        <div class='ph-strip base'></div>
+                    </div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
