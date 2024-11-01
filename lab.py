@@ -1,3 +1,5 @@
+import streamlit as st
+import time
 def lab():
     st.markdown(
         """
