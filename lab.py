@@ -2,7 +2,6 @@ import streamlit as st
 import time
 
 def lab():
-    # Enhanced CSS with more realistic animations and liquid motion
     st.markdown(
         """
         <style>
@@ -21,7 +20,7 @@ def lab():
 
         .beaker {
             display: inline-block;
-            width: 150px;
+            width: 140px;
             height: 200px;
             border: 4px solid #999;
             border-radius: 0 0 20px 20px;
@@ -29,8 +28,6 @@ def lab():
             margin: 20px;
             background: linear-gradient(to bottom, #ffffff00, #ffffff40);
             overflow: hidden;
-            transform-style: preserve-3d;
-            perspective: 1000px;
         }
 
         .beaker::before {
@@ -50,129 +47,102 @@ def lab():
             left: 0;
             width: 100%;
             height: 50%;
-            background: rgba(255, 255, 255, 0.8);
             transition: all 2s;
-            animation: liquid-motion 3s infinite ease-in-out;
         }
 
-        @keyframes liquid-motion {
-            0%, 100% { transform: translateX(-2px) rotate(-1deg); }
-            50% { transform: translateX(2px) rotate(1deg); }
+        .liquid.vinegar {
+            background: rgba(255, 0, 0, 0.3);
+            animation: move-liquid 2s infinite alternate;
+        }
+
+        .liquid.water {
+            background: rgba(173, 216, 230, 0.5);
+            animation: move-liquid 2s infinite alternate;
+        }
+
+        @keyframes move-liquid {
+            0%, 100% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
         }
 
         .powder-stream {
             position: absolute;
-            top: -20px;
+            top: -30px;
             left: 50%;
             width: 4px;
-            height: 0;
-            background: white;
-            opacity: 0;
-            transform-origin: top;
+            height: 100px;
+            background: repeating-linear-gradient(
+                white 0%,
+                white 20%,
+                transparent 20%,
+                transparent 80%
+            );
             animation: pour-powder 3s forwards;
+            opacity: 0;
         }
 
         @keyframes pour-powder {
-            0% { height: 0; opacity: 0; }
-            10% { height: 100px; opacity: 1; }
-            90% { height: 100px; opacity: 1; }
-            100% { height: 0; opacity: 0; }
-        }
-
-        .powder-particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .particle {
-            position: absolute;
-            width: 3px;
-            height: 3px;
-            background: white;
-            border-radius: 50%;
-            animation: fall-particle 2s forwards;
-        }
-
-        @keyframes fall-particle {
-            0% { transform: translate(0, -50px); opacity: 1; }
-            100% { transform: translate(var(--x-end), 150px); opacity: 0; }
-        }
-
-        .bubbles {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
+            0% { opacity: 0; transform: translateX(-50%) rotate(0deg); }
+            10% { opacity: 1; transform: translateX(-50%) rotate(0deg); }
+            90% { opacity: 1; transform: translateX(-50%) rotate(0deg); }
+            100% { opacity: 0; transform: translateX(-50%) rotate(0deg); }
         }
 
         .bubble {
             position: absolute;
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(0, 0, 0, 0.1);
             border-radius: 50%;
-            animation: rise-bubble 1.5s infinite;
+            animation: bubble-rise var(--duration) linear infinite;
+            opacity: 0.7;
         }
 
-        @keyframes rise-bubble {
+        @keyframes bubble-rise {
             0% { 
-                transform: translate(var(--x-start), 100%) scale(0.3);
-                opacity: 0.8;
+                transform: translateY(var(--start-y)) translateX(var(--start-x));
+                opacity: 0.7;
             }
             100% { 
-                transform: translate(var(--x-end), -100%) scale(1);
+                transform: translateY(calc(var(--start-y) - 200px)) translateX(calc(var(--start-x) + var(--drift)));
                 opacity: 0;
             }
         }
 
-        .sodium-piece {
+        .sodium {
             position: absolute;
-            top: -30px;
+            top: -20px;
             left: 50%;
             width: 15px;
             height: 15px;
-            background: linear-gradient(135deg, #fff, #ddd);
-            border-radius: 3px;
-            transform: translateX(-50%);
-            animation: drop-sodium 1s forwards;
+            background: white;
+            border-radius: 50%;
+            animation: drop-sodium 2s forwards;
+            opacity: 0;
         }
 
         @keyframes drop-sodium {
-            0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
-            100% { transform: translateX(-50%) translateY(200px) rotate(720deg); }
+            0% { transform: translateY(0) translateX(-50%); opacity: 1; }
+            60% { transform: translateY(100px) translateX(-50%); opacity: 1; }
+            61% { opacity: 0; }
+            100% { transform: translateY(100px) translateX(-50%); opacity: 0; }
         }
 
-        .explosion-effect {
+        .explosion-flash {
             position: absolute;
             top: 50%;
             left: 50%;
             width: 0;
             height: 0;
-            background: radial-gradient(circle, #ff4400 0%, transparent 70%);
+            background: radial-gradient(circle, white, transparent);
             border-radius: 50%;
-            transform: translate(-50%, -50%);
             opacity: 0;
-            pointer-events: none;
+            transform: translate(-50%, -50%);
+            animation: flash 0.5s forwards;
         }
 
-        .explosion-effect.active {
-            animation: explode-effect 0.5s forwards;
-        }
-
-        @keyframes explode-effect {
-            0% { 
-                width: 0;
-                height: 0;
-                opacity: 1;
-            }
-            100% { 
-                width: 300px;
-                height: 300px;
-                opacity: 0;
-            }
+        @keyframes flash {
+            0% { opacity: 0; width: 0; height: 0; }
+            50% { opacity: 1; width: 200px; height: 200px; }
+            100% { opacity: 0; width: 250px; height: 250px; }
         }
 
         .spark {
@@ -181,147 +151,110 @@ def lab():
             height: 4px;
             background: #ff4400;
             border-radius: 50%;
-            filter: blur(1px);
-            animation: spark-fly 0.6s linear forwards;
+            opacity: 0;
+            animation: spark-fly 0.8s linear forwards;
         }
 
         @keyframes spark-fly {
-            0% { 
-                transform: translate(0, 0) scale(1);
-                opacity: 1;
-            }
-            100% { 
-                transform: translate(var(--x-end), var(--y-end)) scale(0);
-                opacity: 0;
-            }
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--end-x), var(--end-y)); opacity: 0; }
         }
 
         .ph-strip {
             position: absolute;
             width: 8px;
-            height: 60px;
+            height: 80px;
             background: #333;
             left: 50%;
             transform-origin: bottom center;
             animation: dip-strip 4s forwards;
         }
 
-        .ph-strip.acid { animation: dip-strip-acid 4s forwards; }
-        .ph-strip.neutral { animation: dip-strip-neutral 4s forwards; }
-        .ph-strip.base { animation: dip-strip-base 4s forwards; }
+        .ph-strip.acid { animation-delay: 0s; }
+        .ph-strip.neutral { animation-delay: 4s; }
+        .ph-strip.base { animation-delay: 8s; }
 
-        @keyframes dip-strip-acid {
-            0% { transform: translateX(-50%) translateY(-100%); background: #333; }
-            25% { transform: translateX(-50%) translateY(50%); background: #333; }
-            75% { transform: translateX(-50%) translateY(50%); background: #ff4444; }
-            100% { transform: translateX(-50%) translateY(-100%); background: #ff4444; }
-        }
-
-        @keyframes dip-strip-neutral {
-            0% { transform: translateX(-50%) translateY(-100%); background: #333; }
-            25% { transform: translateX(-50%) translateY(50%); background: #333; }
-            75% { transform: translateX(-50%) translateY(50%); background: #44ff44; }
-            100% { transform: translateX(-50%) translateY(-100%); background: #44ff44; }
-        }
-
-        @keyframes dip-strip-base {
-            0% { transform: translateX(-50%) translateY(-100%); background: #333; }
-            25% { transform: translateX(-50%) translateY(50%); background: #333; }
-            75% { transform: translateX(-50%) translateY(50%); background: #4444ff; }
-            100% { transform: translateX(-50%) translateY(-100%); background: #4444ff; }
+        @keyframes dip-strip {
+            0% { transform: translateX(-50%) translateY(-100%) rotate(0deg); background: #333; }
+            25% { transform: translateX(-50%) translateY(50%) rotate(0deg); background: #333; }
+            75% { transform: translateX(-50%) translateY(50%) rotate(0deg); background: var(--strip-color); }
+            100% { transform: translateX(-50%) translateY(-100%) rotate(0deg); background: var(--strip-color); }
         }
         </style>
         """,
         unsafe_allow_html=True
     )
 
-    # Display the title
     st.markdown('<h1 class="glowing-title">Virtual Chemistry Lab 🧪</h1>', unsafe_allow_html=True)
 
-    # Selection for reaction type
-    st.subheader("Choose your reaction type:")
-    reaction_type = st.selectbox("", ["", "Acid-Base (baking soda & vinegar)", "Exothermic (Warning: Explosive!)", "Indicator"])
+    reaction_type = st.selectbox("Choose your reaction type:", 
+                               ["", "Acid-Base (baking soda & vinegar)", 
+                                "Exothermic (Warning: Explosive!)", 
+                                "Indicator"])
 
     if reaction_type == "Acid-Base (baking soda & vinegar)":
         st.markdown("""
             <div class='beaker'>
-                <div class='liquid' style='background: rgba(255,255,255,0.8);'>
-                    <div class='powder-stream'></div>
-                    <div class='powder-particles'></div>
-                </div>
+                <div class='liquid vinegar'></div>
+                <div class='powder-stream'></div>
                 <div class='bubbles'>
-                    <div class='bubble' style='--x-start: 10px; --x-end: 20px; animation-delay: 0s; width: 10px; height: 10px;'></div>
-                    <div class='bubble' style='--x-start: -15px; --x-end: -25px; animation-delay: 0.3s; width: 8px; height: 8px;'></div>
-                    <div class='bubble' style='--x-start: 5px; --x-end: -10px; animation-delay: 0.6s; width: 12px; height: 12px;'></div>
-                    <div class='bubble' style='--x-start: -10px; --x-end: 15px; animation-delay: 0.9s; width: 9px; height: 9px;'></div>
+                    <div class='bubble' style='--duration: 2s; --start-y: 100px; --start-x: 20px; --drift: -10px;'></div>
+                    <div class='bubble' style='--duration: 1.8s; --start-y: 90px; --start-x: 40px; --drift: 15px;'></div>
+                    <div class='bubble' style='--duration: 2.2s; --start-y: 110px; --start-x: 60px; --drift: -5px;'></div>
+                    <div class='bubble' style='--duration: 1.9s; --start-y: 95px; --start-x: 80px; --drift: 10px;'></div>
+                    <div class='bubble' style='--duration: 2.1s; --start-y: 105px; --start-x: 30px; --drift: -15px;'></div>
                 </div>
             </div>
-            <script>
-                function createParticles() {
-                    const particles = document.querySelector('.powder-particles');
-                    for (let i = 0; i < 20; i++) {
-                        const particle = document.createElement('div');
-                        particle.className = 'particle';
-                        particle.style.setProperty('--x-end', (Math.random() * 40 - 20) + 'px');
-                        particle.style.animationDelay = (Math.random() * 2) + 's';
-                        particles.appendChild(particle);
-                    }
-                }
-                createParticles();
-            </script>
         """, unsafe_allow_html=True)
         
-        st.write("Baking soda (NaHCO₃) is being added to vinegar (CH₃COOH)...")
-        st.write("Watch the vigorous reaction as CO₂ is produced!")
+        st.write("Adding baking soda (NaHCO₃) to vinegar (CH₃COOH)...")
         st.write("NaHCO₃ + CH₃COOH → CO₂ + H₂O + NaCH₃COO")
 
     elif reaction_type == "Exothermic (Warning: Explosive!)":
         st.markdown("""
             <div class='beaker'>
-                <div class='liquid' style='background: rgba(255,255,255,0.9);'></div>
-                <div class='sodium-piece'></div>
-                <div class='explosion-effect'></div>
+                <div class='liquid water'></div>
+                <div class='sodium'></div>
+                <div class='explosion-flash'></div>
                 <div class='sparks'>
-                    <div class='spark' style='--x-end: 50px; --y-end: -50px; animation-delay: 1s;'></div>
-                    <div class='spark' style='--x-end: -30px; --y-end: -40px; animation-delay: 1.2s;'></div>
-                    <div class='spark' style='--x-end: 20px; --y-end: -60px; animation-delay: 1.4s;'></div>
-                    <div class='spark' style='--x-end: -40px; --y-end: -30px; animation-delay: 1.6s;'></div>
+                    <div class='spark' style='--end-x: 50px; --end-y: -50px;'></div>
+                    <div class='spark' style='--end-x: -30px; --end-y: -40px;'></div>
+                    <div class='spark' style='--end-x: 20px; --end-y: -60px;'></div>
+                    <div class='spark' style='--end-x: -40px; --end-y: -30px;'></div>
+                    <div class='spark' style='--end-x: 35px; --end-y: -45px;'></div>
                 </div>
             </div>
-            <script>
-                setTimeout(() => {
-                    document.querySelector('.explosion-effect').classList.add('active');
-                }, 1000);
-            </script>
         """, unsafe_allow_html=True)
         
         st.write("Adding sodium (Na) to water (H₂O)...")
-        st.write("Watch the explosive reaction!")
         st.write("2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g)")
 
     elif reaction_type == "Indicator":
         st.markdown("""
             <div style='display: flex; justify-content: center;'>
                 <div class='beaker'>
-                    <div class='liquid' style='background: rgba(255,192,192,0.4);'></div>
-                    <div class='ph-strip acid'></div>
+                    <div class='liquid' style='background: rgba(255,150,150,0.5);'>
+                        <div class='ph-strip acid' style='--strip-color: #ff4444;'></div>
+                    </div>
                 </div>
                 <div class='beaker'>
-                    <div class='liquid' style='background: rgba(192,192,192,0.4);'></div>
-                    <div class='ph-strip neutral'></div>
+                    <div class='liquid' style='background: rgba(150,150,150,0.5);'>
+                        <div class='ph-strip neutral' style='--strip-color: #44ff44;'></div>
+                    </div>
                 </div>
                 <div class='beaker'>
-                    <div class='liquid' style='background: rgba(192,192,255,0.4);'></div>
-                    <div class='ph-strip base'></div>
+                    <div class='liquid' style='background: rgba(150,150,255,0.5);'>
+                        <div class='ph-strip base' style='--strip-color: #4444ff;'></div>
+                    </div>
                 </div>
             </div>
         """, unsafe_allow_html=True)
         
         st.write("Testing pH levels in different solutions...")
-        st.write("Observe the color changes:")
-        st.write("- Red: Acidic (pH < 7)")
-        st.write("- Green: Neutral (pH = 7)")
-        st.write("- Blue: Basic (pH > 7)")
+        st.write("Watch as the pH strips change color:")
+        st.write("- Left beaker: Acidic solution (pH < 7) - Strip turns red")
+        st.write("- Middle beaker: Neutral solution (pH = 7) - Strip turns green")
+        st.write("- Right beaker: Basic solution (pH > 7) - Strip turns blue")
 
 if __name__ == "__main__":
     lab()
