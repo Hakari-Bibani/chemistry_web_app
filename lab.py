@@ -57,7 +57,7 @@ def lab():
 
         .powder-stream {
             position: absolute;
-            top: 40px;
+            top: 35px;
             left: 50%;
             width: 6px;
             height: 0;
@@ -81,7 +81,7 @@ def lab():
             width: 100%;
             height: 100%;
             opacity: 0;
-            animation: show-bubbles 4s forwards;
+            animation: show-bubbles 3s forwards;
         }
 
         @keyframes show-bubbles {
@@ -94,20 +94,21 @@ def lab():
             background: rgba(200, 200, 200, 0.8);
             border-radius: 50%;
             animation: rise 1.5s infinite;
+            opacity: 0;
         }
 
         @keyframes rise {
             0% { 
-                transform: translateY(0) translateX(var(--x-start));
-                opacity: 0.8;
-                width: var(--size);
-                height: var(--size);
+                transform: translateY(0);
+                opacity: 1;
+                width: 10px;
+                height: 10px;
             }
             100% { 
-                transform: translateY(-120px) translateX(var(--x-end));
+                transform: translateY(-120px);
                 opacity: 0;
-                width: calc(var(--size) * 2);
-                height: calc(var(--size) * 2);
+                width: 20px;
+                height: 20px;
             }
         }
         </style>
@@ -122,25 +123,33 @@ def lab():
 
     if reaction_type == "Acid-Base (baking soda & vinegar)":
         if st.button("Start Reaction"):
+            # Display beaker and reaction elements
             st.markdown("""
                 <div class='beaker'>
                     <div class='liquid'></div>
                     <div class='powder-container'></div>
-                    <div class='powder-stream'></div>
                     <div class='bubbles'>
-                        <div class='bubble' style='--x-start: 10px; --x-end: 20px; --size: 10px; animation-delay: 0s;'></div>
-                        <div class='bubble' style='--x-start: -15px; --x-end: -25px; --size: 15px; animation-delay: 0.5s;'></div>
-                        <div class='bubble' style='--x-start: 5px; --x-end: -10px; --size: 12px; animation-delay: 1s;'></div>
-                        <div class='bubble' style='--x-start: -8px; --x-end: 15px; --size: 8px; animation-delay: 1.5s;'></div>
-                        <div class='bubble' style='--x-start: 12px; --x-end: -20px; --size: 14px; animation-delay: 2s;'></div>
+                        <div class='bubble' style='left: 20%; animation-delay: 0s;'></div>
+                        <div class='bubble' style='left: 40%; animation-delay: 0.2s;'></div>
+                        <div class='bubble' style='left: 60%; animation-delay: 0.4s;'></div>
+                        <div class='bubble' style='left: 80%; animation-delay: 0.6s;'></div>
                     </div>
                 </div>
             """, unsafe_allow_html=True)
 
+            # Display animation details
             st.write("Step 1: Baking soda is poured into vinegar.")
             st.write("Step 2: Vigorous bubbling reaction is observed.")
-            st.write("NaHCO₃ + CH₃COOH → CO₂ + H₂O + NaCH₃COO")
-        
+            st.write("Chemical Reaction: NaHCO₃ + CH₃COOH → CO₂ + H₂O + NaCH₃COO")
+
+            # Trigger the pouring animation
+            st.markdown("<script>document.querySelector('.powder-stream').style.height='80px';</script>", unsafe_allow_html=True)
+
+            # Delay to show the animation before displaying the results
+            time.sleep(3)
+
+            # Activate bubble animations
+            st.markdown("<script>document.querySelector('.bubbles').style.opacity='1';</script>", unsafe_allow_html=True)
     elif reaction_type == "Indicator":
         st.markdown("""
             <div style='display: flex; justify-content: center;'>
