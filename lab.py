@@ -169,7 +169,7 @@ def lab():
             st.write("Reaction: NaHCO₃ + CH₃COOH → CO₂ + H₂O + NaCH₃COO")
 
 elif reaction_type == "Exothermic (Warning: Explosive!)":
-        st.markdown("""
+                st.markdown("""
             <div class='beaker'>
                 <div class='liquid' style='background: rgba(255,255,255,0.9);'></div>
                 <div class='powder-container'></div>
@@ -190,7 +190,7 @@ elif reaction_type == "Exothermic (Warning: Explosive!)":
         st.write("Step 2: Observing the violent reaction...")
         st.write("2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g) + Energy")
         
-    elif reaction_type == "Indicator":
+elif reaction_type == "Indicator":
         st.markdown("""
             <div style='display: flex; justify-content: center;'>
                 <div class='beaker'>
@@ -216,4 +216,5 @@ elif reaction_type == "Exothermic (Warning: Explosive!)":
 
 if __name__ == "__main__":
     lab()
+
 
