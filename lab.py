@@ -1,5 +1,5 @@
 import streamlit as st
-import time
+
 def lab():
     st.markdown(
         """
@@ -34,47 +34,40 @@ def lab():
             left: 0;
             width: 100%;
             height: 50%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 100, 100, 0.7); /* Light red liquid */
             transition: all 0.5s;
         }
 
-        .powder-container {
+        .spoon {
             position: absolute;
-            top: -80px;
+            top: -40px;
             left: 50%;
-            transform: translateX(-50%) rotate(-5deg);
-            width: 40px;
-            height: 60px;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 20px;
             background: #fff;
-            border: 2px solid #999;
-            animation: tilt-pour 3s forwards;
-            transform-origin: bottom right;
+            border-radius: 50% 50% 0 0;
+            overflow: hidden;
+            box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
+            transition: transform 1s;
         }
 
-        @keyframes tilt-pour {
-            0% { transform: translateX(-50%) rotate(-5deg); }
-            20% { transform: translateX(-50%) rotate(45deg); }
-            80% { transform: translateX(-50%) rotate(45deg); }
-            100% { transform: translateX(-50%) rotate(-5deg); }
-        }
-
-        .powder-stream {
+        .baking-soda {
             position: absolute;
-            top: 40px;
-            left: 50%;
-            width: 6px;
-            height: 0;
-            background: rgba(255, 255, 255, 0.9);
-            animation: pour-powder 3s forwards;
-            filter: blur(1px);
-            transform-origin: top center;
+            top: 2px;
+            left: 20%;
+            width: 20px;
+            height: 10px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+            opacity: 1;
+            transition: opacity 1s, transform 1s;
         }
 
-        @keyframes pour-powder {
-            0% { height: 0; opacity: 0; }
-            20% { height: 80px; opacity: 1; }
-            80% { height: 80px; opacity: 1; }
-            100% { height: 0; opacity: 0; }
+        .spoon.pour .baking-soda {
+            opacity: 0;
+            transform: translateY(100px);
         }
 
         .bubbles {
@@ -84,8 +77,8 @@ def lab():
             width: 100%;
             height: 100%;
             opacity: 0;
-            animation: show-bubbles 4s forwards;
-            animation-delay: 2s;
+            animation: show-bubbles 3s forwards;
+            animation-delay: 1s;
         }
 
         @keyframes show-bubbles {
@@ -115,116 +108,6 @@ def lab():
             }
         }
 
-        .explosion {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 300px;
-            height: 300px;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            animation: explode 2s forwards;
-            animation-delay: 3s;
-            pointer-events: none;
-        }
-
-        @keyframes explode {
-            0% { 
-                transform: translate(-50%, -50%) scale(0);
-                opacity: 0;
-                background: radial-gradient(circle, #ff4400 0%, transparent 70%);
-            }
-            50% { 
-                transform: translate(-50%, -50%) scale(2);
-                opacity: 1;
-                background: radial-gradient(circle, #ff8800 0%, #ff4400 30%, transparent 70%);
-            }
-            100% { 
-                transform: translate(-50%, -50%) scale(3);
-                opacity: 0;
-                background: radial-gradient(circle, #ffbb00 0%, #ff8800 30%, transparent 70%);
-            }
-        }
-
-        .fire {
-            position: absolute;
-            bottom: 50%;
-            left: 0;
-            width: 100%;
-            height: 60px;
-            opacity: 0;
-            animation: burn 2s infinite;
-            animation-delay: 3s;
-            filter: blur(2px);
-            transform-origin: center bottom;
-        }
-
-        @keyframes burn {
-            0%, 100% { 
-                transform: scaleY(1);
-                opacity: 0.8;
-                background: linear-gradient(to top, #ff4400, #ff8800, transparent);
-            }
-            50% { 
-                transform: scaleY(1.2);
-                opacity: 1;
-                background: linear-gradient(to top, #ff8800, #ffbb00, transparent);
-            }
-        }
-
-        .spark {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: #ff8800;
-            border-radius: 50%;
-            filter: blur(2px);
-            opacity: 0;
-            animation: spark 1s linear forwards;
-        }
-
-        @keyframes spark {
-            0% { transform: translate(0, 0); opacity: 1; }
-            100% { 
-                transform: translate(var(--x-end), var(--y-end));
-                opacity: 0;
-            }
-        }
-
-        .ph-strip {
-            position: absolute;
-            width: 12px;
-            height: 100px;
-            background: #333;
-            left: 50%;
-            transform-origin: bottom center;
-            animation: dip 6s forwards;
-        }
-
-        .ph-strip.acid { animation: dip-acid 6s forwards; }
-        .ph-strip.neutral { animation: dip-neutral 6s forwards; }
-        .ph-strip.base { animation: dip-base 6s forwards; }
-
-        @keyframes dip-acid {
-            0% { transform: translateX(-50%) translateY(-120%) rotate(0deg); background: #333; }
-            20% { transform: translateX(-50%) translateY(30%) rotate(0deg); background: #333; }
-            80% { transform: translateX(-50%) translateY(30%) rotate(0deg); background: #ff6b6b; }
-            100% { transform: translateX(-50%) translateY(-120%) rotate(0deg); background: #ff6b6b; }
-        }
-
-        @keyframes dip-neutral {
-            0% { transform: translateX(-50%) translateY(-120%) rotate(0deg); background: #333; }
-            20% { transform: translateX(-50%) translateY(30%) rotate(0deg); background: #333; }
-            80% { transform: translateX(-50%) translateY(30%) rotate(0deg); background: #51cf66; }
-            100% { transform: translateX(-50%) translateY(-120%) rotate(0deg); background: #51cf66; }
-        }
-
-        @keyframes dip-base {
-            0% { transform: translateX(-50%) translateY(-120%) rotate(0deg); background: #333; }
-            20% { transform: translateX(-50%) translateY(30%) rotate(0deg); background: #333; }
-            80% { transform: translateX(-50%) translateY(30%) rotate(0deg); background: #339af0; }
-            100% { transform: translateX(-50%) translateY(-120%) rotate(0deg); background: #339af0; }
-        }
         </style>
         """,
         unsafe_allow_html=True
@@ -236,71 +119,39 @@ def lab():
     reaction_type = st.selectbox("", ["", "Acid-Base (baking soda & vinegar)", "Exothermic (Warning: Explosive!)", "Indicator"])
 
     if reaction_type == "Acid-Base (baking soda & vinegar)":
-        st.markdown("""
-            <div class='beaker'>
-                <div class='liquid' style='background: rgba(255,255,255,0.9);'></div>
-                <div class='powder-container'></div>
-                <div class='powder-stream'></div>
-                <div class='bubbles'>
-                    <div class='bubble' style='--x-start: 10px; --x-end: 20px; --size: 10px; animation-delay: 0s;'></div>
-                    <div class='bubble' style='--x-start: -15px; --x-end: -25px; --size: 15px; animation-delay: 0.5s;'></div>
-                    <div class='bubble' style='--x-start: 5px; --x-end: -10px; --size: 12px; animation-delay: 1s;'></div>
-                    <div class='bubble' style='--x-start: -8px; --x-end: 15px; --size: 8px; animation-delay: 1.5s;'></div>
-                    <div class='bubble' style='--x-start: 12px; --x-end: -20px; --size: 14px; animation-delay: 2s;'></div>
-                </div>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        st.write("Step 1: Slowly adding baking soda to vinegar solution...")
-        st.write("Step 2: Observing the vigorous bubble formation...")
-        st.write("NaHCO₃ + CH₃COOH → CO₂ + H₂O + NaCH₃COO")
+        start_reaction = st.button("Add Baking Soda")
 
-    elif reaction_type == "Exothermic (Warning: Explosive!)":
-        st.markdown("""
-            <div class='beaker'>
-                <div class='liquid' style='background: rgba(255,255,255,0.9);'></div>
-                <div class='powder-container'></div>
-                <div class='powder-stream'></div>
-                <div class='explosion'></div>
-                <div class='fire'></div>
-                <div class='sparks'>
-                    <div class='spark' style='--x-end: 120px; --y-end: -100px; animation-delay: 3.2s;'></div>
-                    <div class='spark' style='--x-end: -100px; --y-end: -80px; animation-delay: 3.4s;'></div>
-                    <div class='spark' style='--x-end: 80px; --y-end: -120px; animation-delay: 3.6s;'></div>
-                    <div class='spark' style='--x-end: -120px; --y-end: -90px; animation-delay: 3.8s;'></div>
-                    <div class='spark' style='--x-end: 100px; --y-end: -110px; animation-delay: 4.0s;'></div>
-                </div>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        st.write("Step 1: Carefully adding sodium to water...")
-        st.write("Step 2: Observing the violent reaction...")
-        st.write("2Na(s) + 2H₂O(l) → 2NaOH(aq) + H₂(g) + Energy")
-        
-    elif reaction_type == "Indicator":
-        st.markdown("""
-            <div style='display: flex; justify-content: center;'>
+        # HTML for beaker and spoon animation
+        if start_reaction:
+            st.markdown("""
                 <div class='beaker'>
-                    <div class='liquid' style='background: rgba(255,255,255,0.95);'></div>
-                    <div class='ph-strip acid'></div>
+                    <div class='liquid'></div>
+                    <div class='spoon pour'>
+                        <div class='baking-soda'></div>
+                    </div>
+                    <div class='bubbles'>
+                        <div class='bubble' style='--x-start: 10px; --x-end: 20px; --size: 10px; animation-delay: 0s;'></div>
+                        <div class='bubble' style='--x-start: -15px; --x-end: -25px; --size: 15px; animation-delay: 0.5s;'></div>
+                        <div class='bubble' style='--x-start: 5px; --x-end: -10px; --size: 12px; animation-delay: 1s;'></div>
+                        <div class='bubble' style='--x-start: -8px; --x-end: 15px; --size: 8px; animation-delay: 1.5s;'></div>
+                        <div class='bubble' style='--x-start: 12px; --x-end: -20px; --size: 14px; animation-delay: 2s;'></div>
+                    </div>
                 </div>
+            """, unsafe_allow_html=True)
+            
+            st.write("Step 1: Baking soda poured into vinegar...")
+            st.write("Step 2: Observing the vigorous bubbling reaction...")
+            st.write("NaHCO₃ + CH₃COOH → CO₂ + H₂O + NaCH₃COO")
+
+        else:
+            st.markdown("""
                 <div class='beaker'>
-                    <div class='liquid' style='background: rgba(255,255,255,0.95);'></div>
-                    <div class='ph-strip neutral'></div>
+                    <div class='liquid'></div>
+                    <div class='spoon'>
+                        <div class='baking-soda'></div>
+                    </div>
                 </div>
-                <div class='beaker'>
-                    <div class='liquid' style='background: rgba(255,255,255,0.95);'></div>
-                    <div class='ph-strip base'></div>
-                </div>
-            </div>
-        """, unsafe_allow_html=True)
-        
-        st.write("Step 1: Dipping black pH strips into solutions...")
-        st.write("Step 2: Observing color changes:")
-        st.write("- Acidic solution: Strip turns red")
-        st.write("- Neutral solution: Strip turns green")
-        st.write("- Basic solution: Strip turns blue")
+            """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     lab()
-
