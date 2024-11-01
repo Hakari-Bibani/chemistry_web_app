@@ -2,44 +2,6 @@ import streamlit as st
 import time
 
 def lab():
-    # Add this new JavaScript to handle the animation
-    st.markdown("""
-        <script>
-            function initializeReaction() {
-                const pourButton = document.querySelector('.pour-button');
-                const spoonContainer = document.querySelector('.spoon-container');
-                const powderStream = document.querySelector('.powder-stream');
-                
-                if (pourButton) {
-                    pourButton.addEventListener('click', () => {
-                        if (spoonContainer) {
-                            spoonContainer.style.transform = 'translateX(-50%) rotate(45deg)';
-                        }
-                        if (powderStream) {
-                            powderStream.style.display = 'block';
-                        }
-                        setTimeout(() => {
-                            if (spoonContainer) {
-                                spoonContainer.style.transform = 'translateX(-50%) rotate(-5deg)';
-                            }
-                            if (powderStream) {
-                                powderStream.style.display = 'none';
-                            }
-                        }, 3000);
-                    });
-                }
-            }
-            
-            // Run after DOM is loaded
-            if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initializeReaction);
-            } else {
-                initializeReaction();
-            }
-        </script>
-    """, unsafe_allow_html=True)
-
-    # Your existing styles
     st.markdown(
         """
         <style>
@@ -73,63 +35,24 @@ def lab():
             left: 0;
             width: 100%;
             height: 50%;
-            background: rgba(255, 200, 200, 0.9);  /* Light red vinegar color */
-            transition: all 0.5s;
+            background: rgba(255, 100, 100, 0.6);
+            animation: wave 1.5s infinite ease-in-out;
         }
 
-        .liquid-movement {
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-3px); }
+        }
+
+        .powder-container {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.1) 50%, transparent 55%);
-            animation: move-liquid 3s infinite linear;
-        }
-
-        @keyframes move-liquid {
-            0% { transform: translateX(-50%) }
-            100% { transform: translateX(50%) }
-        }
-
-        .spoon-container {
-            position: absolute;
-            top: -60px;
+            top: -80px;
             left: 50%;
-            transform: translateX(-50%);
-            width: 60px;
-            height: 20px;
-            transition: transform 0.5s;
-            z-index: 100;
-        }
-
-        .spoon {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            background: #ddd;
-            border-radius: 50% 50% 0 0;
-            transform: rotate(-5deg);
-        }
-
-        .spoon::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 8px;
-            height: 40px;
-            background: #ddd;
-            transform: translate(-50%, 0);
-        }
-
-        .powder-heap {
-            position: absolute;
-            top: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 30px;
-            height: 15px;
-            background: white;
-            border-radius: 50%;
+            transform: translateX(-50%) rotate(-5deg);
+            width: 40px;
+            height: 60px;
+            background: #fff;
+            border: 2px solid #999;
         }
 
         .powder-stream {
@@ -137,12 +60,18 @@ def lab():
             top: 40px;
             left: 50%;
             width: 6px;
-            height: 80px;
+            height: 0;
             background: rgba(255, 255, 255, 0.9);
+            animation: pour-powder 3s forwards;
             filter: blur(1px);
             transform-origin: top center;
-            display: none;
-            z-index: 99;
+        }
+
+        @keyframes pour-powder {
+            0% { height: 0; opacity: 0; }
+            20% { height: 80px; opacity: 1; }
+            80% { height: 80px; opacity: 1; }
+            100% { height: 0; opacity: 0; }
         }
 
         .bubbles {
@@ -153,7 +82,6 @@ def lab():
             height: 100%;
             opacity: 0;
             animation: show-bubbles 4s forwards;
-            animation-delay: 2s;
         }
 
         @keyframes show-bubbles {
@@ -166,42 +94,21 @@ def lab():
             background: rgba(200, 200, 200, 0.8);
             border-radius: 50%;
             animation: rise 1.5s infinite;
-            box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.4);
-            width: var(--size);
-            height: var(--size);
         }
 
         @keyframes rise {
             0% { 
-                transform: translateY(0) translateX(var(--x-start)) scale(1);
+                transform: translateY(0) translateX(var(--x-start));
                 opacity: 0.8;
-            }
-            50% {
-                transform: translateY(-60px) translateX(calc(var(--x-end) * 0.5)) scale(1.2);
-                opacity: 0.6;
+                width: var(--size);
+                height: var(--size);
             }
             100% { 
-                transform: translateY(-120px) translateX(var(--x-end)) scale(0.8);
+                transform: translateY(-120px) translateX(var(--x-end));
                 opacity: 0;
+                width: calc(var(--size) * 2);
+                height: calc(var(--size) * 2);
             }
-        }
-
-        .pour-button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-            font-family: sans-serif;
-            font-size: 16px;
-        }
-
-        .pour-button:hover {
-            background: #45a049;
         }
         </style>
         """,
@@ -214,52 +121,31 @@ def lab():
     reaction_type = st.selectbox("", ["", "Acid-Base (baking soda & vinegar)", "Exothermic (Warning: Explosive!)", "Indicator"])
 
     if reaction_type == "Acid-Base (baking soda & vinegar)":
-        col1, col2, col3 = st.columns([1,2,1])
-        with col2:
+        if st.button("Start Reaction"):
             st.markdown("""
                 <div class='beaker'>
-                    <div class='liquid'>
-                        <div class='liquid-movement'></div>
-                    </div>
-                    <div class='spoon-container'>
-                        <div class='spoon'>
-                            <div class='powder-heap'></div>
-                        </div>
-                    </div>
+                    <div class='liquid'></div>
+                    <div class='powder-container'></div>
                     <div class='powder-stream'></div>
                     <div class='bubbles'>
-                        <div class='bubble' style='--x-start: 10px; --x-end: 20px; --size: 8px; animation-delay: 0s;'></div>
-                        <div class='bubble' style='--x-start: -15px; --x-end: -25px; --size: 12px; animation-delay: 0.3s;'></div>
-                        <div class='bubble' style='--x-start: 5px; --x-end: -10px; --size: 10px; animation-delay: 0.6s;'></div>
-                        <div class='bubble' style='--x-start: -8px; --x-end: 15px; --size: 6px; animation-delay: 0.9s;'></div>
-                        <div class='bubble' style='--x-start: 12px; --x-end: -20px; --size: 9px; animation-delay: 1.2s;'></div>
+                        <div class='bubble' style='--x-start: 10px; --x-end: 20px; --size: 10px; animation-delay: 0s;'></div>
+                        <div class='bubble' style='--x-start: -15px; --x-end: -25px; --size: 15px; animation-delay: 0.5s;'></div>
+                        <div class='bubble' style='--x-start: 5px; --x-end: -10px; --size: 12px; animation-delay: 1s;'></div>
+                        <div class='bubble' style='--x-start: -8px; --x-end: 15px; --size: 8px; animation-delay: 1.5s;'></div>
+                        <div class='bubble' style='--x-start: 12px; --x-end: -20px; --size: 14px; animation-delay: 2s;'></div>
                     </div>
                 </div>
             """, unsafe_allow_html=True)
-            
-            if st.button("Pour Baking Soda"):
-                st.markdown("""
-                    <script>
-                        const spoonContainer = document.querySelector('.spoon-container');
-                        const powderStream = document.querySelector('.powder-stream');
-                        
-                        if (spoonContainer && powderStream) {
-                            spoonContainer.style.transform = 'translateX(-50%) rotate(45deg)';
-                            powderStream.style.display = 'block';
-                            
-                            setTimeout(() => {
-                                spoonContainer.style.transform = 'translateX(-50%) rotate(-5deg)';
-                                powderStream.style.display = 'none';
-                            }, 3000);
-                        }
-                    </script>
-                """, unsafe_allow_html=True)
 
-        st.write("Step 1: Click the button to add baking soda to vinegar solution...")
-        st.write("Step 2: Watch the vigorous fizzing reaction!")
-        st.write("NaHCO₃ + CH₃COOH → CO₂ + H₂O + NaCH₃COO")
+            st.write("Step 1: Baking soda is poured into vinegar.")
+            st.write("Step 2: Vigorous bubbling reaction is observed.")
+            st.write("NaHCO₃ + CH₃COOH → CO₂ + H₂O + NaCH₃COO")
 
-    # [Rest of your code for other reactions remains the same]
+    elif reaction_type == "Exothermic (Warning: Explosive!)":
+        # ... Exothermic reaction code ...
+
+    elif reaction_type == "Indicator":
+        # ... Indicator reaction code ...
 
 if __name__ == "__main__":
     lab()
