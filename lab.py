@@ -140,12 +140,32 @@ def lab():
             st.write("Step 1: Baking soda is poured into vinegar.")
             st.write("Step 2: Vigorous bubbling reaction is observed.")
             st.write("NaHCO₃ + CH₃COOH → CO₂ + H₂O + NaCH₃COO")
-
-    elif reaction_type == "Exothermic (Warning: Explosive!)":
-        # ... Exothermic reaction code ...
-
+        
     elif reaction_type == "Indicator":
-        # ... Indicator reaction code ...
+        st.markdown("""
+            <div style='display: flex; justify-content: center;'>
+                <div class='beaker'>
+                    <div class='liquid' style='background: rgba(255,255,255,0.95);'></div>
+                    <div class='ph-strip acid'></div>
+                </div>
+                <div class='beaker'>
+                    <div class='liquid' style='background: rgba(255,255,255,0.95);'></div>
+                    <div class='ph-strip neutral'></div>
+                </div>
+                <div class='beaker'>
+                    <div class='liquid' style='background: rgba(255,255,255,0.95);'></div>
+                    <div class='ph-strip base'></div>
+                </div>
+            </div>
+        """, unsafe_allow_html=True)
+        
+        st.write("Step 1: Dipping black pH strips into solutions...")
+        st.write("Step 2: Observing color changes:")
+        st.write("- Acidic solution: Strip turns red")
+        st.write("- Neutral solution: Strip turns green")
+        st.write("- Basic solution: Strip turns blue")
 
 if __name__ == "__main__":
     lab()
+
+
