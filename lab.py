@@ -39,55 +39,65 @@ def lab():
             transition: all 0.5s;
         }
 
-        .powder-container {
-            position: absolute;
-            top: -80px;
-            left: 50%;
-            transform: translateX(-50%) rotate(-5deg);
-            width: 40px;
-            height: 60px;
-            background: #fff;
-            border: 2px solid #999;
-            animation: tilt-pour 3s forwards;
-            transform-origin: bottom right;
-        }
+       /* Spoon containing baking soda */
+.spoon {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50% 50% 50% 0;
+    border: 2px solid #999;
+    animation: spoon-tilt 3s forwards;
+    transform-origin: bottom center;
+}
 
-        @keyframes tilt-pour {
-            0% { transform: translateX(-50%) rotate(-5deg); }
-            20% { transform: translateX(-50%) rotate(45deg); }
-            80% { transform: translateX(-50%) rotate(45deg); }
-            100% { transform: translateX(-50%) rotate(-5deg); }
-        }
+/* Baking soda pouring animation */
+@keyframes spoon-tilt {
+    0% { transform: translateX(-50%) rotate(0); }
+    100% { transform: translateX(-50%) rotate(45deg); }
+}
 
-        .powder-stream {
-            position: absolute;
-            top: 40px;
-            left: 50%;
-            width: 6px;
-            height: 0;
-            background: rgba(255, 255, 255, 0.9);
-            animation: pour-powder 3s forwards;
-            filter: blur(1px);
-            transform-origin: top center;
-        }
+.powder-stream {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    width: 6px;
+    height: 0;
+    background: rgba(255, 255, 255, 0.9);
+    animation: pour-powder 3s forwards;
+    filter: blur(1px);
+    transform-origin: top center;
+}
 
-        @keyframes pour-powder {
-            0% { height: 0; opacity: 0; }
-            20% { height: 80px; opacity: 1; }
-            80% { height: 80px; opacity: 1; }
-            100% { height: 0; opacity: 0; }
-        }
+@keyframes pour-powder {
+    0% { height: 0; opacity: 0; }
+    100% { height: 80px; opacity: 1; }
+}
 
-        .bubbles {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            animation: show-bubbles 4s forwards;
-            animation-delay: 2s;
-        }
+/* Enhanced bubble animation for fizzing */
+.bubble {
+    position: absolute;
+    background: rgba(200, 200, 200, 0.8);
+    border-radius: 50%;
+    animation: rise-fizz 1s infinite;
+}
+
+@keyframes rise-fizz {
+    0% { 
+        transform: translateY(0) translateX(var(--x-start));
+        opacity: 0.8;
+        width: var(--size);
+        height: var(--size);
+    }
+    100% { 
+        transform: translateY(-100px) translateX(var(--x-end));
+        opacity: 0;
+        width: calc(var(--size) * 2);
+        height: calc(var(--size) * 2);
+    }
 
         @keyframes show-bubbles {
             0% { opacity: 0; }
