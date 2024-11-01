@@ -1,118 +1,140 @@
-import streamlit as st
-from time import sleep
+# Replace the existing Acid-Base reaction section in your lab.py with this updated version:
 
-def lab():
-  """
-  Displays a Streamlit app simulating a baking soda and vinegar reaction.
-  """
+elif reaction_type == "Acid-Base (baking soda & vinegar)":
+    st.markdown("""
+        <div class='beaker'>
+            <div class='liquid' style='background: rgba(255, 200, 200, 0.9); /* Light red for vinegar */'>
+                <!-- Add subtle liquid movement animation -->
+                <div class='liquid-movement'></div>
+            </div>
+            <div class='spoon-container'>
+                <div class='spoon'>
+                    <div class='powder-heap'></div>
+                </div>
+            </div>
+            <div class='powder-stream' style='display: none;'></div>
+            <div class='bubbles'>
+                <div class='bubble' style='--x-start: 10px; --x-end: 20px; --size: 8px; animation-delay: 0s; background: rgba(200, 200, 200, 0.8);'></div>
+                <div class='bubble' style='--x-start: -15px; --x-end: -25px; --size: 12px; animation-delay: 0.3s; background: rgba(200, 200, 200, 0.8);'></div>
+                <div class='bubble' style='--x-start: 5px; --x-end: -10px; --size: 10px; animation-delay: 0.6s; background: rgba(200, 200, 200, 0.8);'></div>
+                <div class='bubble' style='--x-start: -8px; --x-end: 15px; --size: 6px; animation-delay: 0.9s; background: rgba(200, 200, 200, 0.8);'></div>
+                <div class='bubble' style='--x-start: 12px; --x-end: -20px; --size: 9px; animation-delay: 1.2s; background: rgba(200, 200, 200, 0.8);'></div>
+            </div>
+        </div>
+        <button class='pour-button'>Pour Baking Soda</button>
+    """, unsafe_allow_html=True)
+    
+    # Add these new CSS rules to your existing style section:
+    st.markdown("""
+        <style>
+        /* Add these new styles to your existing CSS */
+        .liquid-movement {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent 45%, rgba(255, 255, 255, 0.1) 50%, transparent 55%);
+            animation: move-liquid 3s infinite linear;
+        }
 
-  # CSS styles for animations and visuals
-  st.markdown("""
-  <style>
-    .beaker {
-      display: inline-block;
-      width: 140px;
-      height: 200px;
-      border: 5px solid #ddd;
-      border-radius: 0 0 20px 20px;
-      position: relative;
-      margin: 40px;
-      background: transparent;
-      overflow: hidden;
-      box-shadow: inset 0 0 20px rgba(255,255,255,0.2);
-    }
+        @keyframes move-liquid {
+            0% { transform: translateX(-50%) }
+            100% { transform: translateX(50%) }
+        }
 
-    .beaker::before {
-      content: '';
-      position: absolute;
-      top: -12px;
-      left: -15px;
-      right: -15px;
-      height: 25px;
-      background: #ddd;
-      border-radius: 5px;
-    }
+        .spoon-container {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 20px;
+            transition: transform 0.5s;
+        }
 
-    .liquid {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 50%;
-      background: rgba(255, 255, 255, 0.9);
-      transition: all 0.5s;
-    }
+        .spoon {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #ddd;
+            border-radius: 50% 50% 0 0;
+            transform: rotate(-5deg);
+        }
 
-    .powder-container {
-      position: absolute;
-      top: -80px;
-      left: 50%;
-      transform: translateX(-50%) rotate(-5deg);
-      width: 40px;
-      height: 60px;
-      background: #fff;
-      border: 2px solid #999;
-      animation: tilt-pour 3s forwards;
-      transform-origin: bottom right;
-    }
+        .spoon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 8px;
+            height: 40px;
+            background: #ddd;
+            transform: translate(-50%, 0);
+        }
 
-    @keyframes tilt-pour {
-      0% { transform: translateX(-50%) rotate(-5deg); }
-      20% { transform: translateX(-50%) rotate(45deg); }
-      80% { transform: translateX(-50%) rotate(45deg); }
-      100% { transform: translateX(-50%) rotate(-5deg); }
-    }
+        .powder-heap {
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 15px;
+            background: white;
+            border-radius: 50%;
+        }
 
-    .powder-stream {
-      position: absolute;
-      top: 40px;
-      left: 50%;
-      width: 6px;
-      height: 0;
-      background: rgba(255, 255, 255, 0.9);
-      animation: pour-powder 3s forwards;
-      filter: blur(1px);
-      transform-origin: top center;
-    }
+        .pour-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
 
-    @keyframes pour-powder {
-      0% { height: 0; opacity: 0; }
-      20% { height: 80px; opacity: 1; }
-      80% { height: 80px; opacity: 1; }
-      100% { height: 0; opacity: 0; }
-    }
+        .pour-button:hover {
+            background: #45a049;
+        }
 
-    .bubbles {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      animation: show-bubbles 4s forwards;
-      animation-delay: 2s;
-    }
+        /* Update existing bubble animation */
+        .bubble {
+            box-shadow: inset 1px 1px 1px rgba(255, 255, 255, 0.4);
+        }
 
-    @keyframes show-bubbles {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
+        @keyframes rise {
+            0% { 
+                transform: translateY(0) translateX(var(--x-start)) scale(1);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateY(-60px) translateX(calc(var(--x-end) * 0.5)) scale(1.2);
+                opacity: 0.6;
+            }
+            100% { 
+                transform: translateY(-120px) translateX(var(--x-end)) scale(0.8);
+                opacity: 0;
+            }
+        }
+        </style>
 
-    .bubble {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.8);
-      border-radius: 50%;
-      animation: rise 1.5s infinite;
-    }
-
-    @keyframes rise {
-      0% {
-        transform: translateY(0) translateX(var(--x-start));
-        opacity: 0.8;
-        width: var(--size);
-        height: var(--size);
-      }
-      100% {
-        transform: translateY(-120px) translateX(var(--x-end));
-        opacity: 0;
-        width: calc(var(--size) * 2
+        <script>
+            const pourButton = document.querySelector('.pour-button');
+            const spoonContainer = document.querySelector('.spoon-container');
+            const powderStream = document.querySelector('.powder-stream');
+            
+            pourButton.addEventListener('click', () => {
+                spoonContainer.style.transform = 'translateX(-50%) rotate(45deg)';
+                powderStream.style.display = 'block';
+                setTimeout(() => {
+                    spoonContainer.style.transform = 'translateX(-50%) rotate(-5deg)';
+                    powderStream.style.display = 'none';
+                }, 3000);
+            });
+        </script>
+    """, unsafe_allow_html=True)
+    
+    st.write("Step 1: Click the button to add baking soda to vinegar solution...")
+    st.write("Step 2: Watch the vigorous fizzing reaction!")
+    st.write("NaHCO₃ + CH₃COOH → CO₂ + H₂O + NaCH₃COO")
