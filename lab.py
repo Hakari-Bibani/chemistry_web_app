@@ -1,18 +1,18 @@
 import streamlit as st
 import time
 
-# Streamlit layout settings
+# Page settings
 st.set_page_config(layout="centered")
 st.markdown("<h2 style='text-align: center;'>Litmus Test Simulation</h2>", unsafe_allow_html=True)
 
-# CSS for styling and animation
+# Custom CSS for animation and styling
 animation_css = """
 <style>
 .container {
     display: flex;
     justify-content: space-around;
-    align-items: flex-end;
-    margin-top: 50px;
+    align-items: flex-start;
+    margin-top: 20px;
 }
 
 .beaker {
@@ -22,6 +22,8 @@ animation_css = """
     border-radius: 5px;
     overflow: hidden;
     position: relative;
+    text-align: center;
+    font-weight: bold;
 }
 
 .solution {
@@ -109,7 +111,6 @@ animation_css = """
 #neutral-paper {
     animation-name: dip, neutralColorChange;
 }
-
 </style>
 """
 
@@ -121,18 +122,21 @@ html_structure = """
 <div class="container">
     <!-- Acid Beaker -->
     <div class="beaker">
+        HCl
         <div id="acid" class="solution"></div>
         <div id="acid-paper" class="litmus-paper"></div>
     </div>
 
     <!-- Base Beaker -->
     <div class="beaker">
+        NaOH
         <div id="base" class="solution"></div>
         <div id="base-paper" class="litmus-paper"></div>
     </div>
 
     <!-- Neutral Beaker -->
     <div class="beaker">
+        H₂O
         <div id="neutral" class="solution"></div>
         <div id="neutral-paper" class="litmus-paper"></div>
     </div>
