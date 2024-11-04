@@ -1,52 +1,143 @@
 import streamlit as st
 import time
 
-# Set up page title and description
-st.title("Test the pH of Different Solutions Using Litmus Paper!")
-st.write("Place litmus papers into the beakers to see how they react with different solutions.")
+# Streamlit layout settings
+st.set_page_config(layout="centered")
+st.markdown("<h2 style='text-align: center;'>Litmus Test Simulation</h2>", unsafe_allow_html=True)
 
-# Define initial colors and states
-solution_colors = {
-    "HCl": "lightgray",       # Hydrochloric acid
-    "NaOH": "lightgray",      # Sodium hydroxide
-    "H₂O": "paleturquoise"    # Neutral water
+# CSS for styling and animation
+animation_css = """
+<style>
+.container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+    margin-top: 50px;
 }
 
-litmus_colors = {
-    "HCl": "red",             # Turns red for acid
-    "NaOH": "blue",           # Turns blue for base
-    "H₂O": "lightgreen"       # Turns green for neutral
+.beaker {
+    width: 100px;
+    height: 150px;
+    border: 2px solid #333;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
 }
 
-# Set up a placeholder for the simulation
-beaker1, beaker2, beaker3 = st.columns(3)
-solutions = ["HCl", "NaOH", "H₂O"]
+.solution {
+    position: absolute;
+    width: 100%;
+    height: 50%;
+    bottom: 0;
+    transition: background-color 0.5s;
+}
 
-# Display each beaker with a solution
-with beaker1:
-    st.write("**Hydrochloric Acid (HCl)**")
-    st.markdown(f'<div style="background-color:{solution_colors["HCl"]}; width:100%; height:150px; border-radius:10px;"></div>', unsafe_allow_html=True)
-    if st.button("Test HCl"):
-        st.markdown(f'<div style="background-color:{litmus_colors["HCl"]}; width:30px; height:100px; margin:auto; border-radius:5px;"></div>', unsafe_allow_html=True)
-        time.sleep(1)  # Simulate delay for dipping
-        st.write("**Litmus Paper Turns Red**")
+#acid {
+    background-color: lightgray;
+}
 
-with beaker2:
-    st.write("**Sodium Hydroxide (NaOH)**")
-    st.markdown(f'<div style="background-color:{solution_colors["NaOH"]}; width:100%; height:150px; border-radius:10px;"></div>', unsafe_allow_html=True)
-    if st.button("Test NaOH"):
-        st.markdown(f'<div style="background-color:{litmus_colors["NaOH"]}; width:30px; height:100px; margin:auto; border-radius:5px;"></div>', unsafe_allow_html=True)
-        time.sleep(1)  # Simulate delay for dipping
-        st.write("**Litmus Paper Turns Blue**")
+#base {
+    background-color: lightgray;
+}
 
-with beaker3:
-    st.write("**Neutral Water (H₂O)**")
-    st.markdown(f'<div style="background-color:{solution_colors["H₂O"]}; width:100%; height:150px; border-radius:10px;"></div>', unsafe_allow_html=True)
-    if st.button("Test H₂O"):
-        st.markdown(f'<div style="background-color:{litmus_colors["H₂O"]}; width:30px; height:100px; margin:auto; border-radius:5px;"></div>', unsafe_allow_html=True)
-        time.sleep(1)  # Simulate delay for dipping
-        st.write("**Litmus Paper Turns Light Green**")
+#neutral {
+    background-color: #add8e6; /* Pale blue for water */
+}
 
-# Add some spacing and instructions
-st.write("---")
-st.write("**Instructions:** Click on the 'Test' button for each solution to simulate dipping the litmus paper. Observe the color change after a second to determine the solution's pH.")
+.litmus-paper {
+    width: 20px;
+    height: 50px;
+    background-color: yellow;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: dip 3s infinite;
+    transition: background-color 0.5s;
+}
+
+#acid-paper {
+    animation-delay: 0s;
+}
+
+#base-paper {
+    animation-delay: 1s;
+}
+
+#neutral-paper {
+    animation-delay: 2s;
+}
+
+@keyframes dip {
+    0%, 100% {
+        top: -50px;
+        background-color: yellow;
+    }
+    30% {
+        top: 50px;
+        background-color: yellow;
+    }
+    60% {
+        top: 50px;
+    }
+    90% {
+        top: -50px;
+    }
+}
+
+/* Color transitions for acid, base, and neutral */
+@keyframes acidColorChange {
+    60% { background-color: red; }
+}
+
+@keyframes baseColorChange {
+    60% { background-color: blue; }
+}
+
+@keyframes neutralColorChange {
+    60% { background-color: lightgreen; }
+}
+
+#acid-paper {
+    animation-name: dip, acidColorChange;
+}
+
+#base-paper {
+    animation-name: dip, baseColorChange;
+}
+
+#neutral-paper {
+    animation-name: dip, neutralColorChange;
+}
+
+</style>
+"""
+
+# Inject CSS into Streamlit
+st.markdown(animation_css, unsafe_allow_html=True)
+
+# HTML structure for beakers and litmus papers
+html_structure = """
+<div class="container">
+    <!-- Acid Beaker -->
+    <div class="beaker">
+        <div id="acid" class="solution"></div>
+        <div id="acid-paper" class="litmus-paper"></div>
+    </div>
+
+    <!-- Base Beaker -->
+    <div class="beaker">
+        <div id="base" class="solution"></div>
+        <div id="base-paper" class="litmus-paper"></div>
+    </div>
+
+    <!-- Neutral Beaker -->
+    <div class="beaker">
+        <div id="neutral" class="solution"></div>
+        <div id="neutral-paper" class="litmus-paper"></div>
+    </div>
+</div>
+"""
+
+# Inject HTML structure into Streamlit
+st.markdown(html_structure, unsafe_allow_html=True)
